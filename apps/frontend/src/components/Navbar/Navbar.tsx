@@ -1,14 +1,19 @@
 import classNames from "classnames";
 import React from "react";
 import { Link, useLocation } from "wouter";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const Navbar: React.FC = () => {
   return (
     <nav className="bg-gray-100 p-4">
       <div className="container flex flex-wrap items-center justify-between mx-auto">
         <div className="flex gap-4">
-          <NavButton link={"/"} text={"🍋 zest"} />
+          <div className="text-3xl pt-1 mr-4">🍋</div>
+          <NavButton link={"/"} text={"Dashboard"} />
           <NavButton link={"/settings"} text={"Settings"} />
+        </div>
+        <div className="">
+          <UserCircleIcon className="h-8 w-8 text-gray-500" />
         </div>
       </div>
     </nav>
