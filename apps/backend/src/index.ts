@@ -1,10 +1,12 @@
 import express from "express";
 import cors from "cors";
 import Router from "./routes";
+import bodyParser from "body-parser";
 
 const app = express();
 
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
 
 app.get("/", async (req, res) => {

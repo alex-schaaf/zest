@@ -10,10 +10,10 @@ async function main() {
       passwordHash: hash("admin"),
       settings: {
         create: {
-          stravaClientId: process.env.STRAVA_CLIENT_ID,
-          stravaClientSecretHash:
-            process.env.STRAVA_CLIENT_SECRET &&
-            hash(process.env.STRAVA_CLIENT_SECRET),
+          stravaClientId: process.env.STRAVA_CLIENT_ID
+            ? parseInt(process.env.STRAVA_CLIENT_ID)
+            : undefined,
+          stravaClientSecret: process.env.STRAVA_CLIENT_SECRET,
         },
       },
     },

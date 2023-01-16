@@ -1,9 +1,7 @@
-import React from "react";
-
-const StravaAuthButton = () => {
+const StravaAuthBtn = () => {
   const urlParams = new URLSearchParams({
     client_id: "47083",
-    redirect_uri: "http://localhost:5173/settings",
+    redirect_uri: "http://localhost:5173/auth/strava",
     response_type: "code",
     scope: "read_all",
   }).toString();
@@ -17,4 +15,4 @@ const StravaAuthButton = () => {
   );
 };
 
-export default StravaAuthButton;
+export default StravaAuthBtn;
