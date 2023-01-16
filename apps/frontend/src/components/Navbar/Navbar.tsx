@@ -5,15 +5,14 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="bg-gray-100 p-4">
-      <div className="container flex flex-wrap items-center justify-between mx-auto">
+    <nav className="border-b h-18">
+      <div className="container  flex flex-wrap items-center justify-between mx-auto">
         <div className="flex gap-4">
-          <div className="text-3xl pt-1 mr-4">🍋</div>
           <NavButton link={"/"} text={"Dashboard"} />
           <NavButton link={"/settings"} text={"Settings"} />
         </div>
         <div className="">
-          <UserCircleIcon className="h-8 w-8 text-gray-500" />
+          <UserCircleIcon className="h-8 w-8 text-gray-400" />
         </div>
       </div>
     </nav>
@@ -36,11 +35,11 @@ export const NavButton: React.FC<NavButtonProps> = ({ link, text }) => {
     <Link href={link}>
       <div
         className={classNames(
-          "px-3 py-2 rounded-md  hover:bg-yellow-200 hover:cursor-pointer",
-          { "bg-gray-200": isActive }
+          "flex px-3 py-2 pt-4 font-medium text-sm hover:cursor-pointer",
+          { "border-b-4 border-yellow-200": isActive }
         )}
       >
-        <a className="font-medium">{text}</a>
+        <a className="">{text}</a>
       </div>
     </Link>
   );
