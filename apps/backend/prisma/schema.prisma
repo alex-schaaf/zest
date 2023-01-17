@@ -15,8 +15,9 @@ model Users {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  settings   Settings @relation(fields: [settingsId], references: [id])
-  settingsId Int      @unique
+  settings         Settings           @relation(fields: [settingsId], references: [id])
+  settingsId       Int                @unique
+  StravaActivities StravaActivities[]
 }
 
 model Settings {
@@ -30,4 +31,19 @@ model Settings {
   stravaTokenExpiresAt Int?
 
   Users Users?
+}
+
+model StravaActivities {
+  id            Int      @id
+  type          String
+  distance      Float
+  time          Float
+  speed         Float
+  elevationGain Float
+  startDate     DateTime
+
+  data Json // the complete activity JSON returned from the StravaAPI
+
+  Users  Users @relation(fields: [userId], references: [id])
+  userId Int   @unique
 }
