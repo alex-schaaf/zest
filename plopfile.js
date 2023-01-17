@@ -46,7 +46,7 @@ module.exports = plop => {
     actions: [
       {
         type: 'add',
-        path: 'apps/backend/src/services/{{name}}Service/{{pascalCase name}}Service.tsx',
+        path: 'apps/backend/src/services/{{name}}Service/{{pascalCase name}}Service.ts',
         templateFile: 'plop-templates/Service/Service.ts.hbs',
       },
       {
