@@ -3,7 +3,7 @@ import cors from "cors";
 import Router from "./routes";
 import bodyParser from "body-parser";
 
-const app = express();
+export const app = express();
 
 app.use(express.json());
 app.use(bodyParser.json());

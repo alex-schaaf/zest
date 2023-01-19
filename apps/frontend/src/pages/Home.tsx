@@ -1,5 +1,11 @@
+import StravaSyncBtn from "../components/StravaSyncBtn/StravaSyncBtn";
+
 const Home = () => {
-  return <div>home</div>;
+  return (
+    <div>
+      <StravaSyncBtn />
+    </div>
+  );
 };
 
 export default Home;

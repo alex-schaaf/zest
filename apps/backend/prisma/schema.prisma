@@ -34,7 +34,7 @@ model Settings {
 }
 
 model StravaActivities {
-  id            Int      @id
+  id            BigInt   @id
   type          String
   distance      Float
   time          Float
@@ -45,5 +45,5 @@ model StravaActivities {
   data Json // the complete activity JSON returned from the StravaAPI
 
   Users  Users @relation(fields: [userId], references: [id])
-  userId Int   @unique
+  userId Int
 }

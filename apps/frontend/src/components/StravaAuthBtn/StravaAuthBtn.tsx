@@ -3,7 +3,7 @@ const StravaAuthBtn = () => {
     client_id: "47083",
     redirect_uri: "http://localhost:5173/auth/strava",
     response_type: "code",
-    scope: "read_all",
+    scope: "activity:read_all",
   }).toString();
   const stravaUrl = new URL("https://www.strava.com/oauth/authorize");
   stravaUrl.search = urlParams;
