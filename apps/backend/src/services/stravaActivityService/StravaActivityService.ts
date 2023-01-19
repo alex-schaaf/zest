@@ -22,8 +22,8 @@ interface StravaActivity {
 class StravaActivityService {
   constructor() {}
 
-  async findMany(userId: number) {
-    return await prisma.stravaActivities.findMany({ where: { userId } });
+  async findMany(args: Prisma.StravaActivitiesFindManyArgs) {
+    return await prisma.stravaActivities.findMany(args);
   }
 
   async find(where: Prisma.StravaActivitiesFindUniqueOrThrowArgs) {

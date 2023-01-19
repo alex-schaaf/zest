@@ -1,4 +1,4 @@
-import express from "express";
+import express, { Request } from "express";
 
 import stravaActivityService from "../../services/stravaActivityService";
 import { Prisma, StravaActivities } from "@prisma/client";
@@ -15,12 +15,35 @@ interface StravaActivity {
   start_date: Date;
 }
 
-router.get("/users/:userId/activities", async (req, res) => {
-  const { userId } = req.params;
+interface GetActivitiesQueryParams {
+  start?: Date;
+  end: Date;
+}
 
-  const activities = await stravaActivityService.findMany(parseInt(userId));
-  return res.json(activities);
-});
+router.get(
+  "/users/:userId/activities",
+  async (
+    req: Request<{ userId: string }, {}, {}, GetActivitiesQueryParams>,
+    res
+  ) => {
+    const { userId } = req.params;
+    const { start, end } = req.query;
+
+    const activities = await stravaActivityService.findMany({
+      where: {
+        userId: parseInt(userId),
+        startDate: {
+          gte: start,
+          lte: end,
+        },
+      },
+      orderBy: {
+        startDate: "desc",
+      },
+    });
+    return res.json(activities);
+  }
+);
 
 router.post("/users/:userId/activities", async (req, res, next) => {
   const { userId } = req.params;
