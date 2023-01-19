@@ -20,8 +20,8 @@ module.exports = plop => {
       },
       {
         type: 'add',
-        path: 'apps/frontend/src/components/{{name}}/{{name}}.test.ts',
-        templateFile: 'plop-templates/Component/Component.test.ts.hbs',
+        path: 'apps/frontend/src/components/{{name}}/{{name}}.test.tsx',
+        templateFile: 'plop-templates/Component/Component.test.tsx.hbs',
       },
       {
         type: 'add',
