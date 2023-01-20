@@ -58,7 +58,7 @@ router.post("/users/:userId/activities", async (req, res, next) => {
         const act = await stravaActivityService.create(parseInt(userId), obj);
         activities.push(act);
       } catch (e) {
-        return;
+        // console.error(e);
       }
     });
     return res.status(201).json(activities);

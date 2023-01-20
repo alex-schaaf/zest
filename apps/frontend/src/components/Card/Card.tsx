@@ -1,8 +1,14 @@
+import classNames from "classnames";
 import React, { PropsWithChildren } from "react";
 
-const Card: React.FC<PropsWithChildren> = (props) => {
+const Card: React.FC<PropsWithChildren & { className?: string }> = (props) => {
   return (
-    <div className="border rounded-md shadow-sm p-4 border-gray-300">
+    <div
+      className={classNames(
+        "border rounded-md shadow-sm p-4 border-gray-200 bg-white",
+        props.className
+      )}
+    >
       {props.children}
     </div>
   );

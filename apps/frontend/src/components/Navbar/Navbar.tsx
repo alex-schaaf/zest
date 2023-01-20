@@ -5,7 +5,7 @@ import { UserCircleIcon } from "@heroicons/react/24/solid";
 
 const Navbar: React.FC = () => {
   return (
-    <nav className="border-b h-18">
+    <nav className="border-b h-18 bg-white">
       <div className="container  flex flex-wrap items-center justify-between mx-auto">
         <div className="flex gap-4">
           <NavButton link={"/"} text={"Dashboard"} />
@@ -35,7 +35,7 @@ export const NavButton: React.FC<NavButtonProps> = ({ link, text }) => {
     <Link href={link}>
       <div
         className={classNames(
-          "flex px-3 py-2 pt-4 font-medium text-sm hover:cursor-pointer",
+          "flex px-3 py-2 pt-4 font-medium text-sm hover:cursor-pointer ",
           { "border-b-4 border-yellow-200": isActive }
         )}
       >
