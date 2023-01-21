@@ -1,6 +1,5 @@
-import React, { PropsWithChildren, useEffect, useMemo, useState } from "react";
-import useSWR from "swr";
-import fetcher from "../../lib/fetcher";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useMemo } from "react";
 import Stat from "../Stat";
 
 import { StravaActivities } from "@prisma/client";
@@ -33,32 +32,15 @@ const getActivityStats = (activities: StravaActivities[]): ActivityStats => {
   return { totalDistance, totalTime, totalElevation, averageSpeed };
 };
 
-const ActivitiesOverview: React.FC = () => {
-  const dayOffset = 7;
-  const [start, setStart] = useState<Date>();
-  const [startPrevious, setStartPrevious] = useState<Date>();
+interface ActivitiesOverviewProps {
+  start: Date;
+  activities: StravaActivities[];
+}
 
-  useEffect(() => {
-    const now = new Date();
-    const start = new Date(new Date().setDate(now.getDate() - dayOffset));
-    setStart(start);
-    const startPrevious = new Date(
-      new Date().setDate(now.getDate() - 2 * dayOffset)
-    );
-    setStartPrevious(startPrevious);
-  }, []);
-
-  const {
-    isLoading,
-    data: activities,
-    error,
-  } = useSWR<StravaActivities[]>(
-    start
-      ? `http://localhost:3000/users/1/activities?start=${startPrevious?.toISOString()}`
-      : null,
-    fetcher
-  );
-
+const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
+  start,
+  activities,
+}) => {
   const stats = useMemo(
     () =>
       activities &&
@@ -79,20 +61,8 @@ const ActivitiesOverview: React.FC = () => {
     [activities]
   );
 
-  if (isLoading) {
-    return <div>loading...</div>;
-  }
-
-  if (error) {
-    console.error(error);
-    return <div>{JSON.stringify(error)}</div>;
-  }
-
   return (
     <div className="pt-4 space-y-4">
-      <div className="font-bold text-lg text-gray-800">
-        Last {dayOffset} days
-      </div>
       <div className="flex gap-4">
         <Stat className="flex-grow">
           <Stat.Title>Total Distance</Stat.Title>

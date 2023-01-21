@@ -1,11 +1,13 @@
-import ActivitiesOverview from "../components/ActivitiesOverview/ActivitiesOverview";
+import ActivitiesOverviewContainer from "../components/ActivitiesOverviewContainer";
 import StravaSyncBtn from "../components/StravaSyncBtn/StravaSyncBtn";
 
 const Home = () => {
   return (
-    <div>
-      <StravaSyncBtn />
-      <ActivitiesOverview />
+    <div className="space-y-4">
+      <div className="text-right">
+        <StravaSyncBtn />
+      </div>
+      <ActivitiesOverviewContainer />
     </div>
   );
 };
