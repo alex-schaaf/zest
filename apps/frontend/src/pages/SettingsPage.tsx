@@ -1,9 +1,9 @@
-import useSWR from "swr";
 import { Users, Settings } from "@prisma/client";
 import StravaAuthBtn from "../components/StravaAuthBtn";
-import fetcher from "../lib/fetcher";
 import DescriptionList from "../components/DescriptionList";
 import Card from "../components/Card";
+import { useContext } from "react";
+import UserContext from "../contexts/UserContext/UserContext";
 
 const options: {
   key: keyof Users;
@@ -33,18 +33,7 @@ const stravaOptions: {
 ];
 
 const SettingsView = () => {
-  const {
-    isLoading,
-    data: user,
-    error,
-  } = useSWR<Users & { settings: Settings }, Error>(
-    "http://localhost:3000/users/1",
-    fetcher
-  );
-
-  if (!user) {
-    return <div>loading...</div>;
-  }
+  const { user } = useContext(UserContext);
 
   return (
     <div className="flex flex-col gap-4">
