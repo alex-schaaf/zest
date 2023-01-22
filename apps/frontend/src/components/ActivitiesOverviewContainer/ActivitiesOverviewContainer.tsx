@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import ActivitiesOverview from "../ActivitiesOverview/ActivitiesOverview";
-import useSWR from "swr";
-import fetcher from "../../lib/fetcher";
 import { StravaActivities } from "@prisma/client";
 import Card from "../Card";
 import Loading from "../Loading";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
+import { useUser } from "../../contexts/user-context";
 
 const apiUrl = "http://localhost:3000";
 
@@ -25,29 +26,36 @@ const ActivitiesOverviewContainer: React.FC = () => {
     setStartPrevious(startPrevious);
   }, []);
 
+  const { user } = useUser();
+
   const {
-    isLoading,
     data: activities,
-    error,
-  } = useSWR<StravaActivities[]>(
-    start
-      ? apiUrl + `/users/1/activities?start=${startPrevious?.toISOString()}`
-      : null,
-    fetcher
-  );
+    isLoading,
+    isError,
+  } = useQuery<StravaActivities[], Error>({
+    queryKey: ["activities"],
+    enabled: !!start,
+    queryFn: () =>
+      axios
+        .get(
+          apiUrl +
+            `/users/${user.id}/activities?start=${startPrevious?.toISOString()}`
+        )
+        .then((res) => res.data),
+  });
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (error) {
+  if (isError) {
     return (
       <Card className="h-24 flex gap-4">
         <div className="text-4xl border-r-4 border-red-400 font-medium px-4">
           error
         </div>
         <div className="">
-          <div className="font-medium">{error.message}</div>
+          <div className="font-medium">failed to fetch</div>
           <div className="text-sm text-gray-500">
             Failed to fetch relevant data from the server.
           </div>
