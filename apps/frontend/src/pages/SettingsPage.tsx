@@ -2,8 +2,7 @@ import { Users, Settings } from "@prisma/client";
 import StravaAuthBtn from "../components/StravaAuthBtn";
 import DescriptionList from "../components/DescriptionList";
 import Card from "../components/Card";
-import { useContext } from "react";
-import UserContext from "../contexts/UserContext/UserContext";
+import { useUser } from "../contexts/user-context";
 
 const options: {
   key: keyof Users;
@@ -33,7 +32,7 @@ const stravaOptions: {
 ];
 
 const SettingsView = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
 
   return (
     <div className="flex flex-col gap-4">

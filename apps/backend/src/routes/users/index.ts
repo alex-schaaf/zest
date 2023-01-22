@@ -1,7 +1,6 @@
 import { Prisma, StravaActivities } from "@prisma/client";
 import express from "express";
 import settingsService from "../../services/settingsService";
-import stravaActivityService from "../../services/stravaActivityService";
 import userService from "../../services/userService";
 
 const router = express.Router();

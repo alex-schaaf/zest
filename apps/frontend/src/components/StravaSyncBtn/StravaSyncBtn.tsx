@@ -1,83 +1,16 @@
-import React, { useContext } from "react";
-import UserContext from "../../contexts/UserContext/UserContext";
+import React from "react";
+import axios from "axios";
+import { Settings } from "@prisma/client";
+import { useUser } from "../../contexts/user-context";
 
 const stravaUrl = "https://www.strava.com/api/v3";
 const apiUrl = "http://localhost:3000";
-import { Settings } from "@prisma/client";
-
-const getCanSync = (settings: Settings): boolean => {
-  if (
-    settings.stravaClientId ||
-    settings.stravaClientSecret ||
-    settings.stravaRefreshToken ||
-    settings.stravaTokenExpiresAt
-  )
-    return false;
-  return true;
-};
-
-const refreshToken = async (settings: Settings) => {
-  const refreshResponse = await fetch(
-    `${stravaUrl}/oauth/token?` +
-      new URLSearchParams({
-        client_id: settings.stravaClientId.toString(),
-        client_secret: settings.stravaClientSecret,
-        grant_type: "refresh_token",
-        refresh_token: settings.stravaRefreshToken,
-      })
-  ).then((res) => res.json());
-
-  return {
-    stravaAccessToken: refreshResponse.access_toke,
-    stravaRefreshToken: refreshResponse.refresh_toke,
-    stravaTokenExpiresAt: refreshResponse.expires_at,
-  };
-};
-
-const tokenExpired = (expiresAt: number): boolean => {
-  return expiresAt <= new Date().getTime() / 1000;
-};
-
-const fetchAthleteActivities = async (access_token: string) => {
-  const activities = await fetch(
-    stravaUrl + "/athlete/activities?" + new URLSearchParams({ access_token })
-  )
-    .then((res) => res.json())
-    .catch(console.error);
-
-  return activities;
-};
-
-const postActivities = async (userId: number, activities: []) => {
-  await fetch(apiUrl + `/users/${userId}/activities`, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(activities),
-  })
-    .then((res) => res.json())
-    .catch(console.error);
-};
-
-const patchUserSettings = async (settings: Settings) => {
-  await fetch(apiUrl + `/settings/${settings.id}`, {
-    method: "PATCH",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      stravaAccessToken: settings.stravaAccessToken,
-      stravaRefreshToken: settings.stravaRefreshToken,
-      stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
-    }),
-  });
-};
 
 const StravaSyncBtn: React.FC = () => {
-  const { user } = useContext(UserContext);
+  const { user } = useUser();
+
+  if (!user) return null;
+
   const canSync = getCanSync(user.settings);
 
   const handleClick = async () => {
@@ -110,16 +43,71 @@ const StravaSyncBtn: React.FC = () => {
   };
 
   return (
-    <div>
-      <button
-        disabled={canSync}
-        className="bg-orange-500 text-white px-2 py-1 rounded-md"
-        onClick={handleClick}
-      >
-        Sync Strava
-      </button>
-    </div>
+    <button
+      disabled={canSync}
+      className="bg-orange-500 text-white px-2 py-1 rounded-md"
+      onClick={handleClick}
+    >
+      Sync Strava
+    </button>
   );
 };
 
 export default StravaSyncBtn;
+
+const getCanSync = (settings: Settings): boolean => {
+  if (
+    settings.stravaClientId ||
+    settings.stravaClientSecret ||
+    settings.stravaRefreshToken ||
+    settings.stravaTokenExpiresAt
+  )
+    return false;
+  return true;
+};
+
+const refreshToken = async (settings: Settings) => {
+  const refreshResponse = await axios
+    .get(
+      `${stravaUrl}/oauth/token?` +
+        new URLSearchParams({
+          client_id: settings.stravaClientId.toString(),
+          client_secret: settings.stravaClientSecret,
+          grant_type: "refresh_token",
+          refresh_token: settings.stravaRefreshToken,
+        })
+    )
+    .then((res) => res.data);
+
+  return {
+    stravaAccessToken: refreshResponse.access_toke,
+    stravaRefreshToken: refreshResponse.refresh_toke,
+    stravaTokenExpiresAt: refreshResponse.expires_at,
+  };
+};
+
+const tokenExpired = (expiresAt: number): boolean => {
+  return expiresAt <= new Date().getTime() / 1000;
+};
+
+const fetchAthleteActivities = async (access_token: string) => {
+  const activities = await axios
+    .get(
+      stravaUrl + "/athlete/activities?" + new URLSearchParams({ access_token })
+    )
+    .then((res) => res.data);
+
+  return activities;
+};
+
+const postActivities = async (userId: number, activities: []) => {
+  await axios.post(apiUrl + `/users/${userId}/activities`, activities);
+};
+
+const patchUserSettings = async (settings: Settings) => {
+  await axios.patch(apiUrl + `/settings/${settings.id}`, {
+    stravaAccessToken: settings.stravaAccessToken,
+    stravaRefreshToken: settings.stravaRefreshToken,
+    stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
+  });
+};
