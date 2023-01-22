@@ -1,10 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
-import useSWR from "swr";
-import { Users, Settings } from "@prisma/client";
-import fetcher from "../lib/fetcher";
 import { useLocation } from "wouter";
-
-type UserWithSettings = Users & { settings: Settings };
+import { useUser } from "../contexts/user-context";
 
 interface StravaTokenResponse {
   token_type: "Bearer";
@@ -16,7 +13,7 @@ interface StravaTokenResponse {
 }
 
 function getCodeParam() {
-  const { pathname, search } = window.location;
+  const { search } = window.location;
   const searchPrams = new URLSearchParams(search);
   const code = searchPrams.get("code");
 
@@ -27,11 +24,7 @@ const StravaOAuthRedirect = () => {
   const [, setLocation] = useLocation();
   const [authResponse, setAuthResponse] = useState<StravaTokenResponse>();
 
-  const {
-    isLoading,
-    data: user,
-    error,
-  } = useSWR<UserWithSettings, Error>("http://localhost:3000/users/1", fetcher);
+  const { user } = useUser();
 
   useEffect(() => {
     if (!user) return;
@@ -43,24 +36,14 @@ const StravaOAuthRedirect = () => {
     console.log("user.settingsStravaClientId", user.settings.stravaClientId);
 
     const getStravaAuthTokens = async () => {
-      const response = await fetch(
-        "https://www.strava.com/api/v3/oauth/token",
-        {
-          method: "POST",
-          headers: {
-            Accept: "application/json, text/plain, */*",
-            "Content-Type": "application/json",
-            // "Content-Type": "application/x-www-form-urlencoded",
-          },
-          body: JSON.stringify({
-            client_id: user.settings.stravaClientId,
-            client_secret: user.settings.stravaClientSecret,
-            code,
-            grant_type: "authorization_code",
-          }),
-        }
-      );
-      const data = await response.json();
+      const data = await axios
+        .post("https://www.strava.com/api/v3/oauth/token", {
+          client_id: user.settings.stravaClientId,
+          client_secret: user.settings.stravaClientSecret,
+          code,
+          grant_type: "authorization_code",
+        })
+        .then((res) => res.data);
       setAuthResponse(data);
     };
 
@@ -72,17 +55,15 @@ const StravaOAuthRedirect = () => {
     const { expires_at, access_token, refresh_token } = authResponse;
 
     const storeStravaAuthTokens = async () => {
-      fetch(`http://localhost:3000/settings/${user.settingsId}`, {
-        method: "PATCH",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
+      axios
+        .patch(`http://localhost:3000/settings/${user.settingsId}`, {
           stravaTokenExpiresAt: expires_at,
           stravaAccessToken: access_token,
           stravaRefreshToken: refresh_token,
-        }),
-      }).then(() => {
-        setLocation("settings");
-      });
+        })
+        .then(() => {
+          setLocation("settings");
+        });
     };
 
     storeStravaAuthTokens();
