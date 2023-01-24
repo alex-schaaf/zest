@@ -1,5 +1,6 @@
 import ActivitiesBarChartContainer from "../components/ActivitiesBarChartContainer"
 import ActivitiesOverviewContainer from "../components/ActivitiesOverviewContainer"
+import ActivitiesYearStats from "../components/ActivitiesYearStats"
 import { PropsWithChildren } from "react"
 
 const Home = () => {
@@ -8,6 +9,7 @@ const Home = () => {
       <SectionHeader>Last 7 days</SectionHeader>
       <ActivitiesOverviewContainer />
       <SectionHeader>This year in running</SectionHeader>
+      <ActivitiesYearStats />
       <ActivitiesBarChartContainer />
     </div>
   )

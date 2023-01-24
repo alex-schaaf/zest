@@ -1,10 +1,8 @@
-import { useUser } from "../../contexts/user-context"
+import useActivities from "../../hooks/useActivities"
 import ActivitiesOverview from "../ActivitiesOverview/ActivitiesOverview"
 import Card from "../Card"
 import Loading from "../Loading"
 import { StravaActivities } from "@prisma/client"
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
 import React, { useEffect, useState } from "react"
 
 const ActivitiesOverviewContainer: React.FC = () => {
@@ -24,25 +22,13 @@ const ActivitiesOverviewContainer: React.FC = () => {
     setStartPrevious(startPrevious)
   }, [])
 
-  const { user } = useUser()
+  const { activities, isLoading, isError } = useActivities(
+    startPrevious,
+    undefined,
+    !!start
+  )
 
-  const {
-    data: activities,
-    isLoading,
-    isError,
-  } = useQuery<StravaActivities[], Error>({
-    queryKey: ["activities", startPrevious],
-    enabled: !!start,
-    queryFn: () =>
-      axios
-        .get(
-          import.meta.env.VITE_API_URL +
-            `/users/${user.id}/activities?start=${startPrevious?.toISOString()}`
-        )
-        .then((res) => res.data),
-  })
-
-  if (isLoading) {
+  if (isLoading || !start) {
     return <Loading />
   }
 
@@ -62,7 +48,12 @@ const ActivitiesOverviewContainer: React.FC = () => {
     )
   }
 
-  return <ActivitiesOverview start={start} activities={activities} />
+  return (
+    <ActivitiesOverview
+      start={start}
+      activities={activities as StravaActivities[]}
+    />
+  )
 }
 
 export default ActivitiesOverviewContainer

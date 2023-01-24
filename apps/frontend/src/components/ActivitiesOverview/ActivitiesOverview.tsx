@@ -11,7 +11,9 @@ interface ActivityStats {
   averageSpeed: number
 }
 
-const getActivityStats = (activities: StravaActivities[]): ActivityStats => {
+export const getActivityStats = (
+  activities: StravaActivities[]
+): ActivityStats => {
   const totalDistance = activities.reduce(
     (prev, curr) => (prev += curr.distance / 1000),
     0
@@ -67,7 +69,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
           <Stat.Title>Total Distance</Stat.Title>
           <Stat.Value>
             <div className="flex items-end justify-between">
-              <div>{stats?.totalDistance?.toFixed(0)} km</div>
+              <div>{stats?.totalDistance?.toFixed(0)}km</div>
               <TrendBadge
                 current={stats?.totalDistance}
                 previous={statsPrevious?.totalDistance}
@@ -80,10 +82,11 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
           <Stat.Title>Total Time</Stat.Title>
           <Stat.Value>
             <div className="flex items-end justify-between ">
-              <div>{stats?.totalTime?.toFixed(0)} min</div>
+              <div>{stats?.totalTime?.toFixed(0)}min</div>
               <TrendBadge
                 current={stats?.totalTime}
                 previous={statsPrevious?.totalTime}
+                unit={"m"}
               />
             </div>
           </Stat.Value>
@@ -96,7 +99,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
           <Stat.Title>Total Elevation Gain</Stat.Title>
           <Stat.Value>
             <div className="flex items-end justify-between ">
-              <div>{stats?.totalElevation?.toFixed(0)} min</div>
+              <div>{stats?.totalElevation?.toFixed(0)}m</div>
               <TrendBadge
                 current={stats?.totalElevation}
                 previous={statsPrevious?.totalElevation}
@@ -125,7 +128,13 @@ export const TrendBadge: React.FC<TrendBadgeProps> = ({
 }) => {
   const style = "text-sm px-2 py-1 rounded-md"
 
-  if (current > previous) {
+  if (current === previous) {
+    return (
+      <div className={classNames(style, "bg-orange-100 text-orange-500")}>
+        - {unit}
+      </div>
+    )
+  } else if (current > previous) {
     const ratio = current - previous
     return (
       <div className={classNames(style, "bg-green-100 text-green-500")}>
