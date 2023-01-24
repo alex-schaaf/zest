@@ -1,11 +1,11 @@
 import useStravaSync from "../../hooks/useStravaSync"
+import ToastMessage from "../ToastMessage/ToastMessage"
 import { ArrowPathIcon } from "@heroicons/react/24/outline"
 import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "wouter"
-import ToastMessage from "../ToastMessage/ToastMessage"
 
 const Navbar: React.FC = () => {
   const [location] = useLocation()
@@ -48,8 +48,20 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         <div className="flex">
-          <ToastMessage intent={"failure"} open={openError} onOpenChange={setOpenError} title={"Error"} message={"Failed to sync activites with Strava."} />
-          <ToastMessage intent={"success"} open={openSuccess} onOpenChange={setOpenSuccess} title={"Success"} message={"Successfully synced new activities with Strava."} />
+          <ToastMessage
+            intent={"failure"}
+            open={openError}
+            onOpenChange={setOpenError}
+            title={"Error"}
+            message={"Failed to sync activites with Strava."}
+          />
+          <ToastMessage
+            intent={"success"}
+            open={openSuccess}
+            onOpenChange={setOpenSuccess}
+            title={"Success"}
+            message={"Successfully synced new activities with Strava."}
+          />
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
               <button>

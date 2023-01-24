@@ -1,5 +1,6 @@
 import { useUser } from "../../contexts/user-context"
 import ActivitiesBarChart from "../ActivitiesBarChart/ActivitiesBarChart"
+import Card from "../Card"
 import Loading from "../Loading"
 import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
@@ -38,19 +39,21 @@ const ActivitiesBarChartContainer: React.FC = () => {
         height: ref.current.offsetHeight,
       })
     }
-  }, [])
+  }, [activities])
 
   if (isLoading) return <Loading />
   if (isError) return <div>fialed to fetch</div>
 
   return (
-    <div ref={ref} className="h-96">
-      <ActivitiesBarChart
-        activities={activities}
-        width={width}
-        height={height}
-      />
-    </div>
+    <Card>
+      <div ref={ref} className="h-48">
+        <ActivitiesBarChart
+          activities={activities}
+          width={width}
+          height={height}
+        />
+      </div>
+    </Card>
   )
 }
 

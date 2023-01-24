@@ -26,36 +26,36 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
     [data, xMax, yMax]
   )
 
-  return (
-    <Card>
-      <svg width={width} height={height}>
-        <Group left={margin.left} top={margin.top}>
-          {Object.entries(data).map(([week, distance], idx) => {
-            const barX = xScale(
-              dayjs(new Date(2023, 0, 1))
-                .add(parseInt(week), "week")
-                .toDate()
-                .getTime()
-            ) // xScale(parseInt(week));
-            const barWidth = 15 //xScale.bandwidth
+  if (height === 0) return null
 
-            const barHeight = yMax - yScale(distance)
-            const barY = yMax - barHeight
-            return (
-              <Bar
-                key={`bar-${week}`}
-                x={barX}
-                y={barY}
-                width={barWidth}
-                height={barHeight}
-              />
-            )
-          })}
-          <AxisLeft scale={yScale} tickValues={[0, 5, 10, 15, 20, 25]} />
-          <AxisBottom scale={xScale} top={yMax} />
-        </Group>
-      </svg>
-    </Card>
+  return (
+    <svg width={width} height={height}>
+      <Group left={margin.left} top={margin.top}>
+        {Object.entries(data).map(([week, distance], idx) => {
+          const barX = xScale(
+            dayjs(new Date(2023, 0, 1))
+              .add(parseInt(week), "week")
+              .toDate()
+              .getTime()
+          ) // xScale(parseInt(week));
+          const barWidth = 15 //xScale.bandwidth
+
+          const barHeight = yMax - yScale(distance)
+          const barY = yMax - barHeight
+          return (
+            <Bar
+              key={`bar-${week}`}
+              x={barX}
+              y={barY}
+              width={barWidth}
+              height={barHeight}
+            />
+          )
+        })}
+        <AxisLeft scale={yScale} tickValues={[0, 5, 10, 15, 20, 25]} />
+        <AxisBottom scale={xScale} top={yMax} />
+      </Group>
+    </svg>
   )
 }
 
