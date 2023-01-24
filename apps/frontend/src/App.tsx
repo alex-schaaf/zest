@@ -9,7 +9,7 @@ import { useUser } from "./contexts/user-context"
 const App = () => {
   const { user } = useUser()
 
-  return user ? <AuthenticatedApp /> : <UnauthenticatedApp />
+  return !user ? <AuthenticatedApp /> : <UnauthenticatedApp />
 }
 
 export default App

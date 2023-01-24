@@ -9,7 +9,7 @@ const SignIn: React.FC = () => {
         <div className="text-3xl font-bold">Sign in to your account</div>
         <div className=" text-sm">
           Or{" "}
-          <a className="text-blue-500 hover:cursor-not-allowed">
+          <a className="text-primary-500 hover:cursor-not-allowed">
             register your new account
           </a>
         </div>
@@ -39,11 +39,11 @@ const SignIn: React.FC = () => {
               <input type="checkbox" />
               <label>Remember me</label>
             </div>
-            <div className="text-blue-500 hover:cursor-not-allowed">
+            <div className="text-primary-500 hover:cursor-not-allowed">
               <a>Forgot your password?</a>
             </div>
           </div>
-          <button className="rounded bg-blue-600 px-3 py-2 text-sm font-medium text-white shadow-sm">
+          <button className="rounded bg-primary-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700">
             Sign in
           </button>
         </form>
