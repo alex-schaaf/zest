@@ -10,7 +10,7 @@ const options: {
   formatter?: (s: string) => string
 }[] = [
   { key: "id", name: "ID" },
-  { key: "username", name: "Username" },
+  { key: "email", name: "EMail" },
   {
     key: "updatedAt",
     name: "Last updated",
