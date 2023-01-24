@@ -9,7 +9,7 @@ class UserService {
       where,
       include: { settings: true },
     });
-    return { ...user, passwordHash: undefined };
+    return user;
   }
 
   async create(data: Prisma.UsersCreateInput) {

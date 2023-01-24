@@ -1,4 +1,4 @@
-import { Prisma, StravaActivities } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import express from "express";
 import settingsService from "../../services/settingsService";
 import userService from "../../services/userService";
@@ -8,7 +8,7 @@ const router = express.Router();
 router.get("/users/:userId", async (req, res) => {
   const { userId } = req.params;
   const user = await userService.find({ id: parseInt(userId) });
-  return res.json(user);
+  return res.json({ ...user, passwordHash: undefined });
 });
 
 router.patch("/users/:userId", async (req, res) => {
@@ -16,7 +16,7 @@ router.patch("/users/:userId", async (req, res) => {
   const data: Prisma.UsersUpdateInput = req.body;
 
   const user = await userService.update({ id: parseInt(userId) }, data);
-  return res.json(user);
+  return res.json({ ...user, passwordHash: undefined });
 });
 
 router.patch("/settings/:id", async (req, res) => {

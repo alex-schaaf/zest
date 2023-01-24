@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import usersRouter from "./routes/users";
 import activitiesRouter from "./routes/activities";
+import authRouter from "./routes/auth";
 import bodyParser from "body-parser";
 
 export const app = express();
@@ -16,6 +17,7 @@ app.get("/", async (req, res) => {
 
 app.use(usersRouter);
 app.use(activitiesRouter);
+app.use(authRouter);
 
 const server = app.listen(3000, () => {
   console.log("Server ready at http://localhost:3000");
