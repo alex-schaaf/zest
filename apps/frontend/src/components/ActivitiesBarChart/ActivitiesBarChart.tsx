@@ -1,12 +1,11 @@
-import React, { useMemo } from "react"
 import Card from "../Card"
-import { Bar } from "@visx/shape"
-import { Group } from "@visx/group"
-import { AxisLeft, AxisBottom } from "@visx/axis"
-import { scaleBand, scaleLinear, scaleTime } from "@visx/scale"
-
 import { StravaActivities } from "@prisma/client"
+import { AxisLeft, AxisBottom } from "@visx/axis"
+import { Group } from "@visx/group"
+import { scaleBand, scaleLinear, scaleTime } from "@visx/scale"
+import { Bar } from "@visx/shape"
 import dayjs, { Dayjs } from "dayjs"
+import React, { useMemo } from "react"
 
 interface Props {
   activities: StravaActivities[]

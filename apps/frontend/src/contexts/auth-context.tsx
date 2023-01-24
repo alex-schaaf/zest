@@ -1,8 +1,8 @@
+import Loading from "../components/Loading"
+import { Users, Settings } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import { createContext, PropsWithChildren, useContext } from "react"
-import Loading from "../components/Loading"
-import { Users, Settings } from "@prisma/client"
 
 type AuthContextType = {
   user: UserWithSettings

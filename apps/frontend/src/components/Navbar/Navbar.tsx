@@ -1,12 +1,11 @@
+import useStravaSync from "../../hooks/useStravaSync"
+import { ArrowPathIcon } from "@heroicons/react/24/outline"
+import * as Avatar from "@radix-ui/react-avatar"
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "wouter"
-import * as Avatar from "@radix-ui/react-avatar"
-import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
-import * as Toast from "@radix-ui/react-toast"
-
-import useStravaSync from "../../hooks/useStravaSync"
-import { ArrowPathIcon } from "@heroicons/react/24/outline"
+import ToastMessage from "../ToastMessage/ToastMessage"
 
 const Navbar: React.FC = () => {
   const [location] = useLocation()
@@ -26,28 +25,6 @@ const Navbar: React.FC = () => {
 
   return (
     <nav className="h-[4rem] border-b bg-white">
-      <Toast.Root
-        open={openError}
-        onOpenChange={setOpenError}
-        className="rounded-md border bg-white p-4 shadow-lg"
-      >
-        <Toast.Title className="font-semibold text-red-600">Error</Toast.Title>
-        <Toast.Description className="text-sm">
-          Failed to sync activities with Strava.
-        </Toast.Description>
-      </Toast.Root>
-      <Toast.Root
-        open={openSuccess}
-        onOpenChange={setOpenSuccess}
-        className="rounded-md border bg-white p-4 shadow-lg"
-      >
-        <Toast.Title className="font-semibold text-green-600">
-          Success!
-        </Toast.Title>
-        <Toast.Description className="text-sm">
-          Successfully synced new activities with Strava.
-        </Toast.Description>
-      </Toast.Root>
       <div className="container mx-auto flex h-full flex-wrap content-center justify-between">
         <div className="flex content-center gap-4">
           <div className=" text-4xl">👟</div>
@@ -71,6 +48,8 @@ const Navbar: React.FC = () => {
           </Link>
         </div>
         <div className="flex">
+          <ToastMessage intent={"failure"} open={openError} onOpenChange={setOpenError} title={"Error"} message={"Failed to sync activites with Strava."} />
+          <ToastMessage intent={"success"} open={openSuccess} onOpenChange={setOpenSuccess} title={"Success"} message={"Successfully synced new activities with Strava."} />
           <DropdownMenu.Root>
             <DropdownMenu.Trigger asChild>
               <button>

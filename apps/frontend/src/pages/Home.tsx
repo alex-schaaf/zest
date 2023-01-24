@@ -1,6 +1,6 @@
-import { PropsWithChildren } from "react"
 import ActivitiesBarChartContainer from "../components/ActivitiesBarChartContainer"
 import ActivitiesOverviewContainer from "../components/ActivitiesOverviewContainer"
+import { PropsWithChildren } from "react"
 
 const Home = () => {
   return (

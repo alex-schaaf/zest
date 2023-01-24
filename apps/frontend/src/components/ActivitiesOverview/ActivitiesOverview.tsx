@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo } from "react"
 import Stat from "../Stat"
-
 import { StravaActivities } from "@prisma/client"
 import classNames from "classnames"
+import React, { useMemo } from "react"
 
 interface ActivityStats {
   totalDistance: number

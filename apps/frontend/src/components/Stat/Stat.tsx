@@ -1,5 +1,5 @@
-import React, { PropsWithChildren } from "react"
 import Card from "../Card"
+import React, { PropsWithChildren } from "react"
 
 const Title: React.FC<PropsWithChildren> = (props) => {
   return (

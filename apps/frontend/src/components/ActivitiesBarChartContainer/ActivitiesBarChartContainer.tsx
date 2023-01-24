@@ -1,10 +1,10 @@
-import { useQuery } from "@tanstack/react-query"
-import React, { useEffect, useRef, useState } from "react"
 import { useUser } from "../../contexts/user-context"
 import ActivitiesBarChart from "../ActivitiesBarChart/ActivitiesBarChart"
-import { StravaActivities } from "@prisma/client"
-import axios from "axios"
 import Loading from "../Loading"
+import { StravaActivities } from "@prisma/client"
+import { useQuery } from "@tanstack/react-query"
+import axios from "axios"
+import React, { useEffect, useRef, useState } from "react"
 
 const ActivitiesBarChartContainer: React.FC = () => {
   const ref = useRef<any>(null)

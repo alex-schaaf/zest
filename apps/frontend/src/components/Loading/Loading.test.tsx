@@ -1,7 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import "@testing-library/jest-dom"
-
 import Loading from "./Loading"
+import "@testing-library/jest-dom"
+import { render, screen } from "@testing-library/react"
 
 test("", async () => {
   // ARRANGE

@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react"
+import { useUser } from "../../contexts/user-context"
 import ActivitiesOverview from "../ActivitiesOverview/ActivitiesOverview"
-import { StravaActivities } from "@prisma/client"
 import Card from "../Card"
 import Loading from "../Loading"
+import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { useUser } from "../../contexts/user-context"
+import React, { useEffect, useState } from "react"
 
 const ActivitiesOverviewContainer: React.FC = () => {
   const dayOffset = 7

@@ -1,7 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import "@testing-library/jest-dom"
-
 import Stat from "./Stat"
+import "@testing-library/jest-dom"
+import { render, screen } from "@testing-library/react"
 
 test("Stat renders compound components correctly", async () => {
   // ARRANGE

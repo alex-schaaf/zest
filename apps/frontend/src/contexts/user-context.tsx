@@ -1,5 +1,5 @@
-import React, { createContext, PropsWithChildren, useContext } from "react"
 import { useAuth, UserWithSettings } from "./auth-context"
+import React, { createContext, PropsWithChildren, useContext } from "react"
 
 const UserContext = createContext<{ user: UserWithSettings }>()
 

@@ -1,7 +1,6 @@
-import { render, screen } from "@testing-library/react"
-import "@testing-library/jest-dom"
-
 import ActivitiesOverviewContainer from "./ActivitiesOverviewContainer"
+import "@testing-library/jest-dom"
+import { render, screen } from "@testing-library/react"
 
 test("", async () => {
   // ARRANGE

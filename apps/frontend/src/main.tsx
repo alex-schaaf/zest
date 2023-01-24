@@ -1,19 +1,15 @@
+import App from "./App"
+import { AuthProvider } from "./contexts/auth-context"
+import { UserProvider } from "./contexts/user-context"
+import "./index.css"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import dayjs from "dayjs"
+import isoWeek from "dayjs/plugin/isoWeek"
 import React from "react"
 import ReactDOM from "react-dom/client"
 
-import App from "./App"
-import "./index.css"
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-
-import { AuthProvider } from "./contexts/auth-context"
-import { UserProvider } from "./contexts/user-context"
-
 const queryClient = new QueryClient()
 
-import isoWeek from "dayjs/plugin/isoWeek"
-
-import dayjs from "dayjs"
 dayjs.extend(isoWeek)
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(

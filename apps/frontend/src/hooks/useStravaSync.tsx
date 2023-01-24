@@ -1,7 +1,7 @@
-import axios from "axios"
-import { Settings } from "@prisma/client"
-import { useState } from "react"
 import { useUser } from "../contexts/user-context"
+import { Settings } from "@prisma/client"
+import axios from "axios"
+import { useState } from "react"
 
 const stravaUrl = "https://www.strava.com/api/v3"
 

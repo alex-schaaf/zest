@@ -1,8 +1,8 @@
-import { Users, Settings } from "@prisma/client"
-import StravaAuthBtn from "../components/StravaAuthBtn"
-import DescriptionList from "../components/DescriptionList"
 import Card from "../components/Card"
+import DescriptionList from "../components/DescriptionList"
+import StravaAuthBtn from "../components/StravaAuthBtn"
 import { useUser } from "../contexts/user-context"
+import { Users, Settings } from "@prisma/client"
 
 const options: {
   key: keyof Users
