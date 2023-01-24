@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["STRAVA_CLIENT_ID", "STRAVA_CLIENT_SECRET"],
+  "globalEnv": ["STRAVA_CLIENT_ID", "STRAVA_CLIENT_SECRET", "JWT_SECRET"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
