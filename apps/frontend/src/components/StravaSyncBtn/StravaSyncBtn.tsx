@@ -93,7 +93,7 @@ const tokenExpired = (expiresAt: number): boolean => {
 const fetchAthleteActivities = async (access_token: string) => {
   const activities = await axios
     .get(
-      stravaUrl + "/athlete/activities?" + new URLSearchParams({ access_token })
+      stravaUrl + "/athlete/activities?" + new URLSearchParams({ access_token }) // page: "8", per_page: "30"
     )
     .then((res) => res.data);
 

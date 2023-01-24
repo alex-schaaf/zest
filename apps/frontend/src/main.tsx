@@ -11,6 +11,11 @@ import { UserProvider } from "./contexts/user-context";
 
 const queryClient = new QueryClient();
 
+import isoWeek from "dayjs/plugin/isoWeek";
+
+import dayjs from "dayjs";
+dayjs.extend(isoWeek);
+
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>

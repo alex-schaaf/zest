@@ -36,6 +36,9 @@ router.get(
           gte: start,
           lte: end,
         },
+        type: {
+          equals: "Run",
+        },
       },
       orderBy: {
         startDate: "desc",

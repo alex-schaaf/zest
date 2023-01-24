@@ -62,7 +62,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
   );
 
   return (
-    <div className="pt-4 space-y-4">
+    <div className="space-y-4">
       <div className="flex gap-4">
         <Stat className="flex-grow">
           <Stat.Title>Total Distance</Stat.Title>
@@ -89,10 +89,10 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
             </div>
           </Stat.Value>
         </Stat>
-        <Stat className="flex-grow">
+        {/* <Stat className="flex-grow">
           <Stat.Title>Average Speed</Stat.Title>
           <Stat.Value>{stats?.averageSpeed?.toFixed(2)} m/s</Stat.Value>
-        </Stat>
+        </Stat> */}
         <Stat className="flex-grow">
           <Stat.Title>Total Elevation Gain</Stat.Title>
           <Stat.Value>

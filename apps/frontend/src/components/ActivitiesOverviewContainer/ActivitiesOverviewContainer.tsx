@@ -7,8 +7,6 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { useUser } from "../../contexts/user-context";
 
-const apiUrl = "http://localhost:3000";
-
 const ActivitiesOverviewContainer: React.FC = () => {
   const dayOffset = 7;
   const [start, setStart] = useState<Date>();
@@ -33,12 +31,12 @@ const ActivitiesOverviewContainer: React.FC = () => {
     isLoading,
     isError,
   } = useQuery<StravaActivities[], Error>({
-    queryKey: ["activities"],
+    queryKey: ["activities", startPrevious],
     enabled: !!start,
     queryFn: () =>
       axios
         .get(
-          apiUrl +
+          import.meta.env.VITE_API_URL +
             `/users/${user.id}/activities?start=${startPrevious?.toISOString()}`
         )
         .then((res) => res.data),
@@ -64,14 +62,7 @@ const ActivitiesOverviewContainer: React.FC = () => {
     );
   }
 
-  return (
-    <div>
-      <div className="font-bold text-lg text-gray-800">
-        Last {dayOffset} days
-      </div>
-      <ActivitiesOverview start={start} activities={activities} />
-    </div>
-  );
+  return <ActivitiesOverview start={start} activities={activities} />;
 };
 
 export default ActivitiesOverviewContainer;
