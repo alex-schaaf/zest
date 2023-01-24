@@ -1,3 +1,3 @@
-import ActivitiesOverviewContainer from './ActivitiesOverviewContainer';
+import ActivitiesOverviewContainer from "./ActivitiesOverviewContainer"
 
-export default ActivitiesOverviewContainer;
+export default ActivitiesOverviewContainer

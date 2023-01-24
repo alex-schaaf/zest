@@ -1,3 +1,3 @@
-import StravaAuthBtn from "./StravaAuthBtn";
+import StravaAuthBtn from "./StravaAuthBtn"
 
-export default StravaAuthBtn;
+export default StravaAuthBtn

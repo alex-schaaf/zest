@@ -1,40 +1,40 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useMemo } from "react";
-import Stat from "../Stat";
+import React, { useMemo } from "react"
+import Stat from "../Stat"
 
-import { StravaActivities } from "@prisma/client";
-import classNames from "classnames";
+import { StravaActivities } from "@prisma/client"
+import classNames from "classnames"
 
 interface ActivityStats {
-  totalDistance: number;
-  totalTime: number;
-  totalElevation: number;
-  averageSpeed: number;
+  totalDistance: number
+  totalTime: number
+  totalElevation: number
+  averageSpeed: number
 }
 
 const getActivityStats = (activities: StravaActivities[]): ActivityStats => {
   const totalDistance = activities.reduce(
     (prev, curr) => (prev += curr.distance / 1000),
     0
-  );
+  )
   const totalTime = activities.reduce(
     (prev, curr) => (prev += curr.time / 60),
     0
-  );
+  )
   const totalElevation = activities.reduce(
     (prev, curr) => (prev += curr.elevationGain),
     0
-  );
+  )
   const averageSpeed =
     activities.reduce((prev, curr) => (prev += curr.speed), 0) /
-    activities.length;
+    activities.length
 
-  return { totalDistance, totalTime, totalElevation, averageSpeed };
-};
+  return { totalDistance, totalTime, totalElevation, averageSpeed }
+}
 
 interface ActivitiesOverviewProps {
-  start: Date;
-  activities: StravaActivities[];
+  start: Date
+  activities: StravaActivities[]
 }
 
 const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
@@ -49,7 +49,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
         activities.filter((act) => new Date(act.startDate) >= start)
       ),
     [activities]
-  );
+  )
 
   const statsPrevious = useMemo(
     () =>
@@ -59,7 +59,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
         activities.filter((act) => new Date(act.startDate) < start)
       ),
     [activities]
-  );
+  )
 
   return (
     <div className="space-y-4">
@@ -108,15 +108,15 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
         </Stat>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ActivitiesOverview;
+export default ActivitiesOverview
 
 interface TrendBadgeProps {
-  current: number;
-  previous: number;
-  unit?: string;
+  current: number
+  previous: number
+  unit?: string
 }
 
 export const TrendBadge: React.FC<TrendBadgeProps> = ({
@@ -124,21 +124,21 @@ export const TrendBadge: React.FC<TrendBadgeProps> = ({
   previous,
   unit,
 }) => {
-  const style = "text-sm px-2 py-1 rounded-md";
+  const style = "text-sm px-2 py-1 rounded-md"
 
   if (current > previous) {
-    const ratio = current - previous;
+    const ratio = current - previous
     return (
       <div className={classNames(style, "bg-green-100 text-green-500")}>
         ↑ {ratio.toFixed(1)} {unit}
       </div>
-    );
+    )
   } else {
-    const ratio = previous - current;
+    const ratio = previous - current
     return (
       <div className={classNames(style, "bg-red-100 text-red-500")}>
         ↓ {ratio.toFixed(1)} {unit}
       </div>
-    );
+    )
   }
-};
+}

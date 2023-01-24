@@ -1,8 +1,8 @@
-import { Route } from "wouter";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import SettingsPage from "./pages/SettingsPage";
-import StravaOAuthRedirect from "./pages/StravaOAuthRedirect";
+import { Route } from "wouter"
+import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
+import SettingsPage from "./pages/SettingsPage"
+import StravaOAuthRedirect from "./pages/StravaOAuthRedirect"
 
 const AuthenticatedApp = () => {
   return (
@@ -20,7 +20,7 @@ const AuthenticatedApp = () => {
         </Route>
       </main>
     </>
-  );
-};
+  )
+}
 
-export default AuthenticatedApp;
+export default AuthenticatedApp

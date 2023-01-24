@@ -1,3 +1,3 @@
-import ActivitiesOverview from './ActivitiesOverview';
+import ActivitiesOverview from "./ActivitiesOverview"
 
-default export ActivitiesOverview;
+export default ActivitiesOverview

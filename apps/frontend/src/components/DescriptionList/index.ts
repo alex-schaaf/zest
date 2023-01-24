@@ -1,3 +1,3 @@
-import DescriptionList from './DescriptionList';
+import DescriptionList from "./DescriptionList"
 
-export default DescriptionList;
+export default DescriptionList

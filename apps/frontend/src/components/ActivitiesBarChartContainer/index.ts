@@ -1,3 +1,3 @@
-import ActivitiesBarChartContainer from './ActivitiesBarChartContainer';
+import ActivitiesBarChartContainer from "./ActivitiesBarChartContainer"
 
-export default ActivitiesBarChartContainer;
+export default ActivitiesBarChartContainer

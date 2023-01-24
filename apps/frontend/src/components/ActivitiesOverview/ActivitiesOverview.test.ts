@@ -1,12 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react"
+import "@testing-library/jest-dom"
 
-import ActivitiesOverview from './ActivitiesOverview';
+import ActivitiesOverview from "./ActivitiesOverview"
 
-test('', async () => {
-    // ARRANGE
-
-    // ACT
-
-    // ASSERT
+test("", async () => {
+  // ARRANGE
+  // ACT
+  // ASSERT
 })
