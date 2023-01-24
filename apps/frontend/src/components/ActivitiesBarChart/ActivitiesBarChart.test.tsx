@@ -1,12 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react"
+import "@testing-library/jest-dom"
 
-import ActivitiesBarChart from './ActivitiesBarChart';
+import ActivitiesBarChart from "./ActivitiesBarChart"
 
-test('', async () => {
-    // ARRANGE
-
-    // ACT
-
-    // ASSERT
+test("", async () => {
+  // ARRANGE
+  // ACT
+  // ASSERT
 })

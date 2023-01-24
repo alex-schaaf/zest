@@ -1,20 +1,20 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from "react"
+import ReactDOM from "react-dom/client"
 
-import App from "./App";
-import "./index.css";
+import App from "./App"
+import "./index.css"
 
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 
-import { AuthProvider } from "./contexts/auth-context";
-import { UserProvider } from "./contexts/user-context";
+import { AuthProvider } from "./contexts/auth-context"
+import { UserProvider } from "./contexts/user-context"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
-import isoWeek from "dayjs/plugin/isoWeek";
+import isoWeek from "dayjs/plugin/isoWeek"
 
-import dayjs from "dayjs";
-dayjs.extend(isoWeek);
+import dayjs from "dayjs"
+dayjs.extend(isoWeek)
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
@@ -26,4 +26,4 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
-);
+)

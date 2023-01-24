@@ -1,39 +1,39 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
-import { useLocation } from "wouter";
-import { useUser } from "../contexts/user-context";
+import axios from "axios"
+import { useEffect, useState } from "react"
+import { useLocation } from "wouter"
+import { useUser } from "../contexts/user-context"
 
 interface StravaTokenResponse {
-  token_type: "Bearer";
-  expires_at: number;
-  expires_in: number;
-  refresh_token: string;
-  access_token: string;
-  athlete: any;
+  token_type: "Bearer"
+  expires_at: number
+  expires_in: number
+  refresh_token: string
+  access_token: string
+  athlete: any
 }
 
 function getCodeParam() {
-  const { search } = window.location;
-  const searchPrams = new URLSearchParams(search);
-  const code = searchPrams.get("code");
+  const { search } = window.location
+  const searchPrams = new URLSearchParams(search)
+  const code = searchPrams.get("code")
 
-  return code;
+  return code
 }
 
 const StravaOAuthRedirect = () => {
-  const [, setLocation] = useLocation();
-  const [authResponse, setAuthResponse] = useState<StravaTokenResponse>();
+  const [, setLocation] = useLocation()
+  const [authResponse, setAuthResponse] = useState<StravaTokenResponse>()
 
-  const { user } = useUser();
+  const { user } = useUser()
 
   useEffect(() => {
-    if (!user) return;
+    if (!user) return
 
-    const code = getCodeParam();
+    const code = getCodeParam()
 
-    if (!code) return;
+    if (!code) return
 
-    console.log("user.settingsStravaClientId", user.settings.stravaClientId);
+    console.log("user.settingsStravaClientId", user.settings.stravaClientId)
 
     const getStravaAuthTokens = async () => {
       const data = await axios
@@ -43,16 +43,16 @@ const StravaOAuthRedirect = () => {
           code,
           grant_type: "authorization_code",
         })
-        .then((res) => res.data);
-      setAuthResponse(data);
-    };
+        .then((res) => res.data)
+      setAuthResponse(data)
+    }
 
-    getStravaAuthTokens();
-  }, [user]);
+    getStravaAuthTokens()
+  }, [user])
 
   useEffect(() => {
-    if (!authResponse || !user) return;
-    const { expires_at, access_token, refresh_token } = authResponse;
+    if (!authResponse || !user) return
+    const { expires_at, access_token, refresh_token } = authResponse
 
     const storeStravaAuthTokens = async () => {
       axios
@@ -62,16 +62,16 @@ const StravaOAuthRedirect = () => {
           stravaRefreshToken: refresh_token,
         })
         .then(() => {
-          setLocation("settings");
-        });
-    };
+          setLocation("settings")
+        })
+    }
 
-    storeStravaAuthTokens();
-  }, [authResponse]);
+    storeStravaAuthTokens()
+  }, [authResponse])
 
-  return <div>Authenticating...</div>;
-};
+  return <div>Authenticating...</div>
+}
 
-export default StravaOAuthRedirect;
+export default StravaOAuthRedirect
 
 // http://localhost:5173/settings?state=&code=2973tyiuegwhk&scope=read,read_all

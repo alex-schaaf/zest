@@ -1,3 +1,3 @@
-import ActivitiesBarChart from './ActivitiesBarChart';
+import ActivitiesBarChart from "./ActivitiesBarChart"
 
-export default ActivitiesBarChart;
+export default ActivitiesBarChart
