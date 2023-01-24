@@ -65,10 +65,10 @@ export default useStravaSync
 
 const getCanSync = (settings: Settings): boolean => {
   if (
-    settings.stravaClientId ||
-    settings.stravaClientSecret ||
-    settings.stravaRefreshToken ||
-    settings.stravaTokenExpiresAt
+    !settings.stravaClientId ||
+    !settings.stravaClientSecret ||
+    !settings.stravaRefreshToken ||
+    !settings.stravaTokenExpiresAt
   )
     return false
   return true
