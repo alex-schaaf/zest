@@ -1,3 +1,4 @@
+import { PropsWithChildren } from "react";
 import ActivitiesBarChartContainer from "../components/ActivitiesBarChartContainer";
 import ActivitiesOverviewContainer from "../components/ActivitiesOverviewContainer";
 import StravaSyncBtn from "../components/StravaSyncBtn/StravaSyncBtn";
@@ -8,14 +9,18 @@ const Home = () => {
       <div className="text-right">
         <StravaSyncBtn />
       </div>
-      <div className="font-bold text-lg text-gray-800">Last 7 days</div>
+      <SectionHeader>Last 7 days</SectionHeader>
       <ActivitiesOverviewContainer />
-      <div className="font-bold text-lg text-gray-800">
-        This year in running
-      </div>
+      <SectionHeader>This year in running</SectionHeader>
       <ActivitiesBarChartContainer />
     </div>
   );
 };
 
 export default Home;
+
+export const SectionHeader: React.FC<PropsWithChildren> = (props) => {
+  return (
+    <div className="font-bold text-lg text-gray-800">{props.children}</div>
+  );
+};
