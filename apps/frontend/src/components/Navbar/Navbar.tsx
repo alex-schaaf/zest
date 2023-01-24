@@ -24,29 +24,27 @@ const Navbar: React.FC = () => {
   }, [isSuccess])
 
   return (
-    <nav className="h-[4rem] border-b bg-white">
-      <div className="container mx-auto flex h-full flex-wrap content-center justify-between">
-        <div className="flex content-center gap-4">
-          <div className=" text-4xl">👟</div>
+    <div className="h-[4rem] border-b bg-white">
+      <div className="h-full container flex justify-between mx-auto items-center">
+        <div className="text-4xl">👟</div>
+        <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
           <Link
             href={"/"}
-            className={classNames(
-              "  text-sm font-medium hover:cursor-pointer",
-              { underline: location === "/" }
-            )}
+            className={classNames("hover:cursor-pointer", {
+              "text-blue-600": location === "/",
+            })}
           >
             Dashboard
           </Link>
           <Link
             href={"/settings"}
-            className={classNames(
-              "  text-sm font-medium hover:cursor-pointer ",
-              { underline: location === "/settings" }
-            )}
+            className={classNames("hover:cursor-pointer ", {
+              "text-blue-600": location === "/settings",
+            })}
           >
             Settings
           </Link>
-        </div>
+        </nav>
         <div className="flex">
           <ToastMessage
             intent={"failure"}
@@ -96,7 +94,7 @@ const Navbar: React.FC = () => {
           </DropdownMenu.Root>
         </div>
       </div>
-    </nav>
+    </div>
   )
 }
 

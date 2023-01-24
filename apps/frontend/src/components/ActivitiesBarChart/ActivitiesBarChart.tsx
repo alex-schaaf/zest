@@ -6,6 +6,8 @@ import { scaleBand, scaleLinear, scaleTime } from "@visx/scale"
 import { Bar } from "@visx/shape"
 import dayjs, { Dayjs } from "dayjs"
 import React, { useMemo } from "react"
+import colors from 'tailwindcss/colors'
+
 
 interface Props {
   activities: StravaActivities[]
@@ -49,6 +51,7 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
               y={barY}
               width={barWidth}
               height={barHeight}
+              fill={colors.blue[500]}
             />
           )
         })}
