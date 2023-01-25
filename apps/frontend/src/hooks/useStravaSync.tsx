@@ -2,6 +2,7 @@ import { useUser } from "../contexts/user-context"
 import { Settings } from "@prisma/client"
 import axios from "axios"
 import { useState } from "react"
+import { UserWithSettings } from "../contexts/auth-context"
 
 const stravaUrl = "https://www.strava.com/api/v3"
 
@@ -121,10 +122,14 @@ const postActivities = async (userId: number, activities: []) => {
   )
 }
 
-const patchUserSettings = async (settings: Settings) => {
-  await axios.patch(import.meta.env.VITE_API_URL + `/settings/${settings.id}`, {
-    stravaAccessToken: settings.stravaAccessToken,
-    stravaRefreshToken: settings.stravaRefreshToken,
-    stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
-  })
+const patchUserSettings = async (user: UserWithSettings) => {
+  await axios.patch(
+    import.meta.env.VITE_API_URL +
+      `/users/${user.id}/settings/${user.settingsId}`,
+    {
+      stravaAccessToken: user.settings.stravaAccessToken,
+      stravaRefreshToken: user.settings.stravaRefreshToken,
+      stravaTokenExpiresAt: user.settings.stravaTokenExpiresAt,
+    }
+  )
 }

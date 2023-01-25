@@ -22,7 +22,7 @@ router.patch("/users/:userId", async (req, res) => {
   return res.json({ ...user, passwordHash: undefined });
 });
 
-router.patch("/settings/:id", async (req, res) => {
+router.patch("/users/:userId/settings/:id", async (req, res) => {
   const { id } = req.params;
   const data: Prisma.SettingsUpdateInput = req.body;
 
