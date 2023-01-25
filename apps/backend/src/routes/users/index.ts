@@ -1,9 +1,12 @@
 import { Prisma } from "@prisma/client";
 import express from "express";
+import { authTokenMiddleware } from "../../middleware";
 import settingsService from "../../services/settingsService";
 import userService from "../../services/userService";
 
 const router = express.Router();
+
+router.use(authTokenMiddleware);
 
 router.get("/users/:userId", async (req, res) => {
   const { userId } = req.params;
