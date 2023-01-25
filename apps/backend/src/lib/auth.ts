@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 
-import jwt, { JwtPayload, Secret } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const saltRounds = 10;
 
@@ -19,10 +19,16 @@ export async function validatePassword(
   return result;
 }
 
-export function encodeToken(payload: JwtPayload): string {
-  return jwt.sign(payload, process.env.JWT_SECRET as string);
+export interface TokenPayload extends JwtPayload {
+  userId: number;
 }
 
-export function decodeToken(token: string): string | JwtPayload | null {
-  return jwt.verify(token, process.env.JWT_SECRET as string);
+export function encodeToken(payload: TokenPayload): string {
+  return jwt.sign(payload, process.env.JWT_SECRET as string, {
+    expiresIn: 60 * 60 * 24,
+  });
+}
+
+export function decodeToken(token: string): TokenPayload | null {
+  return jwt.verify(token, process.env.JWT_SECRET as string) as TokenPayload;
 }
