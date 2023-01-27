@@ -1,13 +1,11 @@
-import Card from "../Card"
 import { StravaActivities } from "@prisma/client"
 import { AxisLeft, AxisBottom } from "@visx/axis"
 import { Group } from "@visx/group"
-import { scaleBand, scaleLinear, scaleTime } from "@visx/scale"
+import { scaleLinear, scaleTime } from "@visx/scale"
 import { Bar } from "@visx/shape"
-import dayjs, { Dayjs } from "dayjs"
+import dayjs from "dayjs"
 import React, { useMemo } from "react"
-import colors from 'tailwindcss/colors'
-
+import colors from "tailwindcss/colors"
 
 interface Props {
   activities: StravaActivities[]

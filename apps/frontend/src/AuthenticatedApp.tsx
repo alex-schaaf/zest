@@ -1,7 +1,7 @@
-import Navbar from "./components/Navbar"
-import Home from "./pages/Home"
-import SettingsPage from "./pages/SettingsPage"
-import StravaOAuthRedirect from "./pages/StravaOAuthRedirect"
+import Navbar from "@/components/Navbar"
+import Home from "@/pages/Home"
+import SettingsPage from "@/pages/SettingsPage"
+import StravaOAuthRedirect from "@/pages/StravaOAuthRedirect"
 import * as Toast from "@radix-ui/react-toast"
 import { Route } from "wouter"
 

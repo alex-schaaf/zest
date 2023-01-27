@@ -1,4 +1,4 @@
-import { useUser } from "../contexts/user-context"
+import { useUser } from "@/contexts/user-context"
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { useLocation } from "wouter"

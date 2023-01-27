@@ -1,7 +1,7 @@
-import { useUser } from "../contexts/user-context"
+import { useUser } from "@/contexts/user-context"
 import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
-import axios from "../lib/axios"
+import axios from "@/lib/axios"
 
 const useActivities = (start?: Date, end?: Date, enabled?: boolean) => {
   const { user } = useUser()

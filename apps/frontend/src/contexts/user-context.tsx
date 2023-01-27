@@ -1,5 +1,5 @@
-import { useAuth, UserWithSettings } from "./auth-context"
-import React, { createContext, PropsWithChildren, useContext } from "react"
+import { UserWithSettings } from "@/contexts/auth-context"
+import { createContext, useContext } from "react"
 
 export const UserContext = createContext<{ user: UserWithSettings }>()
 

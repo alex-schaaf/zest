@@ -1,5 +1,5 @@
-import useStravaSync from "../../hooks/useStravaSync"
-import ToastMessage from "../ToastMessage/ToastMessage"
+import useStravaSync from "@/hooks/useStravaSync"
+import ToastMessage from "@/components/ToastMessage"
 import { ArrowPathIcon } from "@heroicons/react/24/outline"
 import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"

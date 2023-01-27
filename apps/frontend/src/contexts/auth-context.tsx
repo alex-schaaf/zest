@@ -1,6 +1,6 @@
-import Loading from "../components/Loading"
+import Loading from "@/components/Loading"
 import { Users, Settings } from "@prisma/client"
-import axios from "../lib/axios"
+import axios from "@/lib/axios"
 import {
   createContext,
   PropsWithChildren,

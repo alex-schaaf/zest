@@ -1,8 +1,8 @@
-import { useUser } from "../contexts/user-context"
 import { Settings } from "@prisma/client"
 import axios from "axios"
 import { useState } from "react"
-import { UserWithSettings } from "../contexts/auth-context"
+import { useUser } from "@/contexts/user-context"
+import { UserWithSettings } from "@/contexts/auth-context"
 
 const stravaUrl = "https://www.strava.com/api/v3"
 

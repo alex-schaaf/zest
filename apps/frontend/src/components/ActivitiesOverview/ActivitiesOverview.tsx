@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import Stat from "../Stat"
+import Stat from "@/components/Stat"
 import { StravaActivities } from "@prisma/client"
 import classNames from "classnames"
 import React, { useMemo } from "react"

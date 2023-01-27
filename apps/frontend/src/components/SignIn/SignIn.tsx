@@ -1,6 +1,6 @@
-import Card from "../Card"
+import Card from "@/components/Card"
 import React, { useState } from "react"
-import { useAuth } from "../../contexts/auth-context"
+import { useAuth } from "@/contexts/auth-context"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("email@example.com")

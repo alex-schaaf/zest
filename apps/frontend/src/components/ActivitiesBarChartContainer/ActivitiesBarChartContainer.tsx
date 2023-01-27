@@ -1,7 +1,7 @@
-import useActivities from "../../hooks/useActivities"
-import ActivitiesBarChart from "../ActivitiesBarChart/ActivitiesBarChart"
-import Card from "../Card"
-import Loading from "../Loading"
+import useActivities from "@/hooks/useActivities"
+import ActivitiesBarChart from "@/components/ActivitiesBarChart/ActivitiesBarChart"
+import Card from "@/components/Card"
+import Loading from "@/components/Loading"
 import { StravaActivities } from "@prisma/client"
 import React, { useEffect, useRef, useState } from "react"
 

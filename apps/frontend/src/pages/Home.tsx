@@ -1,6 +1,6 @@
-import ActivitiesBarChartContainer from "../components/ActivitiesBarChartContainer"
-import ActivitiesOverviewContainer from "../components/ActivitiesOverviewContainer"
-import ActivitiesYearStats from "../components/ActivitiesYearStats"
+import ActivitiesBarChartContainer from "@/components/ActivitiesBarChartContainer"
+import ActivitiesOverviewContainer from "@/components/ActivitiesOverviewContainer"
+import ActivitiesYearStats from "@/components/ActivitiesYearStats"
 import { PropsWithChildren } from "react"
 
 const Home = () => {

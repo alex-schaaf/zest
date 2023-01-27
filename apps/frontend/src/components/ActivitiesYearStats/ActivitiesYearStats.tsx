@@ -1,10 +1,10 @@
-import useActivities from "../../hooks/useActivities"
+import useActivities from "@/hooks/useActivities"
 import {
   getActivityStats,
   TrendBadge,
-} from "../ActivitiesOverview/ActivitiesOverview"
-import Loading from "../Loading"
-import Stat from "../Stat"
+} from "@/components/ActivitiesOverview/ActivitiesOverview"
+import Loading from "@/components/Loading"
+import Stat from "@/components/Stat"
 import React, { useMemo } from "react"
 
 const ActivitiesYearStats: React.FC = () => {

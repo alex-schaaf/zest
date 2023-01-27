@@ -1,8 +1,8 @@
 // import { lazy } from "react";
-import AuthenticatedApp from "./AuthenticatedApp"
-import UnauthenticatedApp from "./UnauthenticatedApp"
-import { UserContext, useUser } from "./contexts/user-context"
-import { useAuth } from "./contexts/auth-context"
+import AuthenticatedApp from "@/AuthenticatedApp"
+import UnauthenticatedApp from "@/UnauthenticatedApp"
+import { UserContext } from "@/contexts/user-context"
+import { useAuth } from "@/contexts/auth-context"
 
 // const AuthenticatedApp = lazy(() => import("./AuthenticatedApp"));
 // const UnauthenticatedApp = lazy(() => import("./UnauthenticatedApp"));
