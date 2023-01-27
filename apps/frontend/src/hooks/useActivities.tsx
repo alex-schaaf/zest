@@ -1,7 +1,7 @@
 import { useUser } from "../contexts/user-context"
 import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
+import axios from "../lib/axios"
 
 const useActivities = (start?: Date, end?: Date, enabled?: boolean) => {
   const { user } = useUser()
@@ -25,11 +25,7 @@ const useActivities = (start?: Date, end?: Date, enabled?: boolean) => {
     enabled,
     queryFn: () =>
       axios
-        .get(
-          import.meta.env.VITE_API_URL +
-            `/users/${user.id}/activities?` +
-            urlParams.toString()
-        )
+        .get(`/users/${user.id}/activities?` + urlParams.toString())
         .then((res) => res.data),
   })
 

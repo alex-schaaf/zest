@@ -1,7 +1,21 @@
 import Card from "../Card"
-import React from "react"
+import React, { useState } from "react"
+import { useAuth } from "../../contexts/auth-context"
 
 const SignIn: React.FC = () => {
+  const [email, setEmail] = useState("email@example.com")
+  const [password, setPassword] = useState("admin")
+
+  const { login, isLoading } = useAuth()
+
+  const handleSubmit = async () => {
+    if (!email || !password) return
+    console.log("email", email)
+    console.log("password", password)
+
+    await login(email, password).catch((err) => console.error(err))
+  }
+
   return (
     <div className="mt-24 space-y-8">
       <div className="text-center text-8xl">👟</div>
@@ -23,6 +37,8 @@ const SignIn: React.FC = () => {
             <input
               type="text"
               className="rounded-md border px-3 py-1 shadow-sm"
+              value={email}
+              onChange={(e) => setEmail(e.currentTarget.value)}
             />
           </div>
           <div className="flex flex-col">
@@ -32,6 +48,8 @@ const SignIn: React.FC = () => {
             <input
               type="password"
               className="rounded-md border px-3 py-1 shadow-sm"
+              value={password}
+              onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
           <div className="flex justify-between text-sm text-gray-700">
@@ -43,8 +61,14 @@ const SignIn: React.FC = () => {
               <a>Forgot your password?</a>
             </div>
           </div>
-          <button className="rounded bg-primary-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700">
-            Sign in
+          <button
+            onClick={(e) => {
+              e.preventDefault()
+              handleSubmit()
+            }}
+            className="rounded bg-primary-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700"
+          >
+            {isLoading ? "loading" : "Sign in"}
           </button>
         </form>
       </Card>

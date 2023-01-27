@@ -21,6 +21,7 @@ const useStravaSync = (): {
   const canSync = getCanSync(user.settings)
 
   const sync = async () => {
+    console.log("Strava sync started")
     if (
       !user ||
       !user.settings.stravaTokenExpiresAt ||
@@ -118,7 +119,8 @@ const fetchAthleteActivities = async (access_token: string) => {
 const postActivities = async (userId: number, activities: []) => {
   await axios.post(
     import.meta.env.VITE_API_URL + `/users/${userId}/activities`,
-    activities
+    activities,
+    { withCredentials: true }
   )
 }
 
@@ -130,6 +132,7 @@ const patchUserSettings = async (user: UserWithSettings) => {
       stravaAccessToken: user.settings.stravaAccessToken,
       stravaRefreshToken: user.settings.stravaRefreshToken,
       stravaTokenExpiresAt: user.settings.stravaTokenExpiresAt,
-    }
+    },
+    { withCredentials: true }
   )
 }

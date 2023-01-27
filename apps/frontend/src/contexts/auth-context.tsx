@@ -1,47 +1,72 @@
 import Loading from "../components/Loading"
 import { Users, Settings } from "@prisma/client"
-import { useQuery } from "@tanstack/react-query"
-import axios from "axios"
-import { createContext, PropsWithChildren, useContext } from "react"
+import axios from "../lib/axios"
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useState,
+} from "react"
 
 type AuthContextType = {
-  user: UserWithSettings
+  user?: UserWithSettings
+  login: (email: string, password: string) => Promise<void>
+  isLoading: boolean
 }
 
 const AuthContext = createContext<AuthContextType>()
 
 export type UserWithSettings = Users & { settings: Settings }
 
-const apiUrl = "http://localhost:3000"
-
 const AuthProvider: React.FC<PropsWithChildren> = (props) => {
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useQuery<UserWithSettings, Error>({
-    queryKey: ["user"],
-    queryFn: () => axios.get(apiUrl + "/users/1").then((res) => res.data),
-  })
+  const [isLoading, setIsLoading] = useState(false)
+
+  const [user, setUser] = useState<UserWithSettings>()
+
+  useEffect(() => {
+    if (user !== undefined) return
+
+    const getUserWithCookieToken = async () => {
+      const user = await axios.get("/users").then((res) => res.data)
+      if (!user) return
+      setUser(user)
+    }
+
+    getUserWithCookieToken()
+  }, [user])
 
   if (isLoading) {
     return <Loading />
   }
 
-  if (isError) {
-    return <div>error</div>
+  const login = async (email: string, password: string) => {
+    setIsLoading(true)
+    try {
+      const { userId, iat, exp } = await axios
+        .post("/auth/login", { email, password })
+        .then((res) => res.data)
+
+      localStorage.setItem("userId", userId)
+      localStorage.setItem("iat", iat)
+      localStorage.setItem("exp", exp)
+
+      const user = await axios
+        .get<UserWithSettings>(`/users/${userId}`)
+        .then((res) => res.data)
+
+      setUser(user)
+    } catch (err) {
+      console.error(err)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
-  const login = () => {}
   const register = () => {}
   const logout = () => {}
 
-  return (
-    <AuthContext.Provider
-      value={{ user, login, logout, register }}
-      {...props}
-    />
-  )
+  return <AuthContext.Provider value={{ user, login, isLoading }} {...props} />
 }
 
 const useAuth = () => useContext(AuthContext)

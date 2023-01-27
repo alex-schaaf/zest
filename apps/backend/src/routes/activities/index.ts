@@ -2,11 +2,8 @@ import express, { Request } from "express";
 
 import stravaActivityService from "../../services/stravaActivityService";
 import { Prisma, StravaActivities } from "@prisma/client";
-import { authTokenMiddleware } from "../../middleware";
 
 const router = express.Router();
-
-router.use(authTokenMiddleware);
 
 interface StravaActivity {
   id: number;

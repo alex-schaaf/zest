@@ -1,26 +1,43 @@
 import { NextFunction, Request, Response } from "express";
 
 import { decodeToken } from "./lib/auth";
-import { JwtPayload } from "jsonwebtoken";
 
 export const authTokenMiddleware = (
-  req: Request & { user?: JwtPayload },
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  const authHeader = req.headers["authorization"];
-  const token = authHeader && authHeader.split(" ")[1]; // Bearer <token>
+  const { token } = req.cookies;
 
-  if (token == null) return res.status(401).end();
+  if (!token) {
+    console.debug("Unauthorized: No token found in cookie");
+    return res.status(401).end();
+  }
 
   const payload = decodeToken(token);
-  if (payload == null) return res.status(401).end();
 
-  if (!req.url.includes(`/users/${payload.userId}`)) {
+  if (payload == null) {
+    console.debug("Unauthorized: Token is invalid");
+    return res.status(401).end();
+  }
+
+  if (req.url !== "/users" && !req.url.includes(`/users/${payload.userId}`)) {
+    console.debug("Unauthorized: trying to access route of other user");
     res.status(401).end();
   }
 
-  req.user = payload as JwtPayload;
-
   next();
 };
+
+function getCookies(req: Request) {
+  const cookie = req.headers.cookie;
+  const cookiesStr = cookie?.split("; ");
+
+  const cookies: Record<string, string> = {};
+  cookiesStr?.forEach((cookieStr) => {
+    const [key, value] = cookieStr.trim().split("=");
+    cookies[key] = value;
+  });
+
+  return cookies;
+}

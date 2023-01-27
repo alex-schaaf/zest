@@ -1,6 +1,5 @@
 import App from "./App"
 import { AuthProvider } from "./contexts/auth-context"
-import { UserProvider } from "./contexts/user-context"
 import "./index.css"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import dayjs from "dayjs"
@@ -16,9 +15,7 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <UserProvider>
-          <App />
-        </UserProvider>
+        <App />
       </AuthProvider>
     </QueryClientProvider>
   </React.StrictMode>
