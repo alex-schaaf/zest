@@ -3,15 +3,11 @@ import axios from "axios"
 import { useState } from "react"
 import { useUser } from "@/contexts/user-context"
 import { UserWithSettings } from "@/contexts/auth-context"
-
-const stravaUrl = "https://www.strava.com/api/v3"
-
-interface StravaAPIActivitiesSearchParams {
-  before?: number
-  after?: number
-  page?: number
-  per_page?: number
-}
+import {
+  getStravaActivities,
+  refreshStravaAccessToken,
+  StravaAPIActivitiesSearchParams,
+} from "@/lib/strava.service"
 
 const useStravaSync = (): {
   isLoading: boolean
@@ -28,7 +24,6 @@ const useStravaSync = (): {
   const canSync = getCanSync(user.settings)
 
   const sync = async (searchParams: StravaAPIActivitiesSearchParams = {}) => {
-    console.log("Strava sync started")
     if (
       !user ||
       !user.settings.stravaTokenExpiresAt ||
@@ -42,12 +37,14 @@ const useStravaSync = (): {
       setIsSuccess(null)
 
       if (tokenExpired(user.settings.stravaTokenExpiresAt)) {
-        const refreshedTokens = await refreshToken(user.settings)
+        const refreshedTokens = await refreshStravaAccessToken(user.settings)
         user.settings = { ...user.settings, ...refreshedTokens }
-        await patchUserSettings(user.settings)
+        await patchUserSettings(user)
       }
 
-      const activities = await fetchAthleteActivities(
+      if (!user.settings.stravaAccessToken) return
+
+      const activities = await getStravaActivities(
         user.settings.stravaAccessToken,
         searchParams
       )
@@ -84,50 +81,8 @@ const getCanSync = (settings: Settings): boolean => {
   return true
 }
 
-const refreshToken = async (
-  settings: Settings
-): Promise<{
-  stravaAccessToken: string
-  stravaRefreshToken: string
-  stravaTokenExpiresAt: number
-}> => {
-  const refreshResponse = await axios
-    .get(
-      `${stravaUrl}/oauth/token?` +
-        new URLSearchParams({
-          client_id: settings.stravaClientId.toString(),
-          client_secret: settings.stravaClientSecret,
-          grant_type: "refresh_token",
-          refresh_token: settings.stravaRefreshToken,
-        })
-    )
-    .then((res) => res.data)
-
-  return {
-    stravaAccessToken: refreshResponse.access_token,
-    stravaRefreshToken: refreshResponse.refresh_token,
-    stravaTokenExpiresAt: parseInt(refreshResponse.expires_at),
-  }
-}
-
 const tokenExpired = (expiresAt: number): boolean => {
   return expiresAt <= new Date().getTime() / 1000
-}
-
-const fetchAthleteActivities = async (
-  access_token: string,
-  stravaSearchParams: StravaAPIActivitiesSearchParams = {}
-) => {
-  const searchParams = new URLSearchParams({
-    access_token,
-    ...JSON.parse(JSON.stringify(stravaSearchParams)),
-  })
-
-  const activities = await axios
-    .get(stravaUrl + "/athlete/activities?" + searchParams.toString())
-    .then((res) => res.data)
-
-  return activities
 }
 
 const postActivities = async (userId: number, activities: []) => {
