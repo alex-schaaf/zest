@@ -6,6 +6,10 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "wouter"
+import { StravaActivities } from "@prisma/client"
+
+const dropdownItemStyles =
+  "rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
 
 const Navbar: React.FC = () => {
   const [location] = useLocation()
@@ -77,8 +81,10 @@ const Navbar: React.FC = () => {
             <DropdownMenu.Portal>
               <DropdownMenu.Content className="min-w-[200px] rounded-md border bg-white p-1 text-sm shadow-xl ">
                 <DropdownMenu.Item
-                  className="rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
-                  disabled={canSync}
+                  className={classNames(dropdownItemStyles, {
+                    "text-gray-300": !canSync,
+                  })}
+                  disabled={!canSync}
                   onClick={async () => {
                     await sync()
                   }}
@@ -86,7 +92,7 @@ const Navbar: React.FC = () => {
                   Sync Activities
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator className="my-1 h-[1px] bg-gray-200" />
-                <DropdownMenu.Item className="rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white">
+                <DropdownMenu.Item className={dropdownItemStyles}>
                   Sign out
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
@@ -99,3 +105,7 @@ const Navbar: React.FC = () => {
 }
 
 export default Navbar
+
+const getOldestActivityTime = (activities: StravaActivities[]) => {
+  return new Date(activities[activities.length - 1].startDate).getTime() / 1000
+}

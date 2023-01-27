@@ -6,12 +6,19 @@ import { UserWithSettings } from "../contexts/auth-context"
 
 const stravaUrl = "https://www.strava.com/api/v3"
 
+interface StravaAPIActivitiesSearchParams {
+  before?: number
+  after?: number
+  page?: number
+  per_page?: number
+}
+
 const useStravaSync = (): {
   isLoading: boolean
   isError: boolean
   isSuccess: boolean | null
   canSync: boolean
-  sync: () => Promise<void>
+  sync: (searchParams?: StravaAPIActivitiesSearchParams) => Promise<void>
 } => {
   const { user } = useUser()
   const [isLoading, setIsLoading] = useState(false)
@@ -20,7 +27,7 @@ const useStravaSync = (): {
 
   const canSync = getCanSync(user.settings)
 
-  const sync = async () => {
+  const sync = async (searchParams: StravaAPIActivitiesSearchParams = {}) => {
     console.log("Strava sync started")
     if (
       !user ||
@@ -41,7 +48,8 @@ const useStravaSync = (): {
       }
 
       const activities = await fetchAthleteActivities(
-        user.settings.stravaAccessToken
+        user.settings.stravaAccessToken,
+        searchParams
       )
       await postActivities(user.id, activities)
 
@@ -106,11 +114,17 @@ const tokenExpired = (expiresAt: number): boolean => {
   return expiresAt <= new Date().getTime() / 1000
 }
 
-const fetchAthleteActivities = async (access_token: string) => {
+const fetchAthleteActivities = async (
+  access_token: string,
+  stravaSearchParams: StravaAPIActivitiesSearchParams = {}
+) => {
+  const searchParams = new URLSearchParams({
+    access_token,
+    ...JSON.parse(JSON.stringify(stravaSearchParams)),
+  })
+
   const activities = await axios
-    .get(
-      stravaUrl + "/athlete/activities?" + new URLSearchParams({ access_token }) // page: "8", per_page: "30"
-    )
+    .get(stravaUrl + "/athlete/activities?" + searchParams.toString())
     .then((res) => res.data)
 
   return activities
