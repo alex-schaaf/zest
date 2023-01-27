@@ -24,8 +24,8 @@ const Navbar: React.FC = () => {
   }, [isSuccess])
 
   return (
-    <div className="h-[4rem] border-b bg-white">
-      <div className="h-full container flex justify-between mx-auto items-center">
+    <div className="h-[4rem] border-b bg-white px-6">
+      <div className="container mx-auto flex h-full items-center justify-between">
         <div className="text-4xl">👟</div>
         <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
           <Link
