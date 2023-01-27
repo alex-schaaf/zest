@@ -28,16 +28,3 @@ export const authTokenMiddleware = (
 
   next();
 };
-
-function getCookies(req: Request) {
-  const cookie = req.headers.cookie;
-  const cookiesStr = cookie?.split("; ");
-
-  const cookies: Record<string, string> = {};
-  cookiesStr?.forEach((cookieStr) => {
-    const [key, value] = cookieStr.trim().split("=");
-    cookies[key] = value;
-  });
-
-  return cookies;
-}
