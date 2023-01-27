@@ -15,7 +15,7 @@ type AuthContextType = {
   isLoading: boolean
 }
 
-const AuthContext = createContext<AuthContextType>()
+const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export type UserWithSettings = Users & { settings: Settings }
 
@@ -69,6 +69,12 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   return <AuthContext.Provider value={{ user, login, isLoading }} {...props} />
 }
 
-const useAuth = () => useContext(AuthContext)
+const useAuth = () => {
+  const context = useContext(AuthContext)
+  if (context === undefined) {
+    throw new Error("useAuth context must be used within an AuthProvider")
+  }
+  return context
+}
 
 export { AuthProvider, useAuth }
