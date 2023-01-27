@@ -4,21 +4,31 @@ import usersRouter from "./routes/users";
 import activitiesRouter from "./routes/activities";
 import authRouter from "./routes/auth";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
+import { authTokenMiddleware } from "./middleware";
 
 export const app = express();
 
+const router = express.Router();
+
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cookieParser());
 
-app.get("/", async (req, res) => {
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+
+router.get("/", async (req, res) => {
   res.json({ message: "Hello World!" });
 });
 
-app.use(usersRouter);
-app.use(activitiesRouter);
-app.use(authRouter);
+router.use(authRouter);
+// @ts-ignore
+router.use(authTokenMiddleware); // everything below is authenticated
+router.use(usersRouter);
+router.use(activitiesRouter);
 
-const server = app.listen(3000, () => {
+app.use("/api/v1", router);
+
+app.listen(3000, () => {
   console.log("Server ready at http://localhost:3000");
 });

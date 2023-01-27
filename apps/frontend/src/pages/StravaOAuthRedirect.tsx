@@ -56,11 +56,16 @@ const StravaOAuthRedirect = () => {
 
     const storeStravaAuthTokens = async () => {
       axios
-        .patch(`http://localhost:3000/settings/${user.settingsId}`, {
-          stravaTokenExpiresAt: expires_at,
-          stravaAccessToken: access_token,
-          stravaRefreshToken: refresh_token,
-        })
+        .patch(
+          import.meta.env.VITE_API_URL +
+            `/users/${user.id}/settings/${user.settingsId}`,
+          {
+            stravaTokenExpiresAt: expires_at,
+            stravaAccessToken: access_token,
+            stravaRefreshToken: refresh_token,
+          },
+          { withCredentials: true }
+        )
         .then(() => {
           setLocation("settings")
         })
