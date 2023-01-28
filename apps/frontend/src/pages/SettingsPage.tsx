@@ -4,30 +4,35 @@ import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
 import { Users, Settings } from "@prisma/client"
 
+const formatDateStr = (s: string | number | Date | null) => {
+  if (s == null) return ""
+  return new Date(s).toString()
+}
+
 const options: {
   key: keyof Users
   name: string
-  formatter?: (s: string) => string
+  formatter?: (s: string | number | Date | null) => string
 }[] = [
   { key: "id", name: "ID" },
   { key: "email", name: "EMail" },
   {
     key: "updatedAt",
     name: "Last updated",
-    formatter: (s: string | number | Date) => new Date(s).toString(),
+    formatter: formatDateStr,
   },
 ]
 
 const stravaOptions: {
   key: keyof Settings
   name: string
-  formatter?: (s: string) => string
+  formatter?: (s: string | number | Date | null) => string
 }[] = [
   { key: "stravaClientId", name: "Client ID" },
   {
     key: "stravaTokenExpiresAt",
     name: "Token expires at",
-    formatter: (s: string) => new Date(parseInt(s) * 1000).toString(),
+    formatter: (s) => new Date(parseInt(s) * 1000).toString(),
   },
 ]
 

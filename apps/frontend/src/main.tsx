@@ -4,12 +4,14 @@ import "./index.css"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import dayjs from "dayjs"
 import isoWeek from "dayjs/plugin/isoWeek"
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
 import React from "react"
 import ReactDOM from "react-dom/client"
 
 const queryClient = new QueryClient()
 
 dayjs.extend(isoWeek)
+dayjs.extend(isSameOrBefore)
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
