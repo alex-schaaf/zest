@@ -47,7 +47,7 @@ export const refreshStravaAccessToken = async (
   }
 
   const refreshResponse = await axios
-    .get(
+    .post(
       `${stravaUrl}/oauth/token?` +
         new URLSearchParams({
           client_id: params.stravaClientId?.toString(),
