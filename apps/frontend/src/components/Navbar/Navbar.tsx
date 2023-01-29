@@ -77,7 +77,7 @@ const Navbar: React.FC = () => {
               <button>
                 <Avatar.Root>
                   <Avatar.Fallback className="text-md flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-blue-200 p-2 text-center font-medium text-blue-800">
-                    {!isLoading ? (
+                    {isLoading ? (
                       <ReloadIcon className="h-5 w-5 animate-spin text-blue-600" />
                     ) : (
                       "AS"
