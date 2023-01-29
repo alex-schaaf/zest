@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Stat from "@/components/Stat"
+import { useDashboard } from "@/contexts/dashboard-context"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import { StravaActivities } from "@prisma/client"
 import classNames from "classnames"
+import dayjs from "dayjs"
 import React, { useMemo } from "react"
 
 interface ActivityStats {
@@ -12,53 +14,29 @@ interface ActivityStats {
   averageSpeed: number
 }
 
-export const getActivityStats = (
-  activities: StravaActivities[]
-): ActivityStats => {
-  const totalDistance = activities.reduce(
-    (prev, curr) => (prev += curr.distance / 1000),
-    0
-  )
-  const totalTime = activities.reduce(
-    (prev, curr) => (prev += curr.time / 60),
-    0
-  )
-  const totalElevation = activities.reduce(
-    (prev, curr) => (prev += curr.elevationGain),
-    0
-  )
-  const averageSpeed =
-    activities.reduce((prev, curr) => (prev += curr.speed), 0) /
-    activities.length
+const Activities7DayStats: React.FC = () => {
+  const { activities } = useDashboard()
 
-  return { totalDistance, totalTime, totalElevation, averageSpeed }
-}
-
-interface ActivitiesOverviewProps {
-  start: Date
-  activities: StravaActivities[]
-}
-
-const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
-  start,
-  activities,
-}) => {
   const stats = useMemo(
     () =>
-      activities &&
-      start &&
       getActivityStats(
-        activities.filter((act) => new Date(act.startDate) >= start)
+        activities.filter(
+          (act) =>
+            dayjs(act.startDate) >= dayjs().startOf("day").subtract(7, "days")
+        )
       ),
     [activities]
   )
 
   const statsPrevious = useMemo(
     () =>
-      activities &&
-      start &&
       getActivityStats(
-        activities.filter((act) => new Date(act.startDate) < start)
+        activities.filter(
+          (act) =>
+            dayjs(act.startDate) >=
+              dayjs().startOf("day").subtract(2, "week") &&
+            dayjs(act.startDate) < dayjs().startOf("day").subtract(7, "days")
+        )
       ),
     [activities]
   )
@@ -114,7 +92,7 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
   )
 }
 
-export default ActivitiesOverview
+export default Activities7DayStats
 
 interface TrendBadgeProps {
   current: number
@@ -150,4 +128,26 @@ export const TrendBadge: React.FC<TrendBadgeProps> = ({
       </div>
     )
   }
+}
+
+export const getActivityStats = (
+  activities: StravaActivities[]
+): ActivityStats => {
+  const totalDistance = activities.reduce(
+    (prev, curr) => (prev += curr.distance / 1000),
+    0
+  )
+  const totalTime = activities.reduce(
+    (prev, curr) => (prev += curr.time / 60),
+    0
+  )
+  const totalElevation = activities.reduce(
+    (prev, curr) => (prev += curr.elevationGain),
+    0
+  )
+  const averageSpeed =
+    activities.reduce((prev, curr) => (prev += curr.speed), 0) /
+    activities.length
+
+  return { totalDistance, totalTime, totalElevation, averageSpeed }
 }

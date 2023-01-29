@@ -1,26 +1,19 @@
-import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import DistanceStepChartContainer from "../DistanceStepChartContainer"
-import Loading from "@/components/Loading"
 import Stat from "../Stat"
 import {
   getActivityStats,
   TrendBadge,
-} from "../ActivitiesOverview/ActivitiesOverview"
+} from "../Activities7DayStats/Activities7DayStats"
 import { minutesToHoursAndMinutes } from "@/lib/time"
+import { useDashboard } from "@/contexts/dashboard-context"
 
 const MonthlyOverview: React.FC = () => {
-  const { activities, isLoading, isError } = useActivities(
-    dayjs()
-      .endOf("month")
-      .subtract(dayjs().endOf("month").date() * 2, "days")
-      .toDate()
-  )
+  const { activities } = useDashboard()
 
   const stats = useMemo(
     () =>
-      activities &&
       getActivityStats(
         activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("month"))
       ),
@@ -29,20 +22,16 @@ const MonthlyOverview: React.FC = () => {
 
   const statsPrev = useMemo(
     () =>
-      activities &&
       getActivityStats(
-        activities.filter((a) => dayjs(a.startDate) < dayjs().startOf("month"))
+        activities.filter(
+          (a) =>
+            dayjs(a.startDate) >=
+              dayjs().startOf("month").subtract(1, "month") &&
+            dayjs(a.startDate) < dayjs().startOf("month")
+        )
       ),
     [activities]
   )
-
-  if (isLoading) {
-    return <Loading />
-  }
-
-  if (isError || !activities) {
-    return <div>failed to load</div>
-  }
 
   const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
 

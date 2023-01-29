@@ -1,52 +1,35 @@
-import useActivities from "@/hooks/useActivities"
 import {
   getActivityStats,
   TrendBadge,
-} from "@/components/ActivitiesOverview/ActivitiesOverview"
-import Loading from "@/components/Loading"
+} from "@/components/Activities7DayStats/Activities7DayStats"
 import Stat from "@/components/Stat"
 import React, { useMemo } from "react"
 import { minutesToHoursAndMinutes } from "@/lib/time"
+import { useDashboard } from "@/contexts/dashboard-context"
+import dayjs from "dayjs"
 
 const ActivitiesYearStats: React.FC = () => {
-  const start = new Date(new Date().getFullYear(), 0, 1)
-  const { activities, isLoading, isError } = useActivities(
-    start,
-    undefined,
-    !!start
-  )
-  const {
-    activities: prevAct,
-    isLoading: isLoadingPrev,
-    isError: isErrorPrev,
-  } = useActivities(
-    new Date(new Date().getFullYear() - 1, 0, 1),
-    new Date(
-      new Date().getFullYear() - 1,
-      new Date().getMonth(),
-      new Date().getDate()
-    ),
-    !!start
-  )
+  const { activities } = useDashboard()
 
   const stats = useMemo(
-    () => activities && getActivityStats(activities),
+    () =>
+      getActivityStats(
+        activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year"))
+      ),
     [activities]
   )
+
   const statsPrev = useMemo(
-    () => prevAct && getActivityStats(prevAct),
-    [prevAct]
+    () =>
+      getActivityStats(
+        activities.filter(
+          (a) =>
+            dayjs(a.startDate) >= dayjs().startOf("year").subtract(1, "year") &&
+            dayjs(a.startDate) < dayjs().subtract(1, "year")
+        )
+      ),
+    [activities]
   )
-
-  if (isLoading) return <Loading />
-  if (isError) return <div>failed to fetch</div>
-
-  function toHoursAndMinutes(totalMinutes: number) {
-    const hours = Math.floor(totalMinutes / 60)
-    const minutes = totalMinutes % 60
-
-    return { hours, minutes }
-  }
 
   const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
 

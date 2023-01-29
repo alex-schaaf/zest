@@ -1,4 +1,4 @@
-import ActivitiesOverviewContainer from "./ActivitiesOverviewContainer"
+import ActivitiesOverview from "./Activities7DayStats"
 import "@testing-library/jest-dom"
 import { render, screen } from "@testing-library/react"
 
