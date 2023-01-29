@@ -41,6 +41,14 @@ const Navbar: React.FC = () => {
             Dashboard
           </Link>
           <Link
+            href={"/activities"}
+            className={classNames("hover:cursor-pointer", {
+              "text-blue-600": location === "/activities",
+            })}
+          >
+            Activities
+          </Link>
+          <Link
             href={"/settings"}
             className={classNames("hover:cursor-pointer ", {
               "text-blue-600": location === "/settings",

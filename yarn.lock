@@ -933,6 +933,13 @@
   resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-4.9.0.tgz#05a1411964e047c1bc43f777c7a1c69f86a2a26c"
   integrity sha512-t1pt0Gsp+HcgPJrHFc+d/ZSAaKKWar2G/iakrE07yeKPNavDP3iVKPpfXP22OTCHZUWf7OelwKJxQgKAm5hkgw==
 
+"@radix-ui/number@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/number/-/number-1.0.0.tgz#4c536161d0de750b3f5d55860fc3de46264f897b"
+  integrity sha512-Ofwh/1HX69ZfJRiRBMTy7rgjAzHmwe4kW9C9Y99HTRUcYLUuVT0KESFj15rPjRgKJs20GPq8Bm5aEDJ8DuA3vA==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+
 "@radix-ui/primitive@1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/primitive/-/primitive-1.0.0.tgz#e1d8ef30b10ea10e69c76e896f608d9276352253"
@@ -1125,6 +1132,34 @@
     "@radix-ui/react-use-callback-ref" "1.0.0"
     "@radix-ui/react-use-controllable-state" "1.0.0"
 
+"@radix-ui/react-select@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-select/-/react-select-1.2.0.tgz#9cafa10f7dcc8917e0bfb48d2a651da7b9e476cf"
+  integrity sha512-MmXKsIBrG9GKxt8JKIn75LEPiX/zejBmj/Z36Hxtm9cdmCFzTo78QJ0Q3buLGzr0c3lzXdfgeKntmgCzaGxgkw==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@radix-ui/number" "1.0.0"
+    "@radix-ui/primitive" "1.0.0"
+    "@radix-ui/react-collection" "1.0.1"
+    "@radix-ui/react-compose-refs" "1.0.0"
+    "@radix-ui/react-context" "1.0.0"
+    "@radix-ui/react-direction" "1.0.0"
+    "@radix-ui/react-dismissable-layer" "1.0.2"
+    "@radix-ui/react-focus-guards" "1.0.0"
+    "@radix-ui/react-focus-scope" "1.0.1"
+    "@radix-ui/react-id" "1.0.0"
+    "@radix-ui/react-popper" "1.1.0"
+    "@radix-ui/react-portal" "1.0.1"
+    "@radix-ui/react-primitive" "1.0.1"
+    "@radix-ui/react-slot" "1.0.1"
+    "@radix-ui/react-use-callback-ref" "1.0.0"
+    "@radix-ui/react-use-controllable-state" "1.0.0"
+    "@radix-ui/react-use-layout-effect" "1.0.0"
+    "@radix-ui/react-use-previous" "1.0.0"
+    "@radix-ui/react-visually-hidden" "1.0.1"
+    aria-hidden "^1.1.1"
+    react-remove-scroll "2.5.5"
+
 "@radix-ui/react-slot@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-slot/-/react-slot-1.0.1.tgz#e7868c669c974d649070e9ecbec0b367ee0b4d81"
@@ -1179,6 +1214,13 @@
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.0.0.tgz#2fc19e97223a81de64cd3ba1dc42ceffd82374dc"
   integrity sha512-6Tpkq+R6LOlmQb1R5NNETLG0B4YP0wc+klfXafpUCj6JGyaUc8il7/kUZ7m59rGbXGczE9Bs+iz2qloqsZBduQ==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+
+"@radix-ui/react-use-previous@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@radix-ui/react-use-previous/-/react-use-previous-1.0.0.tgz#e48a69c3a7d8078a967084038df66d0d181c56ac"
+  integrity sha512-RG2K8z/K7InnOKpq6YLDmT49HGjNmrK+fr82UCVKT2sW0GYfVnYp4wZWBooT/EYfQ5faA9uIjvsuMMhH61rheg==
   dependencies:
     "@babel/runtime" "^7.13.10"
 
@@ -1295,6 +1337,18 @@
   dependencies:
     "@tanstack/query-core" "4.22.4"
     use-sync-external-store "^1.2.0"
+
+"@tanstack/react-table@^8.7.8":
+  version "8.7.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-table/-/react-table-8.7.8.tgz#3e655a39f4c19bb9a5346e171f3112b4eeb3b576"
+  integrity sha512-XNfNuY9qJEk5urJWGYPWNj4POtBTuYunQNfmUla/ZUobVSS+ZIWt6wnL6kI12QNpPrf4uSVAYelUVl245nnQjQ==
+  dependencies:
+    "@tanstack/table-core" "8.7.8"
+
+"@tanstack/table-core@8.7.8":
+  version "8.7.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/table-core/-/table-core-8.7.8.tgz#20c9bad75981e431ddc666e0dd532eb813e1e451"
+  integrity sha512-OvKx7v0qJTyPkMhqsWzVPZnARiqdGvDvEg8tZ/GSQs7t0Vb2sdtkGg7cdzUZ67sIg9o5/gSwvvT84ouSaP8euA==
 
 "@testing-library/dom@^8.5.0":
   version "8.20.0"

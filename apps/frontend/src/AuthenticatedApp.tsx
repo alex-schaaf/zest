@@ -4,6 +4,7 @@ import SettingsPage from "@/pages/SettingsPage"
 import StravaOAuthRedirect from "@/pages/StravaOAuthRedirect"
 import * as Toast from "@radix-ui/react-toast"
 import { Route } from "wouter"
+import Activities from "@/pages/Activities"
 
 const AuthenticatedApp = () => {
   return (
@@ -13,6 +14,9 @@ const AuthenticatedApp = () => {
       <main className="p-6">
         <Route path="/">
           <Dashboard />
+        </Route>
+        <Route path="/activities">
+          <Activities />
         </Route>
         <Route path="/settings">
           <SettingsPage />
