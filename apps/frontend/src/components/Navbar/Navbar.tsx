@@ -1,12 +1,12 @@
 import useStravaSync from "@/hooks/useStravaSync"
 import ToastMessage from "@/components/ToastMessage"
-import { ArrowPathIcon } from "@heroicons/react/24/outline"
 import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "wouter"
 import { StravaActivities } from "@prisma/client"
+import { ReloadIcon, UpdateIcon } from "@radix-ui/react-icons"
 
 const dropdownItemStyles =
   "rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
@@ -76,9 +76,9 @@ const Navbar: React.FC = () => {
             <DropdownMenu.Trigger asChild>
               <button>
                 <Avatar.Root>
-                  <Avatar.Fallback className="text-md flex h-[2.5rem] w-[2.5rem] justify-center rounded-full bg-blue-200 p-2 text-center font-medium text-blue-800">
-                    {isLoading ? (
-                      <ArrowPathIcon className="h-6 w-6 animate-spin text-blue-600" />
+                  <Avatar.Fallback className="text-md flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-blue-200 p-2 text-center font-medium text-blue-800">
+                    {!isLoading ? (
+                      <ReloadIcon className="h-5 w-5 animate-spin text-blue-600" />
                     ) : (
                       "AS"
                     )}
