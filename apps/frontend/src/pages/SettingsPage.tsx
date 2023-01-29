@@ -40,7 +40,7 @@ const SettingsView = () => {
   const { user } = useUser()
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="container mx-auto flex flex-col gap-4">
       <Card>
         <DescriptionList>
           <DescriptionList.Header>
