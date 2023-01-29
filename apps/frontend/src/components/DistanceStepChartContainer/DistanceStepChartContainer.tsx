@@ -1,26 +1,24 @@
-import React, { useEffect, useRef, useState } from "react"
 import Card from "@/components/Card"
 import DistanceStepChart from "../DistanceStepChart/DistanceStepChart"
+import { StravaActivities } from "@prisma/client"
+import { ParentSize } from "@visx/responsive"
 
-const DistanceStepChartContainer: React.FC = () => {
-  const ref = useRef<any>(null)
+interface Props {
+  activities: StravaActivities[]
+}
 
-  const [{ width, height }, setDimensions] = useState({ width: 0, height: 0 })
-
-  useEffect(() => {
-    if (ref.current) {
-      setDimensions({
-        width: ref.current.offsetWidth,
-        height: ref.current.offsetHeight,
-      })
-    }
-  }, [])
-
+const DistanceStepChartContainer: React.FC<Props> = ({ activities }) => {
   return (
-    <Card className="">
-      <div ref={ref} className="h-36">
-        <DistanceStepChart width={width} height={height} />
-      </div>
+    <Card>
+      <ParentSize>
+        {(parent) => (
+          <DistanceStepChart
+            activities={activities}
+            width={parent.width}
+            height={parent.height}
+          />
+        )}
+      </ParentSize>
     </Card>
   )
 }

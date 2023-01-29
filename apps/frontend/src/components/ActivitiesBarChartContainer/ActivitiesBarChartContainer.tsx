@@ -4,6 +4,7 @@ import Card from "@/components/Card"
 import Loading from "@/components/Loading"
 import { StravaActivities } from "@prisma/client"
 import React, { useEffect, useRef, useState } from "react"
+import { ParentSize } from "@visx/responsive"
 
 const ActivitiesBarChartContainer: React.FC = () => {
   const ref = useRef<any>(null)
@@ -30,14 +31,16 @@ const ActivitiesBarChartContainer: React.FC = () => {
   if (isError) return <div>fialed to fetch</div>
 
   return (
-    <Card>
-      <div ref={ref} className="h-48">
-        <ActivitiesBarChart
-          activities={activities as StravaActivities[]}
-          width={width}
-          height={height}
-        />
-      </div>
+    <Card className="h-64">
+      <ParentSize>
+        {(parent) => (
+          <ActivitiesBarChart
+            activities={activities as StravaActivities[]}
+            width={parent.width}
+            height={parent.height}
+          />
+        )}
+      </ParentSize>
     </Card>
   )
 }
