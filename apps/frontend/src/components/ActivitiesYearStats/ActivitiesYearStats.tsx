@@ -6,6 +6,7 @@ import {
 import Loading from "@/components/Loading"
 import Stat from "@/components/Stat"
 import React, { useMemo } from "react"
+import { minutesToHoursAndMinutes } from "@/lib/time"
 
 const ActivitiesYearStats: React.FC = () => {
   const start = new Date(new Date().getFullYear(), 0, 1)
@@ -47,7 +48,7 @@ const ActivitiesYearStats: React.FC = () => {
     return { hours, minutes }
   }
 
-  const { hours, minutes } = toHoursAndMinutes(stats?.totalTime)
+  const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
 
   return (
     <div className="flex gap-4">

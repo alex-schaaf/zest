@@ -4,6 +4,7 @@ import ActivitiesYearStats from "@/components/ActivitiesYearStats"
 import Card from "@/components/Card"
 import DistanceStepChart from "@/components/DistanceStepChart"
 import DistanceStepChartContainer from "@/components/DistanceStepChartContainer"
+import MonthlyOverview from "@/components/MonthlyOverview"
 import { PropsWithChildren } from "react"
 
 const Home = () => {
@@ -12,9 +13,7 @@ const Home = () => {
       <SectionHeader>Last 7 days</SectionHeader>
       <ActivitiesOverviewContainer />
       <SectionHeader>This Month in running</SectionHeader>
-      <div className="grid grid-cols-2">
-        <DistanceStepChartContainer />
-      </div>
+      <MonthlyOverview />
       <SectionHeader>This year in running</SectionHeader>
       <ActivitiesYearStats />
       <ActivitiesBarChartContainer />

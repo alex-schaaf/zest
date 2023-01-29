@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Stat from "@/components/Stat"
+import { minutesToHoursAndMinutes } from "@/lib/time"
 import { StravaActivities } from "@prisma/client"
 import classNames from "classnames"
 import React, { useMemo } from "react"
@@ -62,6 +63,8 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
     [activities]
   )
 
+  const { hours, minutes } = minutesToHoursAndMinutes(stats.totalTime)
+
   return (
     <div className="space-y-4">
       <div className="flex gap-4">
@@ -82,19 +85,17 @@ const ActivitiesOverview: React.FC<ActivitiesOverviewProps> = ({
           <Stat.Title>Total Time</Stat.Title>
           <Stat.Value>
             <div className="flex items-end justify-between ">
-              <div>{stats?.totalTime?.toFixed(0)}min</div>
+              <div>
+                {hours}h {minutes.toFixed(0)}min
+              </div>
               <TrendBadge
                 current={stats?.totalTime}
                 previous={statsPrevious?.totalTime}
-                unit={"m"}
+                unit={"min"}
               />
             </div>
           </Stat.Value>
         </Stat>
-        {/* <Stat className="flex-grow">
-          <Stat.Title>Average Speed</Stat.Title>
-          <Stat.Value>{stats?.averageSpeed?.toFixed(2)} m/s</Stat.Value>
-        </Stat> */}
         <Stat className="flex-grow">
           <Stat.Title>Total Elevation Gain</Stat.Title>
           <Stat.Value>

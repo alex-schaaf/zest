@@ -3,7 +3,11 @@ import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "@/lib/axios"
 
-const useActivities = (start?: Date, end?: Date, enabled?: boolean) => {
+const useActivities = (
+  start: Date | undefined = undefined,
+  end?: Date,
+  enabled?: boolean
+) => {
   const { user } = useUser()
 
   const urlParams = new URLSearchParams()

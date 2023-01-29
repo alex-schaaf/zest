@@ -1,6 +1,4 @@
 import React, { useMemo } from "react"
-import Loading from "@/components/Loading"
-import useActivities from "@/hooks/useActivities"
 
 import { StravaActivities } from "@prisma/client"
 import dayjs from "dayjs"
@@ -11,21 +9,16 @@ import { curveMonotoneX } from "@visx/curve"
 import { scaleLinear } from "@visx/scale"
 
 interface Props {
+  activities: StravaActivities[]
   width: number
   height: number
 }
 
-const DistanceStepChart: React.FC<Props> = ({ width, height }) => {
-  const { activities, isLoading } = useActivities()
-
+const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
   const data = useMemo(
     () => (activities ? getData(activities) : []),
     [activities]
   )
-
-  if (isLoading || !data) {
-    return <Loading />
-  }
 
   const margin = { top: 4, right: 4, bottom: 4, left: 4 }
 
