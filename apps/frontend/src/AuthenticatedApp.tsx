@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar"
-import Home from "@/pages/Home"
+import Dashboard from "@/pages/Dashboard"
 import SettingsPage from "@/pages/SettingsPage"
 import StravaOAuthRedirect from "@/pages/StravaOAuthRedirect"
 import * as Toast from "@radix-ui/react-toast"
@@ -12,7 +12,7 @@ const AuthenticatedApp = () => {
       <Navbar />
       <main className="p-6">
         <Route path="/">
-          <Home />
+          <Dashboard />
         </Route>
         <Route path="/settings">
           <SettingsPage />
