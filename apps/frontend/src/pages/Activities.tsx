@@ -6,6 +6,7 @@ import Card from "@/components/Card"
 import ActivitiesTable from "@/components/ActivitiesTable"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import dayjs from "dayjs"
+import Button from "ui/components/Button"
 
 const options = [
   {
@@ -42,12 +43,12 @@ const Activities = () => {
       <Card className="">
         <Select.Root value={start} onValueChange={setStart}>
           <Select.Trigger>
-            <button className="group inline-flex select-none items-center justify-center gap-1 rounded-md px-4 py-2 text-sm font-medium">
+            <Button>
               <Select.Value />
               <Select.Icon>
                 <ChevronDownIcon />
               </Select.Icon>
-            </button>
+            </Button>
           </Select.Trigger>
 
           <Select.Content className="rounded-lg border bg-white p-2 shadow-lg">

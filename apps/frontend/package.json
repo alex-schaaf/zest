@@ -26,7 +26,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "use-query-params": "^2.1.2",
-    "wouter": "^2.9.2"
+    "wouter": "^2.9.2",
+    "ui": "*"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.5",
