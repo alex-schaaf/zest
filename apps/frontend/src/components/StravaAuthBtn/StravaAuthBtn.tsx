@@ -1,4 +1,7 @@
-const StravaAuthBtn = () => {
+import { PropsWithChildren } from "react"
+import Button from "ui/components/Button"
+
+const StravaAuthBtn: React.FC<PropsWithChildren> = (props) => {
   const urlParams = new URLSearchParams({
     client_id: "47083",
     redirect_uri: "http://localhost:5173/auth/strava",
@@ -9,9 +12,9 @@ const StravaAuthBtn = () => {
   stravaUrl.search = urlParams
 
   return (
-    <button className="rounded bg-orange-500 px-4 py-2 text-white hover:bg-orange-400">
-      <a href={stravaUrl.toString()}>Authorize Strava</a>
-    </button>
+    <a href={stravaUrl.toString()} className="flex">
+      <Button>{props.children}</Button>
+    </a>
   )
 }
 

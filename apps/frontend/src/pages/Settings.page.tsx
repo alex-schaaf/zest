@@ -3,6 +3,15 @@ import DescriptionList from "@/components/DescriptionList"
 import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
 import { Users, Settings } from "@prisma/client"
+import {
+  CheckIcon,
+  Cross2Icon,
+  LockClosedIcon,
+  Pencil1Icon,
+  Pencil2Icon,
+} from "@radix-ui/react-icons"
+import { ReactNode } from "react"
+import Button from "ui/components/Button"
 
 const formatDateStr = (s: string | number | Date | null) => {
   if (s == null) return ""
@@ -26,9 +35,19 @@ const options: {
 const stravaOptions: {
   key: keyof Settings
   name: string
-  formatter?: (s: string | number | Date | null) => string
+  formatter?: (s: string | number | Date | null) => string | ReactNode
 }[] = [
   { key: "stravaClientId", name: "Client ID" },
+  {
+    key: "stravaClientSecret",
+    name: "Client Secret",
+    formatter: (s) =>
+      s ? (
+        <CheckIcon className="text-green-700" />
+      ) : (
+        <Cross2Icon className="text-red-700" />
+      ),
+  },
   {
     key: "stravaTokenExpiresAt",
     name: "Token expires at",
@@ -63,15 +82,20 @@ const SettingsView = () => {
       <Card>
         <DescriptionList>
           <DescriptionList.Header>
-            <div className="flex">
+            <div className="flex items-start">
               <div className="flex-grow">
                 <DescriptionList.Title>Strava</DescriptionList.Title>
                 <DescriptionList.Subtitle>
                   Strava details and settings.
                 </DescriptionList.Subtitle>
               </div>
-              <div className="">
-                <StravaAuthBtn />
+              <div className="flex gap-2">
+                <Button>
+                  <Pencil1Icon /> Edit
+                </Button>
+                <StravaAuthBtn>
+                  <LockClosedIcon /> Authorize Strava
+                </StravaAuthBtn>
               </div>
             </div>
           </DescriptionList.Header>
