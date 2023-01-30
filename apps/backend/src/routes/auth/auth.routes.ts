@@ -35,10 +35,7 @@ router.post(
 );
 
 router.post("/auth/logout", (req, res) => {
-  return res
-    .status(204)
-    .cookie("token", "", { httpOnly: true, secure: true, sameSite: true })
-    .end();
+  return res.status(204).clearCookie("token").end();
 });
 
 export default router;

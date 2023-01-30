@@ -6,7 +6,8 @@ import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { Link, useLocation } from "wouter"
 import { StravaActivities } from "@prisma/client"
-import { ReloadIcon, UpdateIcon } from "@radix-ui/react-icons"
+import { ReloadIcon } from "@radix-ui/react-icons"
+import { useAuth } from "@/contexts/auth-context"
 
 const dropdownItemStyles =
   "rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
@@ -17,6 +18,7 @@ const Navbar: React.FC = () => {
   const [openSuccess, setOpenSuccess] = useState(false)
 
   const { isLoading, isError, isSuccess, canSync, sync } = useStravaSync()
+  const { logout } = useAuth()
 
   useEffect(() => {
     setOpenError(isError)
@@ -100,7 +102,12 @@ const Navbar: React.FC = () => {
                   Sync Activities
                 </DropdownMenu.Item>
                 <DropdownMenu.Separator className="my-1 h-[1px] bg-gray-200" />
-                <DropdownMenu.Item className={dropdownItemStyles}>
+                <DropdownMenu.Item
+                  className={dropdownItemStyles}
+                  onClick={async () => {
+                    await logout()
+                  }}
+                >
                   Sign out
                 </DropdownMenu.Item>
               </DropdownMenu.Content>

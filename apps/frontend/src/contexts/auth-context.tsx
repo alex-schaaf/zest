@@ -12,6 +12,7 @@ import {
 type AuthContextType = {
   user?: UserWithSettings
   login: (email: string, password: string) => Promise<void>
+  logout: () => Promise<void>
   isLoading: boolean
 }
 
@@ -64,9 +65,22 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   }
 
   const register = () => {}
-  const logout = () => {}
 
-  return <AuthContext.Provider value={{ user, login, isLoading }} {...props} />
+  const logout = async () => {
+    try {
+      await axios.post("/auth/logout")
+      setUser(undefined)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  return (
+    <AuthContext.Provider
+      value={{ user, login, logout, isLoading }}
+      {...props}
+    />
+  )
 }
 
 const useAuth = () => {
