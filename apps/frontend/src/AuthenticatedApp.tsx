@@ -1,10 +1,10 @@
 import Navbar from "@/components/Navbar"
-import Dashboard from "@/pages/Dashboard.page"
-import Settings from "@/pages/Settings.page"
-import StravaOAuthRedirect from "@/pages/StravaOAuthRedirect.page"
+import Dashboard from "@/pages/Dashboard"
+import Settings from "@/pages/Settings"
+import StravaOAuthRedirect from "@/pages/StravaOAuthRedirect"
 import * as Toast from "@radix-ui/react-toast"
 import { Route } from "wouter"
-import Activities from "@/pages/Activities.page"
+import Activities from "@/pages/Activities"
 
 const AuthenticatedApp = () => {
   return (

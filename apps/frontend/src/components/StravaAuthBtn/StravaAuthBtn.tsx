@@ -1,5 +1,5 @@
 import { PropsWithChildren } from "react"
-import Button from "ui/components/Button"
+import Button from "@/components/ui/Button"
 
 const StravaAuthBtn: React.FC<PropsWithChildren> = (props) => {
   const urlParams = new URLSearchParams({

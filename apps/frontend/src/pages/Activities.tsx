@@ -1,12 +1,11 @@
 import React, { useState } from "react"
 import * as Select from "@radix-ui/react-select"
 import useActivities from "@/hooks/useActivities"
-import classNames from "classnames"
 import Card from "@/components/Card"
 import ActivitiesTable from "@/components/ActivitiesTable"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import dayjs from "dayjs"
-import Button from "ui/components/Button"
+import Button from "@/components/ui/Button"
 
 const options = [
   {

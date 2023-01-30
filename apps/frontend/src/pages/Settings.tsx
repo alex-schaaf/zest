@@ -4,14 +4,15 @@ import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
 import { Users, Settings } from "@prisma/client"
 import {
+  ButtonIcon,
   CheckIcon,
   Cross2Icon,
   LockClosedIcon,
   Pencil1Icon,
-  Pencil2Icon,
 } from "@radix-ui/react-icons"
-import { ReactNode } from "react"
-import Button from "ui/components/Button"
+import { ReactNode, useState } from "react"
+import Button from "@/components/ui/Button"
+import * as Dialog from "@radix-ui/react-dialog"
 
 const formatDateStr = (s: string | number | Date | null) => {
   if (s == null) return ""
@@ -57,6 +58,8 @@ const stravaOptions: {
 
 const SettingsView = () => {
   const { user } = useUser()
+
+  const [isOpen, setIsOpen] = useState(false)
 
   return (
     <div className="container mx-auto flex flex-col gap-4">

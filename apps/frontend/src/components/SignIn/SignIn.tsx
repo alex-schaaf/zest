@@ -1,6 +1,8 @@
 import Card from "@/components/Card"
 import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
+import Button from "../ui/Button"
+import { EnterIcon } from "@radix-ui/react-icons"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("email@example.com")
@@ -61,15 +63,21 @@ const SignIn: React.FC = () => {
               <a>Forgot your password?</a>
             </div>
           </div>
-          <button
+          <Button
             onClick={(e) => {
               e.preventDefault()
               handleSubmit()
             }}
-            className="rounded bg-primary-600 px-3 py-2 text-sm font-medium text-white shadow-sm transition-colors hover:bg-primary-700"
+            intent="primary"
           >
-            {isLoading ? "loading" : "Sign in"}
-          </button>
+            {isLoading ? (
+              "loading"
+            ) : (
+              <>
+                <EnterIcon /> Sign in
+              </>
+            )}
+          </Button>
         </form>
       </Card>
     </div>
