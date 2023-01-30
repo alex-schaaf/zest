@@ -8,6 +8,7 @@ import {
   refreshStravaAccessToken,
   StravaAPIActivitiesSearchParams,
 } from "@/lib/strava.service"
+import { useQueryClient } from "@tanstack/react-query"
 
 const useStravaSync = (): {
   isLoading: boolean
@@ -20,6 +21,8 @@ const useStravaSync = (): {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
+
+  const queryClient = useQueryClient()
 
   const canSync = getCanSync(user.settings)
 
@@ -51,6 +54,7 @@ const useStravaSync = (): {
       await postActivities(user.id, activities)
 
       setIsSuccess(true)
+      queryClient.invalidateQueries({ queryKey: ["activities"] })
     } catch (err) {
       setIsError(true)
       setIsSuccess(false)
