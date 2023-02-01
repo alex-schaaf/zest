@@ -28,15 +28,15 @@ const Header: React.FC<PropsWithChildren> = (props) => {
 
 const Title: React.FC<PropsWithChildren> = (props) => {
   return (
-    <dt className="text-lg font-medium leading-6 text-gray-900">
+    <div className="text-lg font-medium leading-6 text-gray-900">
       {props.children}
-    </dt>
+    </div>
   )
 }
 
 const Subtitle: React.FC<PropsWithChildren> = (props) => {
   return (
-    <dt className="mt-1 max-w-2xl text-sm text-gray-500">{props.children}</dt>
+    <div className="mt-1 max-w-2xl text-sm text-gray-500">{props.children}</div>
   )
 }
 

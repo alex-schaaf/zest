@@ -8,12 +8,14 @@ import {
   useEffect,
   useState,
 } from "react"
+import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 type AuthContextType = {
   user?: UserWithSettings
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   isLoading: boolean
+  isError: boolean
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -22,24 +24,17 @@ export type UserWithSettings = Users & { settings: Settings }
 
 const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
+  const queryClient = useQueryClient()
 
-  const [user, setUser] = useState<UserWithSettings>()
-
-  useEffect(() => {
-    if (user !== undefined) return
-
-    const getUserWithCookieToken = async () => {
-      const user = await axios.get("/users").then((res) => res.data)
-      if (!user) return
-      setUser(user)
-    }
-
-    getUserWithCookieToken()
-  }, [user])
-
-  if (isLoading) {
-    return <Loading />
-  }
+  const {
+    data: user,
+    isLoading: isLoadingUser,
+    isError,
+  } = useQuery<UserWithSettings>({
+    queryKey: ["user"],
+    queryFn: () => axios.get("/users").then((res) => res.data),
+    retry: 0,
+  })
 
   const login = async (email: string, password: string) => {
     setIsLoading(true)
@@ -52,11 +47,10 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
       localStorage.setItem("iat", iat)
       localStorage.setItem("exp", exp)
 
-      const user = await axios
-        .get<UserWithSettings>(`/users/${userId}`)
-        .then((res) => res.data)
-
-      setUser(user)
+      await queryClient.fetchQuery<UserWithSettings>({
+        queryKey: ["user"],
+        queryFn: () => axios.get(`/users/${userId}`).then((res) => res.data),
+      })
     } catch (err) {
       console.error(err)
     } finally {
@@ -69,7 +63,8 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const logout = async () => {
     try {
       await axios.post("/auth/logout")
-      setUser(undefined)
+      queryClient.invalidateQueries({ queryKey: ["user"] })
+      queryClient.setQueryData(["user"], undefined)
     } catch (err) {
       console.error(err)
     }
@@ -77,7 +72,13 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, login, logout, isLoading }}
+      value={{
+        user,
+        login,
+        logout,
+        isLoading: !isError && (isLoading || isLoadingUser),
+        isError,
+      }}
       {...props}
     />
   )

@@ -5,3 +5,34 @@
 body {
   @apply bg-gray-100;
 }
+
+.DialogOverlay {
+  @apply bg-black fixed inset-0 opacity-50
+}
+
+.DialogContent {
+  @apply bg-white rounded-lg p-6 fixed w-96  shadow-xl;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%)
+}
+
+.DialogTitle {
+  @apply font-bold text-lg;
+}
+
+.DialogDescription {
+  @apply mt-2 mb-4 text-sm;
+}
+
+.LabelRoot {
+  @apply text-sm text-gray-600 font-medium;
+}
+
+fieldset {
+  @apply flex flex-col
+}
+
+input {
+  @apply border py-2 px-2 rounded-md border-gray-300 text-sm shadow-sm;
+}

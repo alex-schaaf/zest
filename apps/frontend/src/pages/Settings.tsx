@@ -4,7 +4,6 @@ import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
 import { Users, Settings } from "@prisma/client"
 import {
-  ButtonIcon,
   CheckIcon,
   Cross2Icon,
   LockClosedIcon,
@@ -13,6 +12,7 @@ import {
 import { ReactNode, useState } from "react"
 import Button from "@/components/ui/Button"
 import * as Dialog from "@radix-ui/react-dialog"
+import SettingsStravaForm from "@/components/SettingsStravaForm"
 
 const formatDateStr = (s: string | number | Date | null) => {
   if (s == null) return ""
@@ -24,8 +24,8 @@ const options: {
   name: string
   formatter?: (s: string | number | Date | null) => string
 }[] = [
-  { key: "id", name: "ID" },
-  { key: "email", name: "EMail" },
+  { key: "id", name: "User ID" },
+  { key: "email", name: "Email address" },
   {
     key: "updatedAt",
     name: "Last updated",
@@ -93,9 +93,25 @@ const SettingsView = () => {
                 </DescriptionList.Subtitle>
               </div>
               <div className="flex gap-2">
-                <Button>
-                  <Pencil1Icon /> Edit
-                </Button>
+                <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
+                  <Dialog.Trigger asChild>
+                    <Button>
+                      <Pencil1Icon /> Edit
+                    </Button>
+                  </Dialog.Trigger>
+                  <Dialog.Portal>
+                    <Dialog.Overlay className="DialogOverlay" />
+                    <Dialog.Content className="DialogContent">
+                      <Dialog.Title className="DialogTitle">
+                        Edit Strava Settings
+                      </Dialog.Title>
+                      <Dialog.Description className="DialogDescription">
+                        Update your Strava API integration settings.
+                      </Dialog.Description>
+                      <SettingsStravaForm user={user} setOpen={setIsOpen} />
+                    </Dialog.Content>
+                  </Dialog.Portal>
+                </Dialog.Root>
                 <StravaAuthBtn>
                   <LockClosedIcon /> Authorize Strava
                 </StravaAuthBtn>

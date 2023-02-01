@@ -8,16 +8,20 @@ import {
 } from "../Activities7DayStats/Activities7DayStats"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import { useDashboard } from "@/contexts/dashboard-context"
+import Card from "../Card"
 
 const MonthlyOverview: React.FC = () => {
   const { activities } = useDashboard()
 
-  const stats = useMemo(
+  const thisMonthsActivities = useMemo(
     () =>
-      getActivityStats(
-        activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("month"))
-      ),
+      activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("month")),
     [activities]
+  )
+
+  const stats = useMemo(
+    () => getActivityStats(thisMonthsActivities),
+    [thisMonthsActivities]
   )
 
   const statsPrev = useMemo(
@@ -34,6 +38,13 @@ const MonthlyOverview: React.FC = () => {
   )
 
   const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
+
+  if (thisMonthsActivities.length === 0)
+    return (
+      <Card className="justify-center py-12 text-center text-sm font-medium">
+        No activities recorded for this month yet.
+      </Card>
+    )
 
   return (
     <div className="grid grid-cols-3 items-stretch gap-4">
@@ -71,7 +82,7 @@ const MonthlyOverview: React.FC = () => {
           <Stat.Title>Total Elevation Gain</Stat.Title>
           <Stat.Value>
             <div className="flex items-end justify-between ">
-              <div>{stats?.totalElevation?.toFixed(0)}km</div>
+              <div>{stats?.totalElevation?.toFixed(0)}m</div>
               <TrendBadge
                 current={stats?.totalElevation}
                 previous={statsPrev?.totalElevation}
