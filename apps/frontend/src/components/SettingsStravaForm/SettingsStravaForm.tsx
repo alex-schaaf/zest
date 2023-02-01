@@ -44,7 +44,7 @@ const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
     const cleanedData = Object.entries(data)
       .filter(([_, v]) => v !== "")
       .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {})
-    mutation.mutate(cleanedData)
+    mutation.mutate(cleanedData as unknown as void)
   }
 
   return (

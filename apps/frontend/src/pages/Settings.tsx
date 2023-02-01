@@ -52,7 +52,8 @@ const stravaOptions: {
   {
     key: "stravaTokenExpiresAt",
     name: "Token expires at",
-    formatter: (s) => new Date(parseInt(s) * 1000).toString(),
+    formatter: (s) =>
+      new Date(parseInt(s as unknown as string) * 1000).toString(),
   },
 ]
 
