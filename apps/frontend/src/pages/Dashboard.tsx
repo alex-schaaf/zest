@@ -9,6 +9,7 @@ import dayjs from "dayjs"
 import { PropsWithChildren } from "react"
 import ErrorMessage from "@/components/ui/ErrorMessage"
 import Card from "@/components/Card"
+import YearlyOverview from "@/components/YearlyOverview"
 
 const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities(
@@ -50,8 +51,7 @@ const Dashboard = () => {
         <SectionHeader>This Month in running</SectionHeader>
         <MonthlyOverview />
         <SectionHeader>This year in running</SectionHeader>
-        <ActivitiesYearStats />
-        <ActivitiesBarChartContainer />
+        <YearlyOverview />
       </div>
     </DashboardContext.Provider>
   )
