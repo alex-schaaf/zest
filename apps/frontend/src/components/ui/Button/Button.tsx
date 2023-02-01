@@ -18,7 +18,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
           "bg-primary-500 text-white hover:bg-primary-600":
             intent === "primary",
           "bg-gray-100 hover:bg-gray-200": intent === "secondary" || !intent,
-          "bg-red-500 text-white hover:bg-red-600": intent === "danger",
+          "bg-danger-500 text-white hover:bg-danger-600": intent === "danger",
           "bg-emerald-500 text-white hover:bg-emerald-600":
             intent === "success",
         }

@@ -19,8 +19,8 @@ const ToastMessage: React.FC<Props> = (props) => {
     >
       <Toast.Title
         className={classNames("font-semibold", {
-          "text-green-600": props.intent === "success",
-          "text-red-600": props.intent === "failure",
+          "text-success-600": props.intent === "success",
+          "text-danger-600": props.intent === "failure",
         })}
       >
         {props.title}

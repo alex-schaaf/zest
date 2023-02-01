@@ -94,7 +94,7 @@ const SignIn: React.FC = () => {
           </Button>
         </form>
         {error && (
-          <div className="mt-4 bg-red-50 p-4">
+          <div className="mt-4 bg-danger-50 p-4">
             <ErrorMessage text={"Invalid credentials"} />
           </div>
         )}

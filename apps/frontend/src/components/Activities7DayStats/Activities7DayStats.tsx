@@ -109,21 +109,21 @@ export const TrendBadge: React.FC<TrendBadgeProps> = ({
 
   if (current === previous) {
     return (
-      <div className={classNames(style, "bg-orange-100 text-orange-500")}>
+      <div className={classNames(style, "bg-warning-100 text-warning-500")}>
         - {unit}
       </div>
     )
   } else if (current > previous) {
     const ratio = current - previous
     return (
-      <div className={classNames(style, "bg-green-100 text-green-500")}>
+      <div className={classNames(style, "bg-success-100 text-success-500")}>
         ↑ {ratio.toFixed(1)} {unit}
       </div>
     )
   } else {
     const ratio = previous - current
     return (
-      <div className={classNames(style, "bg-red-100 text-red-500")}>
+      <div className={classNames(style, "bg-danger-100 text-danger-500")}>
         ↓ {ratio.toFixed(1)} {unit}
       </div>
     )

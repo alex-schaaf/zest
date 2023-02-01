@@ -44,9 +44,9 @@ const stravaOptions: {
     name: "Client Secret",
     formatter: (s) =>
       s ? (
-        <CheckIcon className="text-green-700" />
+        <CheckIcon className="text-success-700" />
       ) : (
-        <Cross2Icon className="text-red-700" />
+        <Cross2Icon className="text-danger-700" />
       ),
   },
   {
