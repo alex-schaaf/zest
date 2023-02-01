@@ -3,9 +3,9 @@ import Stat from "@/components/Stat"
 import { useDashboard } from "@/contexts/dashboard-context"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import { StravaActivities } from "@prisma/client"
-import classNames from "classnames"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
+import TrendBadge from "@/components/ui/TrendBadge"
 
 interface ActivityStats {
   totalDistance: number
@@ -93,42 +93,6 @@ const Activities7DayStats: React.FC = () => {
 }
 
 export default Activities7DayStats
-
-interface TrendBadgeProps {
-  current: number
-  previous: number
-  unit?: string
-}
-
-export const TrendBadge: React.FC<TrendBadgeProps> = ({
-  current,
-  previous,
-  unit,
-}) => {
-  const style = "text-sm px-2 py-1 rounded-md"
-
-  if (current === previous) {
-    return (
-      <div className={classNames(style, "bg-warning-100 text-warning-500")}>
-        - {unit}
-      </div>
-    )
-  } else if (current > previous) {
-    const ratio = current - previous
-    return (
-      <div className={classNames(style, "bg-success-100 text-success-500")}>
-        ↑ {ratio.toFixed(1)} {unit}
-      </div>
-    )
-  } else {
-    const ratio = previous - current
-    return (
-      <div className={classNames(style, "bg-danger-100 text-danger-500")}>
-        ↓ {ratio.toFixed(1)} {unit}
-      </div>
-    )
-  }
-}
 
 export const getActivityStats = (
   activities: StravaActivities[]

@@ -1,12 +1,10 @@
-import {
-  getActivityStats,
-  TrendBadge,
-} from "@/components/Activities7DayStats/Activities7DayStats"
+import { getActivityStats } from "@/components/Activities7DayStats/Activities7DayStats"
 import Stat from "@/components/Stat"
 import React, { useMemo } from "react"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import { useDashboard } from "@/contexts/dashboard-context"
 import dayjs from "dayjs"
+import TrendBadge from "@/components/ui/TrendBadge"
 
 const ActivitiesYearStats: React.FC = () => {
   const { activities } = useDashboard()

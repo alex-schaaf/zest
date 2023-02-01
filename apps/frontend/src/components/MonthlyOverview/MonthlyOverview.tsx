@@ -2,13 +2,11 @@ import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import DistanceStepChartContainer from "../DistanceStepChartContainer"
 import Stat from "../Stat"
-import {
-  getActivityStats,
-  TrendBadge,
-} from "../Activities7DayStats/Activities7DayStats"
+import { getActivityStats } from "../Activities7DayStats/Activities7DayStats"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import { useDashboard } from "@/contexts/dashboard-context"
 import Card from "../Card"
+import TrendBadge from "../ui/TrendBadge"
 
 const MonthlyOverview: React.FC = () => {
   const { activities } = useDashboard()
