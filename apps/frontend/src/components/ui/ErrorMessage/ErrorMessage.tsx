@@ -1,5 +1,5 @@
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons"
-import React, { PropsWithChildren } from "react"
+import React from "react"
 
 interface Props {
   text: string
@@ -7,10 +7,11 @@ interface Props {
 
 const ErrorMessage: React.FC<Props> = ({ text }) => {
   return (
-    <div className="flex items-center justify-center gap-4 text-sm text-red-600">
+    <div className="flex items-center justify-center gap-2 text-sm text-red-600">
       <ExclamationTriangleIcon className="h-6 w-6" />
-      <div>
-        <span className="font-bold">Error:</span> {text}
+      <div className="">
+        <span className="mr-2 font-bold">Error:</span>
+        <span>{text}</span>
       </div>
     </div>
   )

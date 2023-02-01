@@ -7,6 +7,8 @@ import { DashboardContext } from "@/contexts/dashboard-context"
 import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { PropsWithChildren } from "react"
+import ErrorMessage from "@/components/ui/ErrorMessage"
+import Card from "@/components/Card"
 
 const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities(
@@ -19,8 +21,21 @@ const Dashboard = () => {
     return <Loading />
   }
 
-  if (isError || !activities) {
-    return <div>error: failed to load activities</div>
+  if (isError) {
+    return (
+      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <ErrorMessage text={"Failed to load activities."} />
+      </div>
+    )
+  }
+
+  if (!activities) {
+    return (
+      <Card className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 text-sm">
+        <p className="text-lg font-bold">No activities found</p>
+        <p>Make sure to synchronize with Strava</p>
+      </Card>
+    )
   }
 
   return (

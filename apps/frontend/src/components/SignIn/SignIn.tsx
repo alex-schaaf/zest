@@ -3,6 +3,8 @@ import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
 import { EnterIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import ErrorMessage from "../ui/ErrorMessage"
+import { divide } from "cypress/types/lodash"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("")
@@ -92,13 +94,8 @@ const SignIn: React.FC = () => {
           </Button>
         </form>
         {error && (
-          <div className="mt-4 rounded-md border border-red-200 bg-red-50 p-4 text-red-600 shadow-sm shadow-red-100">
-            <div className="flex items-center justify-center gap-4">
-              <ExclamationTriangleIcon className="h-6 w-6" />
-              <div className="">
-                <span className="font-bold">Error:</span> Invalid credentials
-              </div>
-            </div>
+          <div className="mt-4 bg-red-50 p-4">
+            <ErrorMessage text={"Invalid credentials"} />
           </div>
         )}
       </Card>
