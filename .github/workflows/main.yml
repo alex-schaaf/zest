@@ -30,7 +30,7 @@ jobs:
         run: yarn build
 
       - name: Start
-        run: yarn start:frontend
+        run: yarn start:frontend &
 
       - name: Test E2E
         run: yarn test
