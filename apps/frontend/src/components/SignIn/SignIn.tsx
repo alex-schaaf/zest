@@ -2,25 +2,20 @@ import Card from "@/components/Card"
 import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
-import { EnterIcon } from "@radix-ui/react-icons"
+import { EnterIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
 
-  const [isError, setIsError] = useState(false)
-
-  const { login, isLoading } = useAuth()
+  const { login, isLoading, error } = useAuth()
 
   const handleSubmit = async () => {
     if (!email || !password) return
     console.log("email", email)
     console.log("password", password)
 
-    await login(email, password).catch((err) => {
-      setIsError(true)
-      console.error(err)
-    })
+    await login(email, password)
   }
 
   return (
@@ -96,7 +91,16 @@ const SignIn: React.FC = () => {
             )}
           </Button>
         </form>
-        {isError && <div className="bg-red-600">ERROR</div>}
+        {error && (
+          <div className="mt-4 rounded-md border border-red-200 bg-red-50 p-4 text-red-600 shadow-sm shadow-red-100">
+            <div className="flex items-center justify-center gap-4">
+              <ExclamationTriangleIcon className="h-6 w-6" />
+              <div className="">
+                <span className="font-bold">Error:</span> Invalid credentials
+              </div>
+            </div>
+          </div>
+        )}
       </Card>
     </div>
   )

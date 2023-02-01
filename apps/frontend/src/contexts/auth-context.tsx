@@ -1,5 +1,6 @@
 import { Users, Settings } from "@prisma/client"
 import axios from "@/lib/axios"
+import { AxiosError } from "axios"
 import { createContext, PropsWithChildren, useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -10,6 +11,7 @@ type AuthContextType = {
   logout: () => Promise<void>
   isLoading: boolean
   isError: boolean
+  error: any
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -20,6 +22,8 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const queryClient = useQueryClient()
 
+  const [error, setError] = useState(null)
+
   const {
     data: user,
     isLoading: isLoadingUser,
@@ -27,12 +31,14 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   } = useQuery<Users>({
     queryKey: ["user"],
     queryFn: () => axios.get("/users").then((res) => res.data),
+    refetchOnWindowFocus: false,
     retry: 0,
   })
 
   const { data: settings } = useQuery<Settings>({
     queryKey: ["settings"],
     enabled: !!user,
+    refetchOnWindowFocus: false,
     queryFn: () =>
       axios
         .get(`/users/${user?.id}/settings/${user?.settingsId}`)
@@ -41,6 +47,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
 
   const login = async (email: string, password: string) => {
     setIsLoading(true)
+    setError(null)
     try {
       const { userId, iat, exp } = await axios
         .post("/auth/login", { email, password })
@@ -54,7 +61,8 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
         queryKey: ["user"],
         queryFn: () => axios.get(`/users/${userId}`).then((res) => res.data),
       })
-    } catch (err) {
+    } catch (err: any) {
+      setError(err)
       console.error(err)
     } finally {
       setIsLoading(false)
@@ -82,6 +90,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
         logout,
         isLoading: !isError && (isLoading || isLoadingUser),
         isError,
+        error,
       }}
       {...props}
     />

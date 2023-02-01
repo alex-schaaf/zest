@@ -20,13 +20,20 @@ describe("signin page", () => {
   })
 
   it("signin btn becomes active when email and password entered", () => {
-    cy.get("input[name=email]").type("email@example.com").blur()
+    cy.get("input[name=email]").type("email@example.com")
 
-    const signInBtn = cy.get("button[name=signIn]")
-    signInBtn.should("be.disabled")
+    cy.get("button[name=signIn]").should("be.disabled")
 
     cy.get("input[name=password]").type("invalidPassword")
-    signInBtn.should("not.be.disabled")
+    cy.get("button[name=signIn]").should("not.be.disabled")
+  })
+  it("signin btn becomes active when email and password entered", () => {
+    cy.get("input[name=email]").type("email@example.com")
+    cy.get("input[name=password]").type("invalidPassword")
+
+    cy.get("button[name=signIn]").click()
+
+    cy.contains("Error: Invalid credentials").should("exist")
   })
 })
 
