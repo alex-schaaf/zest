@@ -33,12 +33,24 @@ router.patch("/users/:userId", async (req, res) => {
   return res.json({ ...user, passwordHash: undefined });
 });
 
-router.patch("/users/:userId/settings/:id", async (req, res) => {
-  const { id } = req.params;
+router.get("/users/:userId/settings/:settingsId", async (req, res) => {
+  const { settingsId } = req.params;
+  const settings = await settingsService.find({ id: parseInt(settingsId) });
+  if (!settings) {
+    return res.status(404).end();
+  }
+  return res.status(200).json(settings);
+});
+
+router.patch("/users/:userId/settings/:settingsId", async (req, res) => {
+  const { settingsId } = req.params;
   const data: Prisma.SettingsUpdateInput = req.body;
 
-  const settings = await settingsService.update({ id: parseInt(id) }, data);
-  return res.json(settings);
+  const settings = await settingsService.update(
+    { id: parseInt(settingsId) },
+    data
+  );
+  return res.status(200).json(settings);
 });
 
 export default router;

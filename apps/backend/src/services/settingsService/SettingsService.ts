@@ -6,7 +6,9 @@ class SettingsService {
 
   // async findMany() {}
 
-  // async find(where) {}
+  async find(where: Prisma.SettingsWhereUniqueInput) {
+    return await prisma.settings.findUnique({ where });
+  }
 
   // async create(data) {}
 
