@@ -5,10 +5,7 @@ class UserService {
   constructor() {}
 
   async find(where: Prisma.UsersWhereUniqueInput) {
-    const user = await prisma.users.findUnique({
-      where,
-      include: { settings: true },
-    });
+    const user = await prisma.users.findUnique({ where });
     return user;
   }
 

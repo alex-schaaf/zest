@@ -1,17 +1,11 @@
-import Loading from "@/components/Loading"
 import { Users, Settings } from "@prisma/client"
 import axios from "@/lib/axios"
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useState,
-} from "react"
+import { createContext, PropsWithChildren, useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 type AuthContextType = {
-  user?: UserWithSettings
+  user?: Users
+  settings?: Settings
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   isLoading: boolean
@@ -30,10 +24,19 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     data: user,
     isLoading: isLoadingUser,
     isError,
-  } = useQuery<UserWithSettings>({
+  } = useQuery<Users>({
     queryKey: ["user"],
     queryFn: () => axios.get("/users").then((res) => res.data),
     retry: 0,
+  })
+
+  const { data: settings } = useQuery<Settings>({
+    queryKey: ["settings"],
+    enabled: !!user,
+    queryFn: () =>
+      axios
+        .get(`/users/${user?.id}/settings/${user?.settingsId}`)
+        .then((res) => res.data),
   })
 
   const login = async (email: string, password: string) => {
@@ -47,7 +50,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
       localStorage.setItem("iat", iat)
       localStorage.setItem("exp", exp)
 
-      await queryClient.fetchQuery<UserWithSettings>({
+      await queryClient.fetchQuery<Users>({
         queryKey: ["user"],
         queryFn: () => axios.get(`/users/${userId}`).then((res) => res.data),
       })
@@ -74,6 +77,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     <AuthContext.Provider
       value={{
         user,
+        settings,
         login,
         logout,
         isLoading: !isError && (isLoading || isLoadingUser),

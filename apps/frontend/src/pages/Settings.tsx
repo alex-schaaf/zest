@@ -57,7 +57,7 @@ const stravaOptions: {
 ]
 
 const SettingsView = () => {
-  const { user } = useUser()
+  const { user, settings } = useUser()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -108,7 +108,7 @@ const SettingsView = () => {
                       <Dialog.Description className="DialogDescription">
                         Update your Strava API integration settings.
                       </Dialog.Description>
-                      <SettingsStravaForm user={user} setOpen={setIsOpen} />
+                      <SettingsStravaForm setOpen={setIsOpen} />
                     </Dialog.Content>
                   </Dialog.Portal>
                 </Dialog.Root>
@@ -122,11 +122,7 @@ const SettingsView = () => {
             <DescriptionList.Field idx={idx} key={idx}>
               <DescriptionList.Term>{name}</DescriptionList.Term>
               <DescriptionList.Description>
-                <>
-                  {formatter
-                    ? formatter(user.settings[key])
-                    : user.settings[key]}
-                </>
+                <>{formatter ? formatter(settings[key]) : settings[key]}</>
               </DescriptionList.Description>
             </DescriptionList.Field>
           ))}

@@ -2,7 +2,6 @@ import { Settings } from "@prisma/client"
 import axios from "axios"
 import { useState } from "react"
 import { useUser } from "@/contexts/user-context"
-import { UserWithSettings } from "@/contexts/auth-context"
 import {
   getStravaActivities,
   refreshStravaAccessToken,
@@ -17,21 +16,17 @@ const useStravaSync = (): {
   canSync: boolean
   sync: (searchParams?: StravaAPIActivitiesSearchParams) => Promise<void>
 } => {
-  const { user } = useUser()
+  const { user, settings } = useUser()
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
 
   const queryClient = useQueryClient()
 
-  const canSync = getCanSync(user.settings)
+  const canSync = getCanSync(settings)
 
   const sync = async (searchParams: StravaAPIActivitiesSearchParams = {}) => {
-    if (
-      !user ||
-      !user.settings.stravaTokenExpiresAt ||
-      !user.settings.stravaAccessToken
-    )
+    if (!user || !settings.stravaTokenExpiresAt || !settings.stravaAccessToken)
       return
 
     try {
@@ -39,16 +34,20 @@ const useStravaSync = (): {
       setIsError(false)
       setIsSuccess(null)
 
-      if (tokenExpired(user.settings.stravaTokenExpiresAt)) {
-        const refreshedTokens = await refreshStravaAccessToken(user.settings)
-        user.settings = { ...user.settings, ...refreshedTokens }
-        await patchUserSettings(user)
+      if (tokenExpired(settings.stravaTokenExpiresAt)) {
+        const refreshedTokens = await refreshStravaAccessToken(settings)
+        const updatedUserSettings = { ...settings, ...refreshedTokens }
+        settings.stravaRefreshToken = updatedUserSettings.stravaRefreshToken
+        settings.stravaAccessToken = updatedUserSettings.stravaAccessToken
+        settings.stravaTokenExpiresAt = updatedUserSettings.stravaTokenExpiresAt
+
+        await patchUserSettings(user.id, settings)
       }
 
-      if (!user.settings.stravaAccessToken) return
+      if (!settings.stravaAccessToken) return
 
       const activities = await getStravaActivities(
-        user.settings.stravaAccessToken,
+        settings.stravaAccessToken,
         searchParams
       )
       await postActivities(user.id, activities)
@@ -97,14 +96,13 @@ const postActivities = async (userId: number, activities: []) => {
   )
 }
 
-const patchUserSettings = async (user: UserWithSettings) => {
+const patchUserSettings = async (userId: number, settings: Settings) => {
   await axios.patch(
-    import.meta.env.VITE_API_URL +
-      `/users/${user.id}/settings/${user.settingsId}`,
+    import.meta.env.VITE_API_URL + `/users/${userId}/settings/${settings.id}`,
     {
-      stravaAccessToken: user.settings.stravaAccessToken,
-      stravaRefreshToken: user.settings.stravaRefreshToken,
-      stravaTokenExpiresAt: user.settings.stravaTokenExpiresAt,
+      stravaAccessToken: settings.stravaAccessToken,
+      stravaRefreshToken: settings.stravaRefreshToken,
+      stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
     },
     { withCredentials: true }
   )

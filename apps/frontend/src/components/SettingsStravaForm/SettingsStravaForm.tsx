@@ -1,14 +1,12 @@
 import React from "react"
-import { UserWithSettings } from "@/contexts/auth-context"
 import * as Label from "@radix-ui/react-label"
 import { SubmitHandler, useForm } from "react-hook-form"
 import Button from "@/components/ui/Button"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "@/lib/axios"
-import { Settings } from "@prisma/client"
+import { useUser } from "@/contexts/user-context"
 
 interface Props {
-  user: UserWithSettings
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }
 
@@ -17,7 +15,9 @@ interface Inputs {
   stravaClientSecret: string
 }
 
-const SettingsStravaForm: React.FC<Props> = ({ user, setOpen }) => {
+const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
+  const { user, settings } = useUser()
+
   const {
     register,
     handleSubmit,
@@ -35,19 +35,15 @@ const SettingsStravaForm: React.FC<Props> = ({ user, setOpen }) => {
         settingsPatch
       ),
     onSuccess: () => {
-      console.log("Mutation successful")
-      queryClient.invalidateQueries({ queryKey: ["user"] })
+      queryClient.invalidateQueries({ queryKey: ["settings"] })
       setOpen(false)
     },
   })
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data)
     const cleanedData = Object.entries(data)
       .filter(([_, v]) => v !== "")
       .reduce((acc, [k, v]) => ({ ...acc, [k]: v }), {})
-
-    console.log("cleanedData", cleanedData)
     mutation.mutate(cleanedData)
   }
 
@@ -57,7 +53,7 @@ const SettingsStravaForm: React.FC<Props> = ({ user, setOpen }) => {
         <Label.Root className="LabelRoot">Client ID</Label.Root>
         <input
           type="text"
-          placeholder={user.settings.stravaClientId?.toString()}
+          placeholder={settings.stravaClientId?.toString()}
           {...register("stravaClientId", { valueAsNumber: true })}
         />
       </fieldset>
@@ -65,9 +61,7 @@ const SettingsStravaForm: React.FC<Props> = ({ user, setOpen }) => {
         <Label.Root className="LabelRoot">Client Secret</Label.Root>
         <input
           type="password"
-          placeholder={"•".repeat(
-            user.settings.stravaClientSecret?.length || 0
-          )}
+          placeholder={"•".repeat(settings.stravaClientSecret?.length || 0)}
           {...register("stravaClientSecret")}
         />
       </fieldset>
