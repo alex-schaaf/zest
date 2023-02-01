@@ -12,6 +12,21 @@ import { useAuth } from "@/contexts/auth-context"
 const dropdownItemStyles =
   "rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
 
+export const pages = [
+  {
+    href: "/",
+    text: "Dashboard",
+  },
+  {
+    href: "/activities",
+    text: "Activities",
+  },
+  {
+    href: "/settings",
+    text: "Settings",
+  },
+]
+
 const Navbar: React.FC = () => {
   const [location] = useLocation()
   const [openError, setOpenError] = useState(false)
@@ -34,30 +49,16 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto flex h-full items-center justify-between">
         <div className="text-4xl">👟</div>
         <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
-          <Link
-            href={"/"}
-            className={classNames("hover:cursor-pointer", {
-              "text-blue-600": location === "/",
-            })}
-          >
-            Dashboard
-          </Link>
-          <Link
-            href={"/activities"}
-            className={classNames("hover:cursor-pointer", {
-              "text-blue-600": location === "/activities",
-            })}
-          >
-            Activities
-          </Link>
-          <Link
-            href={"/settings"}
-            className={classNames("hover:cursor-pointer ", {
-              "text-blue-600": location === "/settings",
-            })}
-          >
-            Settings
-          </Link>
+          {pages.map((page) => (
+            <Link
+              href={page.href}
+              className={classNames("hover:cursor-pointer", {
+                "text-blue-600": location === page.href,
+              })}
+            >
+              {page.text}
+            </Link>
+          ))}
         </nav>
         <div className="flex">
           <ToastMessage
