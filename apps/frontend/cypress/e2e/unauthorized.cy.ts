@@ -27,7 +27,8 @@ describe("signin page", () => {
     cy.get("input[name=password]").type("invalidPassword")
     cy.get("button[name=signIn]").should("not.be.disabled")
   })
-  it("signin btn becomes active when email and password entered", () => {
+
+  it("signin with invalid credentials shows error", () => {
     cy.get("input[name=email]").type("email@example.com")
     cy.get("input[name=password]").type("invalidPassword")
 
