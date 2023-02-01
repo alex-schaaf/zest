@@ -18,7 +18,11 @@ const Dashboard = () => {
   )
 
   if (isLoading) {
-    return <Loading />
+    return (
+      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Loading />
+      </div>
+    )
   }
 
   if (isError) {
