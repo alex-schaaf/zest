@@ -34,7 +34,7 @@ describe("signin page", () => {
 
     cy.get("button[name=signIn]").click()
 
-    cy.contains("Error: Invalid credentials").should("exist")
+    cy.contains("Invalid credentials").should("exist")
   })
 })
 

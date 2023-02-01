@@ -11,7 +11,8 @@
     "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "plop": "plop"
+    "plop": "plop",
+    "test": "cd apps/frontend && yarn cypress run"
   },
   "devDependencies": {
     "eslint-config-custom": "*",
