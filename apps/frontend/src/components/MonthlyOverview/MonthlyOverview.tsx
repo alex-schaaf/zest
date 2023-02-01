@@ -1,12 +1,10 @@
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import DistanceStepChartContainer from "../DistanceStepChartContainer"
-import Stat from "../Stat"
 import { getActivityStats } from "../Activities7DayStats/Activities7DayStats"
-import { minutesToHoursAndMinutes } from "@/lib/time"
 import { useDashboard } from "@/contexts/dashboard-context"
-import Card from "../Card"
-import TrendBadge from "../ui/TrendBadge"
+import Card from "@/components/Card"
+import StatCard from "@/components/ui/StatCard"
 
 const MonthlyOverview: React.FC = () => {
   const { activities } = useDashboard()
@@ -35,8 +33,6 @@ const MonthlyOverview: React.FC = () => {
     [activities]
   )
 
-  const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
-
   if (thisMonthsActivities.length === 0)
     return (
       <Card className="justify-center py-12 text-center text-sm font-medium">
@@ -48,47 +44,25 @@ const MonthlyOverview: React.FC = () => {
     <div className="grid grid-cols-3 items-stretch gap-4">
       <DistanceStepChartContainer activities={activities} />
       <div className="col-span-2 grid grid-cols-2 items-start gap-4">
-        <Stat>
-          <Stat.Title>Total Distance</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between ">
-              <div>{stats?.totalDistance?.toFixed(0)}km</div>
-              <TrendBadge
-                current={stats?.totalDistance}
-                previous={statsPrev?.totalDistance}
-                unit={"km"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
-        <Stat>
-          <Stat.Title>Total Elapsed Time</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between ">
-              <div>
-                {hours}h {minutes.toFixed(0)}min
-              </div>
-              <TrendBadge
-                current={stats?.totalTime}
-                previous={statsPrev?.totalTime}
-                unit={"min"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
-        <Stat>
-          <Stat.Title>Total Elevation Gain</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between ">
-              <div>{stats?.totalElevation?.toFixed(0)}m</div>
-              <TrendBadge
-                current={stats?.totalElevation}
-                previous={statsPrev?.totalElevation}
-                unit={"m"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
+        <StatCard
+          title={"Total Distance"}
+          value={stats.totalDistance}
+          previousValue={statsPrev.totalDistance}
+          unit={"km"}
+        />
+        <StatCard
+          title={"Total Time"}
+          value={stats.totalTime}
+          previousValue={statsPrev.totalTime}
+          unit={"min"}
+          precision={0}
+        />
+        <StatCard
+          title={"Total Elevation Gain"}
+          value={stats.totalElevation}
+          previousValue={statsPrev.totalElevation}
+          unit={"m"}
+        />
       </div>
     </div>
   )

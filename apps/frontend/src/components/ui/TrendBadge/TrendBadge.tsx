@@ -16,7 +16,7 @@ const TrendBadge: React.FC<TrendBadgeProps> = ({
   unit,
   precision = 1,
 }) => {
-  const style = "text-sm px-2 py-1 rounded-sm"
+  const style = "text-sm px-2 py-1 rounded-sm font-medium"
 
   if (current === previous) {
     return (

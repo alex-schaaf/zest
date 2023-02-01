@@ -1,10 +1,8 @@
 import { getActivityStats } from "@/components/Activities7DayStats/Activities7DayStats"
-import Stat from "@/components/Stat"
 import React, { useMemo } from "react"
-import { minutesToHoursAndMinutes } from "@/lib/time"
 import { useDashboard } from "@/contexts/dashboard-context"
 import dayjs from "dayjs"
-import TrendBadge from "@/components/ui/TrendBadge"
+import StatCard from "../ui/StatCard"
 
 const ActivitiesYearStats: React.FC = () => {
   const { activities } = useDashboard()
@@ -29,42 +27,27 @@ const ActivitiesYearStats: React.FC = () => {
     [activities]
   )
 
-  const { hours, minutes } = minutesToHoursAndMinutes(stats?.totalTime)
-
   return (
     <div className="flex gap-4">
-      <Stat className="flex-grow">
-        <Stat.Title>Total Distance</Stat.Title>
-        <Stat.Value>
-          <div className="flex items-end justify-between ">
-            <div>{stats?.totalDistance?.toFixed(0)}km</div>
-            <TrendBadge
-              current={stats?.totalDistance}
-              previous={statsPrev?.totalDistance}
-              unit={"km"}
-            />
-          </div>
-        </Stat.Value>
-      </Stat>
-      <Stat className="flex-grow">
-        <Stat.Title>Total Elapsed Time</Stat.Title>
-        <Stat.Value>
-          {hours}h {minutes.toFixed(0)}min
-        </Stat.Value>
-      </Stat>
-      <Stat className="flex-grow">
-        <Stat.Title>Total Elevation Gain</Stat.Title>
-        <Stat.Value>
-          <div className="flex items-end justify-between ">
-            <div>{stats?.totalElevation?.toFixed(0)}m</div>
-            <TrendBadge
-              current={stats?.totalElevation}
-              previous={statsPrev?.totalElevation}
-              unit={"m"}
-            />
-          </div>
-        </Stat.Value>
-      </Stat>
+      <StatCard
+        title={"Total Distance"}
+        value={stats.totalDistance}
+        previousValue={statsPrev.totalDistance}
+        unit={"km"}
+      />
+      <StatCard
+        title={"Total Time"}
+        value={stats.totalTime}
+        previousValue={statsPrev.totalTime}
+        unit={"min"}
+        precision={0}
+      />
+      <StatCard
+        title={"Total Elevation Gain"}
+        value={stats.totalElevation}
+        previousValue={statsPrev.totalElevation}
+        unit={"m"}
+      />
     </div>
   )
 }

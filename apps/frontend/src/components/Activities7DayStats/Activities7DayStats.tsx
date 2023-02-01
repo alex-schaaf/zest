@@ -1,11 +1,8 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import Stat from "@/components/Stat"
 import { useDashboard } from "@/contexts/dashboard-context"
-import { minutesToHoursAndMinutes } from "@/lib/time"
 import { StravaActivities } from "@prisma/client"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
-import TrendBadge from "@/components/ui/TrendBadge"
+import StatCard from "@/components/ui/StatCard"
 
 interface ActivityStats {
   totalDistance: number
@@ -41,52 +38,28 @@ const Activities7DayStats: React.FC = () => {
     [activities]
   )
 
-  const { hours, minutes } = minutesToHoursAndMinutes(stats.totalTime)
-
   return (
     <div className="space-y-4">
       <div className="flex gap-4">
-        <Stat className="flex-grow">
-          <Stat.Title>Total Distance</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between">
-              <div>{stats?.totalDistance?.toFixed(0)}km</div>
-              <TrendBadge
-                current={stats?.totalDistance}
-                previous={statsPrevious?.totalDistance}
-                unit={"km"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
-        <Stat className="flex-grow">
-          <Stat.Title>Total Time</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between ">
-              <div>
-                {hours}h {minutes.toFixed(0)}min
-              </div>
-              <TrendBadge
-                current={stats?.totalTime}
-                previous={statsPrevious?.totalTime}
-                unit={"min"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
-        <Stat className="flex-grow">
-          <Stat.Title>Total Elevation Gain</Stat.Title>
-          <Stat.Value>
-            <div className="flex items-end justify-between ">
-              <div>{stats?.totalElevation?.toFixed(0)}m</div>
-              <TrendBadge
-                current={stats?.totalElevation}
-                previous={statsPrevious?.totalElevation}
-                unit={"m"}
-              />
-            </div>
-          </Stat.Value>
-        </Stat>
+        <StatCard
+          title={"Total Distance"}
+          value={stats.totalDistance}
+          previousValue={statsPrevious.totalDistance}
+          unit={"km"}
+        />
+        <StatCard
+          title={"Total Time"}
+          value={stats.totalTime}
+          previousValue={statsPrevious.totalTime}
+          unit={"min"}
+          precision={0}
+        />
+        <StatCard
+          title={"Total Elevation Gain"}
+          value={stats.totalElevation}
+          previousValue={statsPrevious.totalElevation}
+          unit={"m"}
+        />
       </div>
     </div>
   )
