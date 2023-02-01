@@ -46,17 +46,17 @@ module.exports = plop => {
     actions: [
       {
         type: 'add',
-        path: 'packages/ui/components/{{name}}/{{name}}.tsx',
+        path: 'apps/frontend/src/components/ui/{{name}}/{{name}}.tsx',
         templateFile: 'plop-templates/Component/Component.tsx.hbs',
       },
       {
         type: 'add',
-        path: 'packages/ui/components/{{name}}/{{name}}.test.tsx',
+        path: 'apps/frontend/src/components/ui/{{name}}/{{name}}.test.tsx',
         templateFile: 'plop-templates/Component/Component.test.tsx.hbs',
       },
       {
         type: 'add',
-        path: 'packages/ui/components/{{name}}/index.ts',
+        path: 'apps/frontend/src/components/ui/{{name}}/index.ts',
         templateFile: 'plop-templates/Component/index.ts.hbs',
       },
     ],
