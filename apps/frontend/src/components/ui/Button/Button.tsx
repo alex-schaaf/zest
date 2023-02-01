@@ -13,7 +13,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
       ref={ref}
       {...props}
       className={classNames(
-        "relative flex items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium transition-colors",
+        "relative flex items-center justify-center gap-2 rounded-md bg-gray-100 px-3 py-2 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:bg-gray-200 disabled:text-gray-400",
         {
           "bg-primary-500 text-white hover:bg-primary-600":
             intent === "primary",

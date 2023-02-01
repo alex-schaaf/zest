@@ -5,8 +5,10 @@ import Button from "../ui/Button"
 import { EnterIcon } from "@radix-ui/react-icons"
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState("email@example.com")
-  const [password, setPassword] = useState("admin")
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+
+  const [isError, setIsError] = useState(false)
 
   const { login, isLoading } = useAuth()
 
@@ -15,7 +17,10 @@ const SignIn: React.FC = () => {
     console.log("email", email)
     console.log("password", password)
 
-    await login(email, password).catch((err) => console.error(err))
+    await login(email, password).catch((err) => {
+      setIsError(true)
+      console.error(err)
+    })
   }
 
   return (
@@ -33,22 +38,32 @@ const SignIn: React.FC = () => {
       <Card>
         <form className="flex flex-col space-y-4">
           <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-500">
+            <label
+              htmlFor="email"
+              className="text-sm font-medium text-gray-500"
+            >
               Email address
             </label>
             <input
               type="text"
+              id="email"
+              name="email"
               className="rounded-md border px-3 py-1 shadow-sm"
               value={email}
               onChange={(e) => setEmail(e.currentTarget.value)}
             />
           </div>
           <div className="flex flex-col">
-            <label className="text-sm font-medium text-gray-500">
+            <label
+              htmlFor="password"
+              className="text-sm font-medium text-gray-500"
+            >
               Password
             </label>
             <input
               type="password"
+              id="password"
+              name="password"
               className="rounded-md border px-3 py-1 shadow-sm"
               value={password}
               onChange={(e) => setPassword(e.currentTarget.value)}
@@ -68,7 +83,9 @@ const SignIn: React.FC = () => {
               e.preventDefault()
               handleSubmit()
             }}
+            disabled={!email || !password}
             intent="primary"
+            name="signIn"
           >
             {isLoading ? (
               "loading"
@@ -79,6 +96,7 @@ const SignIn: React.FC = () => {
             )}
           </Button>
         </form>
+        {isError && <div className="bg-red-600">ERROR</div>}
       </Card>
     </div>
   )
