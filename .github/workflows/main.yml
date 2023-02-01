@@ -20,7 +20,7 @@ jobs:
       - name: Setup Node.js Environment
         uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 18.12.1
           cache: "yarn"
 
       - name: Install Depedencies
