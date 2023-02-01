@@ -1,4 +1,4 @@
-import { getActivityStats } from "@/components/Activities7DayStats/Activities7DayStats"
+import { getActivityStats } from "@/components/SevenDayOverview/SevenDayOverview"
 import React, { useMemo } from "react"
 import { useDashboard } from "@/contexts/dashboard-context"
 import dayjs from "dayjs"

@@ -1,5 +1,5 @@
 import ActivitiesBarChartContainer from "@/components/ActivitiesBarChartContainer"
-import Activities7DayStats from "@/components/Activities7DayStats"
+import SevenDayOverview from "@/components/SevenDayOverview"
 import ActivitiesYearStats from "@/components/ActivitiesYearStats"
 import Loading from "@/components/ui/Spinner"
 import MonthlyOverview from "@/components/MonthlyOverview"
@@ -46,7 +46,7 @@ const Dashboard = () => {
     <DashboardContext.Provider value={{ activities }}>
       <div className="container mx-auto space-y-4">
         <SectionHeader>Last 7 days</SectionHeader>
-        <Activities7DayStats />
+        <SevenDayOverview />
         <SectionHeader>This Month in running</SectionHeader>
         <MonthlyOverview />
         <SectionHeader>This year in running</SectionHeader>

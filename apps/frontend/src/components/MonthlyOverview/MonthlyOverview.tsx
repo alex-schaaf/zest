@@ -1,7 +1,7 @@
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import DistanceStepChartContainer from "../DistanceStepChartContainer"
-import { getActivityStats } from "../Activities7DayStats/Activities7DayStats"
+import { getActivityStats } from "../SevenDayOverview/SevenDayOverview"
 import { useDashboard } from "@/contexts/dashboard-context"
 import Card from "@/components/Card"
 import StatCard from "@/components/ui/StatCard"
