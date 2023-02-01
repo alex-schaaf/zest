@@ -8,9 +8,10 @@ import { Link, useLocation } from "wouter"
 import { StravaActivities } from "@prisma/client"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import { useAuth } from "@/contexts/auth-context"
+import Spinner from "@/components/ui/Spinner/Spinner"
 
 const dropdownItemStyles =
-  "rounded px-2 py-1 hover:cursor-pointer hover:bg-blue-500 hover:text-white"
+  "rounded px-2 py-1 hover:cursor-pointer hover:bg-primary-500 hover:text-white"
 
 export const pages = [
   {
@@ -53,7 +54,7 @@ const Navbar: React.FC = () => {
             <Link
               href={page.href}
               className={classNames("hover:cursor-pointer", {
-                "text-blue-600": location === page.href,
+                "text-primary-600": location === page.href,
               })}
             >
               {page.text}
@@ -79,9 +80,9 @@ const Navbar: React.FC = () => {
             <DropdownMenu.Trigger asChild>
               <button>
                 <Avatar.Root>
-                  <Avatar.Fallback className="text-md flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-blue-200 p-2 text-center font-medium text-blue-800">
+                  <Avatar.Fallback className="text-md flex h-[2.5rem] w-[2.5rem] items-center justify-center rounded-full bg-primary-200 p-2 text-center font-medium text-primary-800">
                     {isLoading ? (
-                      <ReloadIcon className="h-5 w-5 animate-spin text-blue-600" />
+                      <ReloadIcon className="h-5 w-5 animate-spin text-primary-500" />
                     ) : (
                       "AS"
                     )}

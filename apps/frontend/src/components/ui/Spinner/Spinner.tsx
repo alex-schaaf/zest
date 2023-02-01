@@ -1,15 +1,25 @@
-const Loading: React.FC = () => {
-  return <Spinner />
+import classNames from "classnames"
+
+interface Props {
+  sm?: boolean
+  md?: boolean
+  lg?: boolean
+  className?: string
 }
 
-export default Loading
-
-export const Spinner = () => {
+const Spinner: React.FC<Props> = ({ sm, md, lg, className }) => {
   return (
-    <div role="status">
+    <div role="status" className={className}>
       <svg
         aria-hidden="true"
-        className="mr-2 h-8 w-8 animate-spin fill-primary-600 text-gray-200 dark:text-gray-600"
+        className={classNames(
+          "mr-2 animate-spin fill-primary-600 text-gray-200 dark:text-gray-600",
+          {
+            "h-4 w-4": sm,
+            "h-6 w-6": md,
+            "h-8 w-8": lg || (!sm && !md && !lg),
+          }
+        )}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -27,3 +37,5 @@ export const Spinner = () => {
     </div>
   )
 }
+
+export default Spinner

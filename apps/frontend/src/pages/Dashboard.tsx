@@ -1,7 +1,7 @@
 import ActivitiesBarChartContainer from "@/components/ActivitiesBarChartContainer"
 import Activities7DayStats from "@/components/Activities7DayStats"
 import ActivitiesYearStats from "@/components/ActivitiesYearStats"
-import Loading from "@/components/Loading"
+import Loading from "@/components/ui/Spinner"
 import MonthlyOverview from "@/components/MonthlyOverview"
 import { DashboardContext } from "@/contexts/dashboard-context"
 import useActivities from "@/hooks/useActivities"

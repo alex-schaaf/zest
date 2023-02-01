@@ -1,7 +1,7 @@
 import useActivities from "@/hooks/useActivities"
 import ActivitiesBarChart from "@/components/ActivitiesBarChart/ActivitiesBarChart"
 import Card from "@/components/Card"
-import Loading from "@/components/Loading"
+import Loading from "@/components/ui/Spinner"
 import { StravaActivities } from "@prisma/client"
 import { ParentSize } from "@visx/responsive"
 

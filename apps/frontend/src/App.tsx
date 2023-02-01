@@ -3,7 +3,7 @@ import AuthenticatedApp from "@/AuthenticatedApp"
 import UnauthenticatedApp from "@/UnauthenticatedApp"
 import { UserContext } from "@/contexts/user-context"
 import { useAuth } from "@/contexts/auth-context"
-import Loading from "./components/Loading"
+import Loading from "@/components/ui/Spinner"
 
 // const AuthenticatedApp = lazy(() => import("./AuthenticatedApp"));
 // const UnauthenticatedApp = lazy(() => import("./UnauthenticatedApp"));
