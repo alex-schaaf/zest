@@ -7,6 +7,9 @@ interface TrendBadgeProps {
   precision?: number
 }
 
+const arrowUp = "↑"
+const arrowDown = "↓"
+
 const TrendBadge: React.FC<TrendBadgeProps> = ({
   current,
   previous,
@@ -17,23 +20,23 @@ const TrendBadge: React.FC<TrendBadgeProps> = ({
 
   if (current === previous) {
     return (
-      <div className={classNames(style, "bg-warning-50 text-warning-500")}>
+      <span className={classNames(style, "bg-warning-50 text-warning-500")}>
         - {unit}
-      </div>
+      </span>
     )
   } else if (current > previous) {
     const ratio = current - previous
     return (
-      <div className={classNames(style, "bg-success-50 text-success-500")}>
-        ↑ {ratio.toFixed(precision)} {unit}
-      </div>
+      <span className={classNames(style, "bg-success-50 text-success-500")}>
+        {arrowUp} {ratio.toFixed(precision)} {unit}
+      </span>
     )
   } else {
     const ratio = previous - current
     return (
-      <div className={classNames(style, "bg-danger-50 text-danger-500")}>
-        ↓ {ratio.toFixed(precision)} {unit}
-      </div>
+      <span className={classNames(style, "bg-danger-50 text-danger-500")}>
+        {arrowDown} {ratio.toFixed(precision)} {unit}
+      </span>
     )
   }
 }
