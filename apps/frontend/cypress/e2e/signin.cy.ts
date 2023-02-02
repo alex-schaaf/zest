@@ -5,7 +5,6 @@ describe("signin page", () => {
       method: "GET",
     }).as("getUser")
     cy.visit("/")
-    cy.wait("@getUser")
   })
 
   it("sucessfully loads", () => {
@@ -25,6 +24,7 @@ describe("signin page", () => {
   })
 
   it("signin btn becomes active when email and password entered", () => {
+    cy.wait("@getUser")
     const email = cy.get("input[name=email]")
     email.type("email@example.com")
 
@@ -38,6 +38,7 @@ describe("signin page", () => {
   })
 
   it("signin with invalid credentials shows error", () => {
+    cy.wait("@getUser")
     cy.get("input[name=email]").type("email@example.com")
     cy.get("input[name=password]").type("invalidPassword")
 
