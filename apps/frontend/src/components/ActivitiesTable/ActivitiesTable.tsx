@@ -1,13 +1,16 @@
-import React, { useMemo } from "react"
+import React, { useMemo, useState } from "react"
 import { StravaActivities } from "@prisma/client"
 import {
   createColumnHelper,
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table"
 import dayjs from "dayjs"
 import classNames from "classnames"
+import { TriangleDownIcon, TriangleUpIcon } from "@radix-ui/react-icons"
 
 interface Props {
   activities: StravaActivities[]
@@ -40,30 +43,46 @@ const columns = [
 
 const ActivitiesTable: React.FC<Props> = ({ activities }) => {
   const data = useMemo(() => [...activities], [activities])
+  const [sorting, setSorting] = useState<SortingState>([])
   const table = useReactTable({
     data,
     columns,
+    state: { sorting },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
     getCoreRowModel: getCoreRowModel(),
   })
 
   return (
-    <table className="w-full">
-      <thead className="">
+    <table className="w-full text-sm">
+      <thead>
         {table.getHeaderGroups().map((headerGroup) => (
-          <tr key={headerGroup.id} className="border-b border-gray-300">
+          <tr
+            key={headerGroup.id}
+            className="border border-gray-300 bg-gray-50 text-gray-800 shadow-sm"
+          >
             {headerGroup.headers.map((header, idx) => (
               <th
                 key={header.id}
-                className={classNames("", {
-                  "text-left": idx === 0,
+                className={classNames("py-2 text-left font-semibold", {
+                  "pl-2": idx === 0,
+                  "select-none hover:cursor-pointer":
+                    header.column.getCanSort(),
                 })}
+                onClick={header.column.getToggleSortingHandler()}
               >
-                {header.isPlaceholder
-                  ? null
-                  : flexRender(
-                      header.column.columnDef.header,
-                      header.getContext()
-                    )}
+                <div className="inline-flex items-center gap-2">
+                  {header.isPlaceholder
+                    ? null
+                    : flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                  {{
+                    asc: <TriangleUpIcon />,
+                    desc: <TriangleDownIcon />,
+                  }[header.column.getIsSorted() as string] ?? null}
+                </div>
               </th>
             ))}
           </tr>
@@ -71,15 +90,12 @@ const ActivitiesTable: React.FC<Props> = ({ activities }) => {
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row, idx) => (
-          <tr
-            key={row.id}
-            className={classNames("", { "bg-gray-100": idx % 2 === 0 })}
-          >
+          <tr key={row.id} className={classNames("py-2")}>
             {row.getVisibleCells().map((cell, idx) => (
               <td
                 key={cell.id}
-                className={classNames("", {
-                  "text-center": idx > 0,
+                className={classNames("border-b py-1 text-gray-800", {
+                  "pl-2": idx === 0,
                 })}
               >
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
