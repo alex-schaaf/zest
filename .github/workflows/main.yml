@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 2
 
       - name: Cypress Install
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5.0.7
         with:
           runTests: false
 
@@ -40,14 +40,15 @@ jobs:
       - name: Cypress info
         run: yarn cypress info
 
+      - name: Start
+        run: yarn start:frontend &
+
       - name: E2E Tests
-        uses: cypress-io/github-action@v4
+        uses: cypress-io/github-action@v5.0.7
         with:
-          start: yarn start:frontend &
           browser: chrome
           record: true
-          spec: apps/frontend/cypress/e2e/*
-          config-file: apps/frontend/cypress.config.ts
+          working-directory: apps/frontend
 
       # - name: Start
       #   run: yarn start:frontend &
