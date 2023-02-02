@@ -30,4 +30,4 @@ jobs:
         run: yarn build
 
       - name: Test
-        run: cd apps/frontendd && yarn cypress run --component
+        run: cd apps/frontend && yarn cypress run --component
