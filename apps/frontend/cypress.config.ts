@@ -10,6 +10,7 @@ export default defineConfig({
   },
 
   component: {
+    video: false,
     devServer: {
       framework: "react",
       bundler: "vite",
