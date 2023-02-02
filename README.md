@@ -1,6 +1,6 @@
 <div align="center">
 <h1>zest</h1>
-<b>`zest` is an open-source, self-hostable dashboard for your running data.</b>
+<b><code>zest</code> is an open-source, self-hostable dashboard for your running data.</b>
 </div>
 
 ## Description
