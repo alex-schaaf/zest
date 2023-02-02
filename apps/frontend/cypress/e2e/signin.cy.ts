@@ -2,6 +2,7 @@ describe("signin page", () => {
   beforeEach(() => {
     cy.visit("/")
     cy.intercept("GET", "/api/v1/users", { statusCode: 401 }).as("getUser")
+    cy.wait("@getUser")
   })
 
   it("sucessfully loads", () => {
@@ -21,7 +22,6 @@ describe("signin page", () => {
   })
 
   it("signin btn becomes active when email and password entered", () => {
-    cy.wait("@getUser")
     const email = cy.get("input[name=email]")
     email.type("email@example.com")
 
@@ -35,8 +35,6 @@ describe("signin page", () => {
   })
 
   it("signin with invalid credentials shows error", () => {
-    cy.wait("@getUser")
-
     cy.get("input[name=email]").type("email@example.com")
     cy.get("input[name=password]").type("invalidPassword")
 
