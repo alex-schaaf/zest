@@ -8,7 +8,6 @@ import { Link, useLocation } from "wouter"
 import { StravaActivities } from "@prisma/client"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import { useAuth } from "@/contexts/auth-context"
-import Spinner from "@/components/ui/Spinner/Spinner"
 
 const dropdownItemStyles =
   "rounded px-2 py-1 hover:cursor-pointer hover:bg-primary-500 hover:text-white"
@@ -48,7 +47,7 @@ const Navbar: React.FC = () => {
   return (
     <div className="h-[4rem] border-b bg-white px-6">
       <div className="container mx-auto flex h-full items-center justify-between">
-        <div className="text-4xl">👟</div>
+        <div className="text-4xl">🍋</div>
         <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
           {pages.map((page) => (
             <Link
