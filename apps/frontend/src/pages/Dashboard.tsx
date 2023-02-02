@@ -1,5 +1,5 @@
 import SevenDayOverview from "@/components/SevenDayOverview"
-import Loading from "@/components/ui/Spinner"
+import Spinner from "@/components/ui/Spinner"
 import MonthlyOverview from "@/components/MonthlyOverview"
 import { DashboardContext } from "@/contexts/dashboard-context"
 import useActivities from "@/hooks/useActivities"
@@ -19,7 +19,7 @@ const Dashboard = () => {
   if (isLoading) {
     return (
       <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Loading />
+        <Spinner />
       </div>
     )
   }

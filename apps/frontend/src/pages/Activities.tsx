@@ -6,6 +6,7 @@ import ActivitiesTable from "@/components/ActivitiesTable"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import dayjs from "dayjs"
 import Button from "@/components/ui/Button"
+import Spinner from "@/components/ui/Spinner/Spinner"
 
 const options = [
   {
@@ -36,6 +37,13 @@ const Activities = () => {
   const { activities, isLoading } = useActivities(
     dayjs().startOf("day").subtract(parseInt(start), "days").toDate()
   )
+
+  if (isLoading)
+    return (
+      <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
+        <Spinner />
+      </div>
+    )
 
   return (
     <div className="container mx-auto space-y-4">
