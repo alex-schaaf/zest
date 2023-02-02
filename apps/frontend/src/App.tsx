@@ -1,12 +1,11 @@
-// import { lazy } from "react";
-import AuthenticatedApp from "@/AuthenticatedApp"
+import { lazy, Suspense } from "react"
+
 import UnauthenticatedApp from "@/UnauthenticatedApp"
 import { UserContext } from "@/contexts/user-context"
 import { useAuth } from "@/contexts/auth-context"
-import Loading from "@/components/ui/Spinner"
+import Spinner from "./components/ui/Spinner"
 
-// const AuthenticatedApp = lazy(() => import("./AuthenticatedApp"));
-// const UnauthenticatedApp = lazy(() => import("./UnauthenticatedApp"));
+const AuthenticatedApp = lazy(() => import("./AuthenticatedApp"))
 
 const App = () => {
   const { user, settings, isLoading, isError } = useAuth()
@@ -16,18 +15,25 @@ const App = () => {
   }
 
   if (isLoading) {
-    debugger
     return (
       <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <Loading />
+        <Spinner />
       </div>
     )
   }
 
   return user && settings ? (
-    <UserContext.Provider value={{ user, settings }}>
-      <AuthenticatedApp />
-    </UserContext.Provider>
+    <Suspense
+      fallback={
+        <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Spinner />
+        </div>
+      }
+    >
+      <UserContext.Provider value={{ user, settings }}>
+        <AuthenticatedApp />
+      </UserContext.Provider>
+    </Suspense>
   ) : (
     <UnauthenticatedApp />
   )

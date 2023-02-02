@@ -2,9 +2,8 @@ import Card from "@/components/Card"
 import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
-import { EnterIcon, ExclamationTriangleIcon } from "@radix-ui/react-icons"
+import { EnterIcon } from "@radix-ui/react-icons"
 import ErrorMessage from "../ui/ErrorMessage"
-import { divide } from "cypress/types/lodash"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("")
@@ -14,9 +13,6 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!email || !password) return
-    console.log("email", email)
-    console.log("password", password)
-
     await login(email, password)
   }
 

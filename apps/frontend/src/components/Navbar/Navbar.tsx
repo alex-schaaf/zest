@@ -49,8 +49,9 @@ const Navbar: React.FC = () => {
       <div className="container mx-auto flex h-full items-center justify-between">
         <div className="text-4xl">🍋</div>
         <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
-          {pages.map((page) => (
+          {pages.map((page, idx) => (
             <Link
+              key={idx}
               href={page.href}
               className={classNames("hover:cursor-pointer", {
                 "text-primary-600": location === page.href,
