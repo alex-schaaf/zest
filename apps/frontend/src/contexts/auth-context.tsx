@@ -88,7 +88,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
         settings,
         login,
         logout,
-        isLoading: !isError && (isLoading || isLoadingUser),
+        isLoading: !isError && isLoading,
         isError,
         error,
       }}
