@@ -1,11 +1,11 @@
-<div id="header" align="center">
-    <h2>🍋</h2>
-    <h2>zest</h2>
+<div align="center">
+# zest
+
+`zest` is an open-source, self-hostable dashboard for your running data.
+
 </div>
 
-#
-
-`zest` is a self-hostable dashboard for running data. It integrates with services like [Strava](https://strava.com/) by using their APIs to download all available activities and storing in a database.
+It integrates with services like [Strava](https://strava.com/) by using their APIs to download all available activities and storing in a database.
 
 Integrations:
 
