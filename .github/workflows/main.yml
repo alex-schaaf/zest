@@ -8,8 +8,11 @@ on:
 
 jobs:
   build:
-    name: Build and Test
+    name: Build
     runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node18.12.0-chrome107
+      options: --user 1001
 
     steps:
       - name: Checkout
@@ -17,11 +20,16 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Setup Node.js Environment
-        uses: actions/setup-node@v3
+      - name: Cypress Install
+        uses: cypress-io/github-action@v4
         with:
-          node-version: 18.12.1
-          cache: "yarn"
+          runTests: false
+
+      # - name: Setup Node.js Environment
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: 18.12.1
+      #     cache: "yarn"
 
       - name: Install Depedencies
         run: yarn
@@ -29,8 +37,31 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Start
-        run: yarn start:frontend &
+      - name: Cypress info
+        run: yarn cypress info
 
-      - name: Test E2E
-        run: yarn test
+      - name: E2E Tests
+        uses: cypress-io/github-action@v4
+        with:
+          start: yarn start:frontend &
+          wait-on: "http://localhost:5173"
+          wait-on-timeout: 60
+          browser: chrome
+          record: true
+          spec: apps/frontend/cypress/e2e/*
+          config-file: apps/frontend/cypress.config.ts
+
+      # - name: Start
+      #   run: yarn start:frontend &
+
+      # - name: Test E2E
+      #   run: yarn test
+
+  # ui-chrome-tests:
+  #   name: E2E Tests
+  #   timeout-minutes: 15
+  #   runs-on: ubuntu-latest
+  #   container:
+  #     image: cypress/browsers:node18.12.0-chrome107
+  #     options: --user 1001
+  #   needs: build
