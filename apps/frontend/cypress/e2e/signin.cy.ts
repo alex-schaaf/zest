@@ -1,8 +1,9 @@
 describe("signin page", () => {
   beforeEach(() => {
-    cy.intercept("/api/v1/users", { statusCode: 401, method: "GET" }).as(
-      "getUser"
-    )
+    cy.intercept("http://localhost:3000/api/v1/users", {
+      statusCode: 401,
+      method: "GET",
+    }).as("getUser")
     cy.visit("/")
     cy.wait("@getUser")
   })
