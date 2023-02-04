@@ -1,11 +1,15 @@
 import useActivities from "@/hooks/useActivities"
-import ActivitiesBarChart from "@/components/ActivitiesBarChart/ActivitiesBarChart"
+
 import Card from "@/components/ui/Card"
 import Loading from "@/components/ui/Spinner"
 import { StravaActivities } from "@prisma/client"
-import { ParentSize } from "@visx/responsive"
+
+import ActivitiesBarChart2 from "../ActivitiesBarChart2"
+import useElementSize from "@/hooks/useElementSize"
 
 const ActivitiesBarChartContainer: React.FC = () => {
+  const [ref, { width, height }] = useElementSize()
+
   const start = new Date(new Date().getFullYear(), 0, 1)
   const { activities, isLoading, isError } = useActivities(
     start,
@@ -17,16 +21,14 @@ const ActivitiesBarChartContainer: React.FC = () => {
   if (isError) return <div>fialed to fetch</div>
 
   return (
-    <Card className="h-64">
-      <ParentSize>
-        {(parent) => (
-          <ActivitiesBarChart
-            activities={activities as StravaActivities[]}
-            width={parent.width}
-            height={parent.height}
-          />
-        )}
-      </ParentSize>
+    <Card>
+      <div ref={ref} className="h-48">
+        <ActivitiesBarChart2
+          activities={activities as StravaActivities[]}
+          width={width}
+          height={height}
+        />
+      </div>
     </Card>
   )
 }
