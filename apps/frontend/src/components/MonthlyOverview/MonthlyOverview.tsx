@@ -3,7 +3,7 @@ import React, { useMemo } from "react"
 import DistanceStepChartContainer from "@/components/DistanceStepChartContainer"
 import { getActivityStats } from "@/components/SevenDayOverview/SevenDayOverview"
 import { useDashboard } from "@/contexts/dashboard-context"
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import StatCard from "@/components/ui/StatCard"
 
 const MonthlyOverview: React.FC = () => {

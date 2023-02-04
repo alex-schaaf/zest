@@ -1,4 +1,4 @@
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import DistanceStepChart from "../DistanceStepChart/DistanceStepChart"
 import { StravaActivities } from "@prisma/client"
 import { ParentSize } from "@visx/responsive"

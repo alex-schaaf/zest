@@ -6,7 +6,7 @@ import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { PropsWithChildren } from "react"
 import ErrorMessage from "@/components/ui/ErrorMessage"
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import YearlyOverview from "@/components/YearlyOverview"
 
 const Dashboard = () => {

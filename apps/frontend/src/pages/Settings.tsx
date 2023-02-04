@@ -1,4 +1,4 @@
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import DescriptionList from "@/components/DescriptionList"
 import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"

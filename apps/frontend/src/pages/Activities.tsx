@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import * as Select from "@radix-ui/react-select"
 import useActivities from "@/hooks/useActivities"
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import ActivitiesTable from "@/components/ActivitiesTable"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import dayjs from "dayjs"

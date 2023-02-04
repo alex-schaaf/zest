@@ -1,4 +1,4 @@
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import { minutesToHoursAndMinutes } from "@/lib/time"
 import React, { PropsWithChildren } from "react"
 import TrendBadge from "../TrendBadge"

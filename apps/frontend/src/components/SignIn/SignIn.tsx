@@ -1,4 +1,4 @@
-import Card from "@/components/Card"
+import Card from "@/components/ui/Card"
 import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
