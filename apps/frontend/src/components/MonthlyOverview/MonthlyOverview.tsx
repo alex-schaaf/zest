@@ -25,7 +25,7 @@ const MonthlyOverview: React.FC = () => {
       activities.filter(
         (a) =>
           dayjs(a.startDate) >= dayjs().startOf("month").subtract(1, "month") &&
-          dayjs(a.startDate) < dayjs().startOf("month")
+          dayjs(a.startDate) < dayjs().subtract(1, "month")
       ),
     [activities]
   )
