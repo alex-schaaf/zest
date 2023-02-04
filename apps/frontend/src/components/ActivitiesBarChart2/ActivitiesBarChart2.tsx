@@ -75,11 +75,10 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
               //   setTooltip(null)
               // }}
             />
-            {distance && (
+            {distance && xMax > 1000 && (
               <text
                 x={x + (barWidth - 2) / 2}
                 y={yMax + 2}
-                // dx={distance < 10 ? 4 : 1}
                 fill={colors.white}
                 className="text-xs"
                 dominant-baseline="middle"
