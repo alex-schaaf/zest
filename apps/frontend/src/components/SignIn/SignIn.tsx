@@ -62,11 +62,7 @@ const SignIn: React.FC = () => {
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
-          <div className="flex justify-between text-sm text-gray-700">
-            <div className="flex gap-2">
-              <input type="checkbox" />
-              <label>Remember me</label>
-            </div>
+          <div className="flex justify-center text-sm text-gray-700">
             <div className="text-primary-500 hover:cursor-not-allowed">
               <a>Forgot your password?</a>
             </div>

@@ -5,7 +5,7 @@ import TrendBadge from "../TrendBadge"
 
 const Title: React.FC<PropsWithChildren> = (props) => {
   return (
-    <div className="text-sm font-medium text-gray-400">{props.children}</div>
+    <div className="text-xs font-semibold text-gray-400">{props.children}</div>
   )
 }
 

@@ -35,7 +35,10 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
     domain: [
       0,
       Math.ceil(
-        Math.max(...Object.values(data?.map((d) => d.distanceThisMonth))) * 1.1
+        Math.max(
+          ...Object.values(data?.map((d) => d.distanceThisMonth)),
+          ...Object.values(data?.map((d) => d.distanceLastMonth))
+        ) * 1.1
       ),
     ],
   })

@@ -91,7 +91,7 @@ const Navbar: React.FC = () => {
               </button>
             </DropdownMenu.Trigger>
             <DropdownMenu.Portal>
-              <DropdownMenu.Content className="min-w-[200px] rounded-md border bg-white p-1 text-sm shadow-xl ">
+              <DropdownMenu.Content className="mr-1 min-w-[200px] rounded-md border bg-white p-1 text-sm shadow-xl">
                 <DropdownMenu.Item
                   className={classNames(dropdownItemStyles, {
                     "text-gray-300": !canSync,
@@ -122,7 +122,3 @@ const Navbar: React.FC = () => {
 }
 
 export default Navbar
-
-const getOldestActivityTime = (activities: StravaActivities[]) => {
-  return new Date(activities[activities.length - 1].startDate).getTime() / 1000
-}
