@@ -17,11 +17,11 @@ const getX = (value: number, barWidth: number): number => {
 const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
   const data = useMemo(() => binActivitiesWeekly(activities), [activities])
 
-  const [tooltip, setTooltip] = useState<{
-    x: number
-    y: number
-    distance: number
-  } | null>(null)
+  // const [tooltip, setTooltip] = useState<{
+  //   x: number
+  //   y: number
+  //   distance: number
+  // } | null>(null)
 
   if (height === 0) return null
 
@@ -65,7 +65,7 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
               x={x}
               y={y}
               height={barHeight}
-              width={barWidth - 1}
+              width={barWidth - 2}
               key={week}
               fill={colors.blue[600]}
               // onMouseOver={(e) => {
@@ -77,7 +77,7 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
             />
             {distance && (
               <text
-                x={x + (barWidth - 1) / 2}
+                x={x + (barWidth - 2) / 2}
                 y={yMax + 2}
                 // dx={distance < 10 ? 4 : 1}
                 fill={colors.white}
