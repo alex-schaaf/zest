@@ -27,7 +27,7 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
 
   const distanceMax = Math.max(...data.map(({ distance }) => distance))
 
-  const margin = { top: 10, right: 10, bottom: 10, left: 10 }
+  const margin = { top: 10, right: 10, bottom: 4, left: 10 }
 
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
