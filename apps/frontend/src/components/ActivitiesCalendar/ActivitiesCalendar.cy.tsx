@@ -9,7 +9,11 @@ describe("<ActivitiesCalendar />", () => {
   it("renders empty calendar correctly", () => {
     const today = dayjs()
     cy.mount(
-      <ActivitiesCalendar date={today} setDate={() => {}} activities={[]} />
+      <ActivitiesCalendar
+        date={today.startOf("month")}
+        setDate={() => {}}
+        activities={[]}
+      />
     )
 
     cy.contains(today.format("MMMM"))
