@@ -1,4 +1,5 @@
 import dayjs from "dayjs"
+import { useState } from "react"
 import ActivitiesCalendar from "./ActivitiesCalendar"
 
 describe("<ActivitiesCalendar />", () => {
@@ -44,5 +45,28 @@ describe("<ActivitiesCalendar />", () => {
         "data-cy",
         `calendar-day-${end.format("YYYY-MM-DD")}`
       )
+  })
+
+  it("changes month forward and backward correctly", () => {
+    const startOfMonth = dayjs().startOf("month").subtract(1, "month")
+    const setDateSpy = cy.spy().as("setDateSpy")
+    cy.mount(
+      <ActivitiesCalendar
+        date={startOfMonth}
+        setDate={setDateSpy}
+        activities={[]}
+      />
+    )
+
+    cy.get("[data-cy=calendar-back]").click()
+    cy.get("@setDateSpy").should(
+      "have.been.calledWith",
+      startOfMonth.subtract(1, "month")
+    )
+    cy.get("[data-cy=calendar-forward]").click()
+    cy.get("@setDateSpy").should(
+      "have.been.calledWith",
+      startOfMonth.add(1, "month")
+    )
   })
 })
