@@ -21,6 +21,12 @@ import "../../src/index.css"
 // require('./commands')
 
 import { mount } from "cypress/react18"
+import dayjs from "dayjs"
+import isoWeek from "dayjs/plugin/isoWeek"
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
+
+dayjs.extend(isoWeek)
+dayjs.extend(isSameOrBefore)
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.

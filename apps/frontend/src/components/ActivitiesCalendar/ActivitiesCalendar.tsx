@@ -4,10 +4,11 @@ import dayjs, { Dayjs } from "dayjs"
 import classNames from "classnames"
 
 interface Props {
+  date: Dayjs
   activities: StravaActivities[]
 }
 
-const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
+const ActivitiesCalendar: React.FC<Props> = ({ date, activities }) => {
   const today = dayjs()
 
   const start = today.startOf("month")
@@ -51,7 +52,7 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
           <div>{day.format("dddd")}</div>
         ))}
       </div>
-      <div className="grid grid-cols-7 border shadow-sm">
+      <div className="grid grid-cols-7 border shadow-sm" id="calendar">
         {days.map((day, idx) => {
           const activities = act[day.format("YYYY-MM-DD")]
 
@@ -63,6 +64,7 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
                 "border-l": day.isoWeekday() > 1,
               })}
               key={idx}
+              data-cy={`calendar-day-${day.format("YYYY-MM-DD")}`}
             >
               <div className="text-left text-xs font-medium text-gray-400">
                 {day.date()}

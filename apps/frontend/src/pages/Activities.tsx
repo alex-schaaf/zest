@@ -77,7 +77,7 @@ const Activities = () => {
       </Card>
       {activities && (
         <Card>
-          <ActivitiesCalendar activities={activities} />
+          <ActivitiesCalendar date={dayjs()} activities={activities} />
         </Card>
       )}
       <Card>{activities && <ActivitiesTable activities={activities} />}</Card>
