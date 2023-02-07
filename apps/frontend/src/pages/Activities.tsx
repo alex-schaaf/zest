@@ -7,6 +7,7 @@ import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import dayjs from "dayjs"
 import Button from "@/components/ui/Button"
 import Spinner from "@/components/ui/Spinner/Spinner"
+import ActivitiesCalendar from "@/components/ActivitiesCalendar"
 
 const options = [
   {
@@ -74,9 +75,12 @@ const Activities = () => {
           </Select.Content>
         </Select.Root>
       </Card>
-      <Card className="">
-        {activities && <ActivitiesTable activities={activities} />}
-      </Card>
+      {activities && (
+        <Card>
+          <ActivitiesCalendar activities={activities} />
+        </Card>
+      )}
+      <Card>{activities && <ActivitiesTable activities={activities} />}</Card>
     </div>
   )
 }
