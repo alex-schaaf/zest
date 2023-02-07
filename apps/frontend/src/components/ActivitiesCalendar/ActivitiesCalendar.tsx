@@ -45,7 +45,10 @@ const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
   return (
     <>
       <div className="flex justify-between pb-6 text-center text-xl font-bold text-gray-500">
-        <Button onClick={() => setDate(date.subtract(1, "month"))}>
+        <Button
+          onClick={() => setDate(date.subtract(1, "month"))}
+          data-cy="calendar-back"
+        >
           <ArrowLeftIcon />
         </Button>
         <div>
@@ -56,7 +59,10 @@ const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
             invisible: date.add(1, "month") > dayjs(),
           })}
         >
-          <Button onClick={() => setDate(date.add(1, "month"))}>
+          <Button
+            onClick={() => setDate(date.add(1, "month"))}
+            data-cy="calendar-forward"
+          >
             <ArrowRightIcon />
           </Button>
         </div>
