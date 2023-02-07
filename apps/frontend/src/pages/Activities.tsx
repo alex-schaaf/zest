@@ -8,6 +8,7 @@ import dayjs from "dayjs"
 import Button from "@/components/ui/Button"
 import Spinner from "@/components/ui/Spinner/Spinner"
 import ActivitiesCalendar from "@/components/ActivitiesCalendar"
+import ActivitiesCalendarContainer from "@/components/ActivitiesCalendarContainer"
 
 const options = [
   {
@@ -48,6 +49,9 @@ const Activities = () => {
 
   return (
     <div className="container mx-auto space-y-4">
+      <Card>
+        <ActivitiesCalendarContainer />
+      </Card>
       <Card className="">
         <Select.Root value={start} onValueChange={setStart}>
           <Select.Trigger>
@@ -75,11 +79,6 @@ const Activities = () => {
           </Select.Content>
         </Select.Root>
       </Card>
-      {activities && (
-        <Card>
-          <ActivitiesCalendar date={dayjs()} activities={activities} />
-        </Card>
-      )}
       <Card>{activities && <ActivitiesTable activities={activities} />}</Card>
     </div>
   )
