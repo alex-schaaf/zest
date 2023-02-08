@@ -10,7 +10,18 @@ import {
 } from "@tanstack/react-table"
 import dayjs from "dayjs"
 import classNames from "classnames"
-import { TriangleDownIcon, TriangleUpIcon } from "@radix-ui/react-icons"
+import {
+  DotsVerticalIcon,
+  TrashIcon,
+  TriangleDownIcon,
+  TriangleUpIcon,
+} from "@radix-ui/react-icons"
+import Button from "../ui/Button"
+import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import axios from "../../lib/axios"
+import { useUser } from "@/contexts/user-context"
+import ToastMessage from "../ToastMessage/ToastMessage"
 
 interface Props {
   activities: StravaActivities[]
@@ -38,6 +49,11 @@ const columns = [
   columnHelper.accessor("elevationGain", {
     header: "Elevation Gain [m]",
     cell: (info) => info.getValue().toFixed(0),
+  }),
+  columnHelper.display({
+    header: "",
+    id: "menu",
+    cell: (info) => <OptionsDropdownMenu activityId={info.row.original.id} />,
   }),
 ]
 
@@ -109,3 +125,63 @@ const ActivitiesTable: React.FC<Props> = ({ activities }) => {
 }
 
 export default ActivitiesTable
+
+const OptionsDropdownMenu: React.FC<{ activityId: bigint }> = ({
+  activityId,
+}) => {
+  const { user } = useUser()
+  const [isOpenToast, setIsOpenToast] = useState(false)
+
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation({
+    mutationFn: () =>
+      axios.delete(`/users/${user.id}/activities/${activityId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["activities"] })
+    },
+  })
+
+  return (
+    <DropdownMenu.Root>
+      <ToastMessage
+        intent={mutation.isSuccess ? "success" : "failure"}
+        open={isOpenToast}
+        onOpenChange={setIsOpenToast}
+        title={mutation.isSuccess ? "Success" : "Failure"}
+        message={
+          mutation.isSuccess
+            ? "Activity successfully deleted."
+            : "Failed to delete activity"
+        }
+      />
+      <DropdownMenu.Trigger asChild>
+        <div className="flex justify-end text-gray-500">
+          <Button minimal>
+            <DotsVerticalIcon />
+          </Button>
+        </div>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Portal>
+        <DropdownMenu.Content
+          className="DropdownMenuContent"
+          sideOffset={0}
+          align="end"
+        >
+          <DropdownMenu.Item className="DropdownMenuItem">
+            <Button
+              intent="danger"
+              minimal
+              fill
+              onClick={async () => {
+                mutation.mutateAsync().then(() => setIsOpenToast(true))
+              }}
+            >
+              <TrashIcon /> Delete
+            </Button>
+          </DropdownMenu.Item>
+        </DropdownMenu.Content>
+      </DropdownMenu.Portal>
+    </DropdownMenu.Root>
+  )
+}
