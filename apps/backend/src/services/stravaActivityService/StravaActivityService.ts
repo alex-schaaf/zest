@@ -51,32 +51,14 @@ class StravaActivityService {
     return await prisma.stravaActivities.create({ data: d });
   }
 
-  // async createMany(userId: number, data: StravaActivity[]) {
-  //   const transformedData = data.map((d) => ({
-  //     id: d.id,
-  //     type: d.type,
-  //     distance: d.distance,
-  //     time: d.moving_time,
-  //     speed: d.average_speed,
-  //     elevationGain: d.total_elevation_gain,
-  //     startDate: d.start_date,
-  //     data: JSON.stringify(d),
-  //     Users: {
-  //       connect: {
-  //         id: userId,
-  //       },
-  //     },
-  //   }));
-
-  //   return await prisma.stravaActivities.createMany({
-  //     data: transformedData,
-  //     skipDuplicates: true,
-  //   });
-  // }
-
   // async update(where, data) {}
 
-  // async delete(where) {}
+  async delete(where: Prisma.StravaActivitiesWhereUniqueInput) {
+    return await prisma.stravaActivities.update({
+      where,
+      data: { active: false },
+    });
+  }
 }
 
 const stravaActivityService = new StravaActivityService();
