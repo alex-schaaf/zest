@@ -42,7 +42,8 @@ model StravaActivities {
   elevationGain Float
   startDate     DateTime
 
-  data Json // the complete activity JSON returned from the StravaAPI
+  active Boolean @default(true)
+  data   Json // the complete activity JSON returned from the StravaAPI
 
   Users  Users @relation(fields: [userId], references: [id])
   userId Int
