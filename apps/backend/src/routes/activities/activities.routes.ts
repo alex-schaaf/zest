@@ -83,4 +83,16 @@ router.post("/users/:userId/activities", async (req, res, next) => {
   }
 });
 
+router.delete(
+  "/users/:userId/activities/:activityId",
+  async (req, res, next) => {
+    const { activityId } = req.params;
+    const activity = await stravaActivityService.delete({
+      id: parseInt(activityId),
+    });
+
+    res.status(200).json(activity);
+  }
+);
+
 export default router;
