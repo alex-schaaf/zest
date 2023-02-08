@@ -13,6 +13,7 @@ import { ReactNode, useState } from "react"
 import Button from "@/components/ui/Button"
 import * as Dialog from "@radix-ui/react-dialog"
 import SettingsStravaForm from "@/components/SettingsStravaForm"
+import StravaSyncPrevBtn from "@/components/StravaSyncPrevBtn"
 
 const formatDateStr = (s: string | number | Date | null) => {
   if (s == null) return ""
@@ -94,9 +95,10 @@ const SettingsView = () => {
                 </DescriptionList.Subtitle>
               </div>
               <div className="flex gap-2">
+                <StravaSyncPrevBtn />
                 <Dialog.Root open={isOpen} onOpenChange={setIsOpen}>
                   <Dialog.Trigger asChild>
-                    <Button>
+                    <Button intent="success">
                       <Pencil1Icon /> Edit
                     </Button>
                   </Dialog.Trigger>
