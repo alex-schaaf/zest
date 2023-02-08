@@ -9,6 +9,7 @@ const router = express.Router();
 interface GetActivitiesQueryParams {
   start?: Date;
   end: Date;
+  oldest?: boolean;
 }
 
 router.get(
@@ -18,7 +19,16 @@ router.get(
     res
   ) => {
     const { userId } = req.params;
-    const { start, end } = req.query;
+    const { start, end, oldest } = req.query;
+
+    if (oldest) {
+      const activities = await stravaActivityService.findMany({
+        where: { userId: parseInt(userId) },
+        orderBy: { startDate: "asc" },
+        take: 1,
+      });
+      return res.json(activities[0]);
+    }
 
     const activities = await stravaActivityService.findMany({
       where: {
@@ -51,7 +61,7 @@ router.post(
     const data = req.body;
 
     if (Array.isArray(data)) {
-      const activities: StravaActivities[] = [];
+      const activities: Omit<StravaActivities, "data">[] = [];
       data.forEach(async (obj) => {
         try {
           const act = await stravaActivityService.create(parseInt(userId), obj);

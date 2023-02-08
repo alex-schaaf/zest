@@ -1,14 +1,15 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, StravaActivities } from "@prisma/client";
 import { prisma } from "../../lib/db";
+import { SummaryActivity } from "strava-types";
 
-interface StravaActivity {
-  id: number;
-  type: string;
-  distance: number;
-  moving_time: number;
-  average_speed: number;
-  total_elevation_gain: number;
-  start_date: Date;
+function exclude<StravaActivities, Key extends keyof StravaActivities>(
+  activity: StravaActivities,
+  keys: Key[]
+): Omit<StravaActivities, Key> {
+  for (let key of keys) {
+    delete activity[key];
+  }
+  return activity;
 }
 
 /**
@@ -23,15 +24,16 @@ class StravaActivityService {
   constructor() {}
 
   async findMany(args: Prisma.StravaActivitiesFindManyArgs) {
-    return await prisma.stravaActivities.findMany(args);
+    const activities = await prisma.stravaActivities.findMany(args);
+    return activities.map((a) => exclude(a, ["data"]));
   }
 
   async find(where: Prisma.StravaActivitiesFindUniqueOrThrowArgs) {
-    // TODO protect with userId?
-    return await prisma.stravaActivities.findUnique(where);
+    const activity = await prisma.stravaActivities.findUniqueOrThrow(where);
+    return exclude(activity, ["data"]);
   }
 
-  async create(userId: number, data: StravaActivity) {
+  async create(userId: number, data: SummaryActivity) {
     const d: Prisma.StravaActivitiesCreateInput = {
       id: data.id,
       type: data.type,
@@ -48,16 +50,18 @@ class StravaActivityService {
       },
     };
 
-    return await prisma.stravaActivities.create({ data: d });
+    const activity = await prisma.stravaActivities.create({ data: d });
+    return exclude(activity, ["data"]);
   }
 
   // async update(where, data) {}
 
   async delete(where: Prisma.StravaActivitiesWhereUniqueInput) {
-    return await prisma.stravaActivities.update({
+    const activity = await prisma.stravaActivities.update({
       where,
       data: { active: false },
     });
+    return exclude(activity, ["data"]);
   }
 }
 
