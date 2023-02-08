@@ -1,24 +1,24 @@
 import Card from "@/components/ui/Card"
 import DistanceStepChart from "../DistanceStepChart/DistanceStepChart"
 import { StravaActivities } from "@prisma/client"
-import { ParentSize } from "@visx/responsive"
+import useElementSize from "@/hooks/useElementSize"
 
 interface Props {
   activities: StravaActivities[]
 }
 
 const DistanceStepChartContainer: React.FC<Props> = ({ activities }) => {
+  const [ref, { width, height }] = useElementSize()
+
   return (
     <Card>
-      <ParentSize>
-        {(parent) => (
-          <DistanceStepChart
-            activities={activities}
-            width={parent.width}
-            height={parent.height}
-          />
-        )}
-      </ParentSize>
+      <div ref={ref} className="h-36">
+        <DistanceStepChart
+          activities={activities}
+          width={width}
+          height={height}
+        />
+      </div>
     </Card>
   )
 }

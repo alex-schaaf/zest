@@ -3,10 +3,7 @@ import React, { useMemo } from "react"
 import { StravaActivities } from "@prisma/client"
 import dayjs from "dayjs"
 import colors from "tailwindcss/colors"
-import { Group } from "@visx/group"
-import { LinePath, Circle } from "@visx/shape"
-import { curveMonotoneX } from "@visx/curve"
-import { scaleLinear } from "@visx/scale"
+import * as d3 from "d3"
 
 interface Props {
   activities: StravaActivities[]
@@ -25,14 +22,15 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
 
-  const xScale = scaleLinear<number>({
-    range: [0, xMax],
-    round: true,
-    domain: [0, data.length - 1],
-  })
-  const yScale = scaleLinear<number>({
-    range: [yMax, 0],
-    domain: [
+  const xScale = d3
+    .scaleLinear()
+    .range([margin.left, xMax])
+    .domain([0, data.length - 1])
+
+  const yScale = d3
+    .scaleLinear()
+    .range([yMax, 0])
+    .domain([
       0,
       Math.ceil(
         Math.max(
@@ -40,47 +38,50 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
           ...Object.values(data?.map((d) => d.distanceLastMonth))
         ) * 1.1
       ),
-    ],
-  })
+    ])
+
+  function generatePath(data: number[]) {
+    let s = ""
+    data.forEach((d, i) => {
+      if (i === 0) {
+        s += `M ${xScale(i)} ${yScale(d)}`
+      } else {
+        s += `L ${xScale(i)} ${yScale(d)}`
+      }
+    })
+
+    return s
+  }
+
+  const r = 4
 
   return (
-    <svg width={width} height={height} className="">
-      <Group left={margin.left} top={margin.top}>
-        <LinePath
-          curve={curveMonotoneX}
-          data={data}
-          x={(_, i) => xScale(i)}
-          y={(d) => yScale(d.distanceLastMonth)}
-          stroke={colors.gray[300]}
-          strokeWidth={1.5}
-        />
-        <Circle
-          cx={xScale(0)}
-          cy={yScale(data[0].distanceThisMonth)}
-          r={4}
-          fill={colors.blue[600]}
-        />
-        <Circle
-          cx={xScale(data.length - 1)}
-          cy={yScale(data[data.length - 1].distanceThisMonth)}
-          r={4}
-          fill={colors.blue[600]}
-        />
-        <LinePath
-          curve={curveMonotoneX}
-          data={data}
-          x={(_, i) => xScale(i)}
-          y={(d) => yScale(d.distanceThisMonth)}
-          stroke={colors.blue[600]}
-          strokeWidth={1.5}
-        />
-        <Circle
-          cx={xScale(data.length - 1)}
-          cy={yScale(data[data.length - 1].distanceLastMonth)}
-          r={4}
-          fill={colors.gray[300]}
-        />
-      </Group>
+    <svg width={width} height={height}>
+      <path
+        d={generatePath(data.map((d) => d.distanceLastMonth))}
+        stroke={colors.gray[300]}
+        strokeWidth={2}
+        fillOpacity={0}
+      />
+      <path
+        d={generatePath(data.map((d) => d.distanceThisMonth))}
+        stroke={colors.blue[600]}
+        strokeWidth={2}
+        fillOpacity={0}
+      />
+      <circle
+        cx={xScale(data.length - 1)}
+        cy={yScale(data[data.length - 1].distanceLastMonth)}
+        r={r}
+        fill={colors.gray[300]}
+      />
+      <circle cx={xScale(0)} cy={yScale(0)} r={r} fill={colors.blue[600]} />
+      <circle
+        cx={xScale(data.length - 1)}
+        cy={yScale(data[data.length - 1].distanceThisMonth)}
+        r={r}
+        fill={colors.blue[600]}
+      />
     </svg>
   )
 }
