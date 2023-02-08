@@ -25,6 +25,14 @@ body {
   @apply mt-2 mb-4 text-sm;
 }
 
+.DropdownMenuContent {
+  @apply bg-white rounded-lg  border shadow-md w-48
+}
+
+.DropdownMenuItem {
+ @apply flex cursor-default select-none text-sm items-center rounded-md px-2 py-2 outline-none
+}
+
 .LabelRoot {
   @apply text-sm text-gray-600 font-medium;
 }
