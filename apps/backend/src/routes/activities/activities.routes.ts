@@ -5,16 +5,6 @@ import { Prisma, StravaActivities } from "@prisma/client";
 
 const router = express.Router();
 
-interface StravaActivity {
-  id: number;
-  type: string;
-  distance: number;
-  moving_time: number;
-  average_speed: number;
-  total_elevation_gain: number;
-  start_date: Date;
-}
-
 interface GetActivitiesQueryParams {
   start?: Date;
   end: Date;
@@ -36,6 +26,7 @@ router.get(
           gte: start,
           lte: end,
         },
+        active: true,
         type: {
           equals: "Run",
         },
