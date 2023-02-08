@@ -1,5 +1,7 @@
 import axios from "axios"
 import { Settings } from "@prisma/client"
+import { SummaryActivity } from "strava-types"
+
 const stravaUrl = "https://www.strava.com/api/v3"
 
 export interface StravaAPIActivitiesSearchParams {
@@ -12,7 +14,7 @@ export interface StravaAPIActivitiesSearchParams {
 export const getStravaActivities = async (
   access_token: string,
   stravaSearchParams: StravaAPIActivitiesSearchParams = {}
-) => {
+): Promise<SummaryActivity[]> => {
   const searchParams = new URLSearchParams({
     access_token,
     ...JSON.parse(JSON.stringify(stravaSearchParams)),

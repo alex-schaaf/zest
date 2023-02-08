@@ -8,6 +8,7 @@ import {
   StravaAPIActivitiesSearchParams,
 } from "@/lib/strava.service"
 import { useQueryClient } from "@tanstack/react-query"
+import { SummaryActivity } from "strava-types"
 
 const useStravaSync = (): {
   isLoading: boolean
@@ -50,7 +51,11 @@ const useStravaSync = (): {
         settings.stravaAccessToken,
         searchParams
       )
-      await postActivities(user.id, activities)
+
+      await postActivities(
+        user.id,
+        activities.filter((a) => a.type === "Run")
+      )
 
       setIsSuccess(true)
       queryClient.invalidateQueries({ queryKey: ["activities"] })
@@ -88,7 +93,10 @@ const tokenExpired = (expiresAt: number): boolean => {
   return expiresAt <= new Date().getTime() / 1000
 }
 
-const postActivities = async (userId: number, activities: []) => {
+const postActivities = async (
+  userId: number,
+  activities: SummaryActivity[]
+) => {
   await axios.post(
     import.meta.env.VITE_API_URL + `/users/${userId}/activities`,
     activities,
