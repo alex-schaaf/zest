@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "build": "etsc",
     "dev": "nodemon src/index.ts",
     "test": "jest"
   },
@@ -23,11 +24,12 @@
     "jest": "^29.3.1",
     "nodemon": "^2.0.20",
     "prisma": "^4.8.1",
+    "strava-types": "*",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4",
-    "strava-types": "*"
+    "esbuild-node-tsc": "^2.0.5"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
@@ -36,7 +38,6 @@
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.0",
-    "module-alias": "^2.2.2",
-    "zod": "^3.20.2"
+    "module-alias": "^2.2.2"
   }
 }
