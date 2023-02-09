@@ -9,6 +9,7 @@ describe("<ActivitiesCalendar />", () => {
 
   it("renders empty calendar correctly", () => {
     const today = dayjs()
+
     cy.mount(
       <ActivitiesCalendar
         date={today.startOf("month")}
@@ -23,10 +24,7 @@ describe("<ActivitiesCalendar />", () => {
     const calendar = cy.get("div#calendar")
     calendar.should("exist")
 
-    const start = today
-      .startOf("month")
-      .subtract(today.isoWeekday() - 1, "days")
-
+    const start = today.startOf("month").startOf("isoWeek")
     const days = calendar.children()
     days.should("have.length", 5 * 7)
 
@@ -38,7 +36,7 @@ describe("<ActivitiesCalendar />", () => {
         `calendar-day-${start.format("YYYY-MM-DD")}`
       )
 
-    const end = today.endOf("month").add(8 - today.isoWeekday(), "days")
+    const end = today.endOf("month").endOf("isoWeek")
     cy.get("div#calendar")
       .children()
       .last()
