@@ -7,18 +7,30 @@ import isoWeek from "dayjs/plugin/isoWeek"
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
 import React from "react"
 import ReactDOM from "react-dom/client"
+import { setupWorker } from "msw"
+import { handlers } from "./mocks/handlers"
+
+const worker = setupWorker(...handlers)
+
+async function prepare() {
+  if (import.meta.env.DEV) {
+    return worker.start()
+  }
+}
 
 const queryClient = new QueryClient()
 
 dayjs.extend(isoWeek)
 dayjs.extend(isSameOrBefore)
 
-ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
-  <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
-    </QueryClientProvider>
-  </React.StrictMode>
-)
+prepare().then(() => {
+  ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
+    <React.StrictMode>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </QueryClientProvider>
+    </React.StrictMode>
+  )
+})

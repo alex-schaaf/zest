@@ -21,6 +21,6 @@
     },
     "types": ["cypress"]
   },
-  "include": ["src", "cypress", "cypress.config.ts"],
+  "include": ["src", "public", "cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
