@@ -81,8 +81,8 @@ const ActivitiesBarChart: React.FC<Props> = ({ activities, width, height }) => {
                 y={yMax + 2}
                 fill={colors.white}
                 className="text-xs"
-                dominant-baseline="middle"
-                text-anchor="middle"
+                dominantBaseline="middle"
+                textAnchor="middle"
               >
                 {distance.toFixed(0)}
               </text>
@@ -112,14 +112,14 @@ export default ActivitiesBarChart
 
 const binActivitiesWeekly = (activities: StravaActivities[]) => {
   const bins: Record<number, number> = {}
-  for (let w = 1; w <= 52; w++) {
+  for (let w = 1; w <= dayjs().isoWeeksInYear(); w++) {
     bins[w] = 0
   }
 
   activities.forEach((activity) => {
     const date = dayjs(activity.startDate)
 
-    if (date.year() < dayjs().year()) {
+    if (!date.isAfter(dayjs().startOf("year"))) {
       return
     }
 

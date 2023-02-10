@@ -75,7 +75,18 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
         r={r}
         fill={colors.gray[300]}
       />
-      <circle cx={xScale(0)} cy={yScale(0)} r={r} fill={colors.blue[600]} />
+      <circle
+        cx={xScale(0)}
+        cy={yScale(data[0].distanceLastMonth)}
+        r={r}
+        fill={colors.gray[300]}
+      />
+      <circle
+        cx={xScale(0)}
+        cy={yScale(data[0].distanceThisMonth)}
+        r={r}
+        fill={colors.blue[600]}
+      />
       <circle
         cx={xScale(data.length - 1)}
         cy={yScale(data[data.length - 1].distanceThisMonth)}

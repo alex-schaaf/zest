@@ -17,7 +17,7 @@ export const generateActivities = (start: Dayjs) => {
       const speed = Math.random() + 2
 
       activities.push({
-        id: i,
+        id: Math.floor(Math.random() * 1000000),
         distance,
         startDate: dayjs.unix(unix).toDate(),
         type: "Run",

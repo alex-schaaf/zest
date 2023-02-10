@@ -7,13 +7,19 @@ import user from "./data/user"
 const activities = generateActivities(dayjs().subtract(2, "year"))
 
 export const handlers = [
-  rest.get("*/api/v1/users", (req, res, ctx) => {
+  rest.get("http://localhost:3000/api/v1/users", (req, res, ctx) => {
     return res(ctx.json(user))
   }),
-  rest.get("*/api/v1/users/*/settings/*", (req, res, ctx) => {
-    return res(ctx.json(settings))
-  }),
-  rest.get("*/api/v1/users/*/activities*", (req, res, ctx) => {
-    return res(ctx.json(activities))
-  }),
+  rest.get(
+    "http://localhost:3000/api/v1/users/*/settings/*",
+    (req, res, ctx) => {
+      return res(ctx.json(settings))
+    }
+  ),
+  rest.get(
+    "http://localhost:3000/api/v1/users/*/activities*",
+    (req, res, ctx) => {
+      return res(ctx.json(activities))
+    }
+  ),
 ]
