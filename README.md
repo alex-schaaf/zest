@@ -6,6 +6,15 @@
 <b><code>zest</code> is an open-source, self-hostable dashboard for your running data.</b>
 </div>
 
+<br/><br/>
+<br/><br/>
+
+![screenshot-dashboard-view](https://user-images.githubusercontent.com/17277800/218068883-73c3d83a-d129-4514-966f-1d3bce9263de.png)
+
+<br/><br/>
+
+![screenshot-calendar-view](https://user-images.githubusercontent.com/17277800/218068898-39045970-5dfc-4d5e-8b8b-f93fb1857c0e.png)
+
 ## Description
 
 It integrates with services like [Strava](https://strava.com/) by using their APIs to download all available activities and storing in a database.
