@@ -79,6 +79,7 @@ export interface SummaryActivity {
   flagged: boolean;
   workout_type: number;
   average_speed: number;
+  average_heartrate: number | null;
   max_speed: number;
   has_kudoed: boolean;
 }
