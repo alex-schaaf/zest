@@ -42,6 +42,7 @@ class StravaActivityService {
       speed: data.average_speed,
       elevationGain: data.total_elevation_gain,
       startDate: data.start_date,
+      averageHeartrate: data.average_heartrate,
       data: data as unknown as Prisma.InputJsonValue,
       Users: {
         connect: {
