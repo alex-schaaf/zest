@@ -34,13 +34,14 @@ model Settings {
 }
 
 model StravaActivities {
-  id            BigInt   @id
-  type          String
-  distance      Float
-  time          Float
-  speed         Float
-  elevationGain Float
-  startDate     DateTime
+  id               BigInt   @id
+  type             String
+  distance         Float
+  time             Float
+  speed            Float
+  elevationGain    Float
+  averageHeartrate Float?
+  startDate        DateTime
 
   active Boolean @default(true)
   data   Json // the complete activity JSON returned from the StravaAPI
