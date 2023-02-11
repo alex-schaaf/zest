@@ -51,6 +51,11 @@ const YearlyOverview = () => {
           previousValue={statsPrev.totalElevation}
           unit={"m"}
         />
+        <StatCard
+          title={"Average Heart Rate"}
+          value={stats.averageHeartrate}
+          unit={"bpm"}
+        />
       </div>
 
       <ActivityWeeklyLineChartContainer />

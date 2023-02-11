@@ -9,6 +9,7 @@ interface ActivityStats {
   totalTime: number
   totalElevation: number
   averageSpeed: number
+  averageHeartrate: number
 }
 
 const Activities7DayStats: React.FC = () => {
@@ -82,9 +83,18 @@ export const getActivityStats = (
     (prev, curr) => (prev += curr.elevationGain),
     0
   )
+  const averageHeartrate =
+    activities.reduce((prev, curr) => (prev += curr.averageHeartrate || 0), 0) /
+    activities.filter((activity) => activity.averageHeartrate != null).length
   const averageSpeed =
     activities.reduce((prev, curr) => (prev += curr.speed), 0) /
     activities.length
 
-  return { totalDistance, totalTime, totalElevation, averageSpeed }
+  return {
+    totalDistance,
+    totalTime,
+    totalElevation,
+    averageSpeed,
+    averageHeartrate,
+  }
 }
