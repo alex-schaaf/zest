@@ -15,7 +15,7 @@ import { handlers } from "./mocks/handlers"
 const worker = setupWorker(...handlers)
 
 async function prepare() {
-  if (import.meta.env.DEV) {
+  if (import.meta.env.VITE_MOCK === "mock") {
     return worker.start()
   }
 }
