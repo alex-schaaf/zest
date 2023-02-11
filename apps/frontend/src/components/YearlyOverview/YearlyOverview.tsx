@@ -1,9 +1,10 @@
 import { useMemo } from "react"
 import dayjs from "dayjs"
 import StatCard from "@/components/ui/StatCard"
-import ActivitiesBarChartContainer from "@/components/ActivitiesBarChartContainer"
+
 import { getActivityStats } from "@/components/SevenDayOverview/SevenDayOverview"
 import { useDashboard } from "@/contexts/dashboard-context"
+import ActivityWeeklyLineChartContainer from "../ActivityWeeklyLineChart"
 
 const YearlyOverview = () => {
   const { activities } = useDashboard()
@@ -51,7 +52,8 @@ const YearlyOverview = () => {
           unit={"m"}
         />
       </div>
-      <ActivitiesBarChartContainer />
+
+      <ActivityWeeklyLineChartContainer />
     </div>
   )
 }
