@@ -7,11 +7,8 @@
 </div>
 
 <br/><br/>
-<br/><br/>
 
 ![screenshot-dashboard-view](https://user-images.githubusercontent.com/17277800/218068883-73c3d83a-d129-4514-966f-1d3bce9263de.png)
-
-<br/><br/>
 
 ![screenshot-calendar-view](https://user-images.githubusercontent.com/17277800/218068898-39045970-5dfc-4d5e-8b8b-f93fb1857c0e.png)
 
