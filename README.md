@@ -1,6 +1,3 @@
-> **Warning**
-> This is very much still in alpha.
-
 <div align="center">
 <h1>zest</h1>
 <b><code>zest</code> is an open-source, self-hostable dashboard for your running data.</b>
@@ -14,15 +11,15 @@
 
 ## Description
 
-It integrates with services like [Strava](https://strava.com/) by using their APIs to download all available activities and storing in a database.
+`zest` integrates with services like [Strava](https://strava.com/), using their
+API to download all available running activities and storing them locally in a
+PostgreSQL database.
 
 Integrations:
 
-- [Strava](https://strava.com/)
-
-Integration roadmap:
-
-- [Garmin Connect](https://connect.garmin.com/)
+- [x] [Strava](https://strava.com/)
+- [ ] [Garmin Connect](https://connect.garmin.com/)
+- [ ] Upload `.FIT` file
 
 ## Getting started
 
