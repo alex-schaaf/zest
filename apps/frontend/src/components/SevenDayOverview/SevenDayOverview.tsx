@@ -59,6 +59,7 @@ const Activities7DayStats: React.FC = () => {
           title={"Total Elevation Gain"}
           value={stats.totalElevation}
           previousValue={statsPrevious.totalElevation}
+          precision={0}
           unit={"m"}
         />
       </div>

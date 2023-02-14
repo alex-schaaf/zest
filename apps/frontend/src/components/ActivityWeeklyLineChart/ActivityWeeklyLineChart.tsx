@@ -29,8 +29,6 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.top - margin.bottom
 
-  const barWidth = xMax / data.length
-
   const xScale = d3
     .scaleLinear()
     .range([margin.left, xMax])
@@ -55,7 +53,7 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
     return s
   }
 
-  function generatePath2(data: number[]) {
+  function generateAreaPath(data: number[]) {
     let s = `M ${xScale(0)} ${yScale(0)}`
     data.forEach((d, i) => {
       if (i == dayjs().isoWeek()) {
@@ -73,13 +71,13 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
   return (
     <svg height={height} width={width} xmlns="http://www.w3.org/2000/svg">
       <path
-        d={generatePath2(data.map((d) => d.distance))}
+        d={generateAreaPath(data.map((d) => d.distance))}
         fillOpacity={0.5}
-        fill={colors.yellow[100]}
+        fill={colors.blue[100]}
       />
       <path
         d={generatePath(data.map((d) => d.distance))}
-        stroke={colors.yellow[400]}
+        stroke={colors.blue[400]}
         strokeWidth={2}
         fillOpacity={0}
       />
@@ -93,16 +91,14 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
                 week - 1
               )} ${yScale(distanceMax)}`}
               stroke={
-                week == dayjs().isoWeek()
-                  ? colors.yellow[500]
-                  : colors.gray[200]
+                week == dayjs().isoWeek() ? colors.blue[500] : colors.gray[200]
               }
             />
             {week == dayjs().isoWeek() && (
               <text
                 x={xScale(week - 0.65)}
-                y={yScale(distance * 0.975)}
-                fill={colors.yellow[500]}
+                y={yScale(distance)}
+                fill={colors.blue[500]}
               >
                 {distance.toFixed(0)} km
               </text>
@@ -113,7 +109,7 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
               r={4}
               fill={"white"}
               strokeWidth={2}
-              stroke={colors.yellow[400]}
+              stroke={colors.blue[400]}
             />
           </>
         )
@@ -123,10 +119,6 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
 }
 
 export default ActivityWeeklLineChart
-
-const getX = (value: number, barWidth: number): number => {
-  return value * barWidth - barWidth / 2
-}
 
 const binActivitiesWeekly = (activities: StravaActivities[]) => {
   const bins: Record<number, number> = {}

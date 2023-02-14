@@ -24,29 +24,21 @@ interface StatCardProps {
 const StatCard: React.FC<StatCardProps> = (props) => {
   const isTime = ["min"].includes(props.unit || "")
 
-  const renderTime = () => {
-    const { hours, minutes } = minutesToHoursAndMinutes(props.value)
-    return (
-      <>
-        {hours}h {minutes}min
-      </>
-    )
-  }
-
   return (
     <Card className="flex-grow">
       <Title>{props.title}</Title>
       <div className="flex items-end justify-between">
         <Value>
           {isTime ? (
-            renderTime()
+            <RenderTime value={props.value} />
           ) : (
             <>
-              {props.value.toFixed(props.precision || 0)} {props.unit}
+              <span>{props.value.toFixed(props.precision || 0)}</span>
+              <span>{props.unit}</span>
             </>
           )}
         </Value>
-        {props.previousValue && (
+        {props.previousValue !== undefined && (
           <TrendBadge
             current={props.value}
             previous={props.previousValue}
@@ -60,3 +52,12 @@ const StatCard: React.FC<StatCardProps> = (props) => {
 }
 
 export default StatCard
+
+const RenderTime: React.FC<{ value: number }> = ({ value }) => {
+  const { hours, minutes } = minutesToHoursAndMinutes(value)
+  return (
+    <>
+      {hours}h {minutes}min
+    </>
+  )
+}
