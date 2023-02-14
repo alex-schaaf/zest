@@ -15,20 +15,15 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
-
-router.get("/", async (req, res) => {
-  res.json({ message: "Hello World!" });
-});
+app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
 
 router.use(authRouter);
-// @ts-ignore
 router.use(authTokenMiddleware); // everything below is authenticated
 router.use(usersRouter);
 router.use(activitiesRouter);
 
 app.use("/api/v1", router);
 
-app.listen(3000, () => {
-  console.log("Server ready at http://localhost:3000");
+app.listen(process.env.PORT, () => {
+  console.log(`Server ready at http://localhost:${process.env.PORT}`);
 });
