@@ -1,6 +1,6 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalEnv": ["JWT_SECRET"],
+  "globalEnv": ["JWT_SECRET", "FRONTEND_URL", "PORT"],
   "pipeline": {
     "build": {
       "dependsOn": ["^build"],
