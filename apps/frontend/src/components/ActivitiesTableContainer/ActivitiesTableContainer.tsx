@@ -70,10 +70,12 @@ const ActivitiesTableContainer: React.FC = () => {
         <div className="flex justify-center">
           <Spinner />
         </div>
-      ) : activities ? (
+      ) : activities && activities.length > 0 ? (
         <ActivitiesTable activities={activities} />
       ) : (
-        <></>
+        <div className="pt-6 pb-4 text-center text-gray-400">
+          No activities.
+        </div>
       )}
     </div>
   )
