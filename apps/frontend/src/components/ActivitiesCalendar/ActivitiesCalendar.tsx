@@ -68,8 +68,8 @@ const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
         </div>
       </div>
       <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-500">
-        {days.slice(0, 7).map((day) => (
-          <div>{day.format("dddd")}</div>
+        {days.slice(0, 7).map((day, idx) => (
+          <div key={idx}>{day.format("dddd")}</div>
         ))}
       </div>
       <div className="grid grid-cols-7 border shadow-sm" id="calendar">
