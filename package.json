@@ -1,6 +1,6 @@
 {
-  "name": "self-fit2",
-  "version": "0.0.0",
+  "name": "zest",
+  "version": "0.1.0",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -9,17 +9,18 @@
   "scripts": {
     "build": "turbo run build",
     "start:frontend": "cd apps/frontend && yarn preview --port 5173",
-    "dev": "turbo run dev --parallel",
+    "dev": "dotenv -- turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "plop": "plop",
     "test": "cd apps/frontend && yarn cypress run"
   },
   "devDependencies": {
+    "dotenv-cli": "^7.3.0",
     "eslint-config-custom": "*",
-    "prettier": "latest",
-    "turbo": "latest",
-    "plop": "^3.1.1"
+    "plop": "^3.1.1",
+    "prettier": "^3.0.3",
+    "turbo": "^1.10.13"
   },
   "engines": {
     "node": ">=14.0.0"

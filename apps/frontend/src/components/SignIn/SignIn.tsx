@@ -6,8 +6,8 @@ import { EnterIcon } from "@radix-ui/react-icons"
 import ErrorMessage from "../ui/ErrorMessage"
 
 const SignIn: React.FC = () => {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("email@example.com")
+  const [password, setPassword] = useState("admin")
 
   const { login, isLoading, error } = useAuth()
 

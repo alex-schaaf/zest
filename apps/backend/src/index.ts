@@ -15,7 +15,12 @@ app.use(express.json());
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-app.use(cors({ origin: process.env.FRONTEND_URL, credentials: true }));
+app.use(
+  cors({
+    origin: `http://localhost:${process.env.FRONTEND_PORT}`,
+    credentials: true,
+  })
+);
 
 router.use(authRouter);
 router.use(authTokenMiddleware); // everything below is authenticated
@@ -24,6 +29,6 @@ router.use(activitiesRouter);
 
 app.use("/api/v1", router);
 
-app.listen(process.env.PORT, () => {
-  console.log(`Server ready at http://localhost:${process.env.PORT}`);
+app.listen(process.env.BACKEND_PORT, () => {
+  console.log(`Server ready at http://localhost:${process.env.BACKEND_PORT}`);
 });
