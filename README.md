@@ -40,7 +40,7 @@ The backend will be available at `localhost:3000` and the frontend at
 Testing is done using Cypress. Make sure to have the app running before
 executing a test run.
 
-````
+```
 yarn test
 ```
 
@@ -49,4 +49,3 @@ yarn test
 ```
 yarn build
 ```
-````
