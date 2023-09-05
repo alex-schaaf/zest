@@ -4,6 +4,7 @@ import useActivities from "@/hooks/useActivities"
 import useElementSize from "@/hooks/useElementSize"
 import Card from "../ui/Card"
 import ActivityWeeklyBarChart from "../ActivityWeeklyBarChart"
+import { Title } from "../ui/StatCard/StatCard"
 
 const ActivityWeeklyChartContainer = () => {
   const [ref, { width, height }] = useElementSize()
@@ -20,7 +21,8 @@ const ActivityWeeklyChartContainer = () => {
 
   return (
     <Card>
-      <div ref={ref} className="h-48">
+      <Title>Weekly Distance</Title>
+      <div ref={ref} className="mt-4 h-48 text-sm">
         <ActivityWeeklyBarChart
           activities={activities}
           width={width}

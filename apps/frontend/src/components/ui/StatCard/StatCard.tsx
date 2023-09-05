@@ -3,7 +3,7 @@ import { minutesToHoursAndMinutes } from "@/lib/time"
 import React, { PropsWithChildren } from "react"
 import TrendBadge from "../TrendBadge"
 
-const Title: React.FC<PropsWithChildren> = (props) => {
+export const Title: React.FC<PropsWithChildren> = (props) => {
   return (
     <div className="text-xs font-semibold text-gray-400">{props.children}</div>
   )
