@@ -1,3 +1,3 @@
-import ActivityWeeklyLineChartContainer from "./ActivityWeeklyLineChartContainer"
+import ActivityWeeklyLineChartContainer from "./ActivityWeeklyChartContainer"
 
 export default ActivityWeeklyLineChartContainer
