@@ -26,13 +26,27 @@ Integrations:
 Install dependencies by running `yarn` in the root folder.
 
 1. Start the Postgres database container using `docker compose up`
-2. Migrate the Postgres database using `cd apps/backend && npx prisma migrate db`
+2. Migrate the Postgres database using `cd apps/backend && npx prisma migrate
+db`
 3. Seed the Postgres database using `npx prisma db seed`
-4. Run `yarn dev` in the root folder to run both the API and the frontend dev servers
+4. Run `yarn dev` in the root folder to run both the API and the frontend dev
+   servers
 
 The backend will be available at `localhost:3000` and the frontend at
 `localhost:5173`.
 
+## Testing
+
+Testing is done using Cypress. Make sure to have the app running before
+executing a test run.
+
+````
+yarn test
+```
+
 ## Production build
 
-1. `yarn build`
+```
+yarn build
+```
+````
