@@ -30,6 +30,9 @@ Install dependencies by running `yarn` in the root folder.
 3. Seed the Postgres database using `npx prisma db seed`
 4. Run `yarn dev` in the root folder to run both the API and the frontend dev servers
 
+The backend will be available at `localhost:3000` and the frontend at
+`localhost:5173`.
+
 ## Production build
 
 1. `yarn build`
