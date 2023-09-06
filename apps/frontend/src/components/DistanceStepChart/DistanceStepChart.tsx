@@ -65,7 +65,7 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
       />
       <path
         d={generatePath(data.map((d) => d.distanceThisMonth))}
-        stroke={colors.blue[400]}
+        stroke={colors.blue[500]}
         strokeWidth={2}
         fillOpacity={0}
       />
@@ -85,13 +85,13 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
         cx={xScale(0)}
         cy={yScale(data[0].distanceThisMonth)}
         r={r}
-        fill={colors.blue[400]}
+        fill={colors.blue[500]}
       />
       <circle
         cx={xScale(data.length - 1)}
         cy={yScale(data[data.length - 1].distanceThisMonth)}
         r={r}
-        fill={colors.blue[400]}
+        fill={colors.blue[500]}
       />
     </svg>
   )
