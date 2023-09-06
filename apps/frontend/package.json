@@ -28,6 +28,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.46.1",
+    "react-router-dom": "^6.15.0",
     "strava-types": "*",
     "use-query-params": "^2.2.1",
     "wouter": "^2.11.0"

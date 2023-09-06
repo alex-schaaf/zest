@@ -22,7 +22,7 @@ const Register = () => {
   }
 
   return (
-    <div className="mt-24 space-y-8">
+    <div className="mt-24 space-y-8 mx-auto w-96">
       <div className="text-center text-8xl">🍋</div>
       <div className="space-y-2 text-center">
         <div className="text-3xl font-bold">Create a new account</div>
