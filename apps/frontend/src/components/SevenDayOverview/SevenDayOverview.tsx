@@ -41,7 +41,7 @@ const Activities7DayStats: React.FC = () => {
 
   return (
     <div className="space-y-4">
-      <div className="flex gap-4">
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           title={"Total Distance"}
           value={stats.totalDistance}

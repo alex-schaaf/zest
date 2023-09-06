@@ -25,9 +25,9 @@ const StatCard: React.FC<StatCardProps> = (props) => {
   const isTime = ["min"].includes(props.unit || "")
 
   return (
-    <Card className="flex-auto">
+    <Card className="">
       <Title>{props.title}</Title>
-      <div className="flex items-end justify-between gap-8">
+      <div className="flex flex-wrap items-end justify-between gap-8">
         <Value>
           {isTime ? (
             <RenderTime value={props.value} />

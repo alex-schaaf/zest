@@ -43,10 +43,9 @@ const MonthlyOverview: React.FC = () => {
     )
 
   return (
-    <div className="grid grid-cols-3 items-stretch gap-4">
+    <div className="grid gap-4 sm:grid-cols-2 items-start">
       <DistanceStepChartContainer activities={activities} />
-      {thisMonthsActivities.length > 0 ? (
-        <div className="col-span-2 grid grid-cols-2 items-start gap-4">
+        <div className="grid gap-4 lg:grid-cols-2">
           <StatCard
             title={"Total Distance"}
             value={stats.totalDistance}
@@ -67,11 +66,6 @@ const MonthlyOverview: React.FC = () => {
             unit={"m"}
           />
         </div>
-      ) : (
-        <Card className="col-span-2 text-center text-sm font-medium text-gray-600">
-          No activities recorded for this month yet.
-        </Card>
-      )}
     </div>
   )
 }
