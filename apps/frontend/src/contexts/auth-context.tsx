@@ -1,6 +1,5 @@
 import { Users, Settings } from "@prisma/client"
 import axios from "@/lib/axios"
-import { AxiosError } from "axios"
 import { createContext, PropsWithChildren, useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
@@ -48,6 +47,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const login = async (email: string, password: string) => {
     setIsLoading(true)
     setError(null)
+
     try {
       const { userId, iat, exp } = await axios
         .post("/auth/login", { email, password })
@@ -69,7 +69,6 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     }
   }
 
-  const register = () => {}
 
   const logout = async () => {
     try {

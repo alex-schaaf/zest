@@ -1,3 +1,4 @@
+import { hash } from "../../lib/auth";
 import { prisma } from "../../lib/db";
 import { Prisma } from "@prisma/client";
 

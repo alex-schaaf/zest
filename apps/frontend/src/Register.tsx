@@ -1,30 +1,35 @@
-import Card from "@/components/ui/Card"
-import React, { useState } from "react"
-import { useAuth } from "@/contexts/auth-context"
-import Button from "../ui/Button"
-import { EnterIcon } from "@radix-ui/react-icons"
-import ErrorMessage from "../ui/ErrorMessage"
+import { useState } from "react"
+import { Pencil2Icon } from "@radix-ui/react-icons"
+import Card from "./components/ui/Card"
 
-const SignIn: React.FC = () => {
+import Button from "./components/ui/Button"
+import useRegister from "./hooks/useRegister"
+import Message from "./components/ui/Message"
+
+const Register = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("")
 
-  const { login, isLoading, error } = useAuth()
+  const { register, isLoading, error, isSuccess } = useRegister()
 
   const handleSubmit = async () => {
     if (!email || !password) return
-    await login(email, password)
+    await register(email, password)
+    setEmail("")
+    setPassword("")
+    setPasswordConfirm("")
   }
 
   return (
     <div className="mt-24 space-y-8">
       <div className="text-center text-8xl">🍋</div>
       <div className="space-y-2 text-center">
-        <div className="text-3xl font-bold">Sign in to your account</div>
+        <div className="text-3xl font-bold">Create a new account</div>
         <div className=" text-sm">
           Or{" "}
-          <a href="/register" className="text-primary-500">
-            register your new account
+          <a href="/" className="text-primary-500">
+            sign into existing account
           </a>
         </div>
       </div>
@@ -62,17 +67,34 @@ const SignIn: React.FC = () => {
               onChange={(e) => setPassword(e.currentTarget.value)}
             />
           </div>
-          <div className="flex justify-center text-sm text-gray-700">
-            <div className="text-primary-500 hover:cursor-not-allowed">
-              <a>Forgot your password?</a>
-            </div>
+          <div className="flex flex-col">
+            <label
+              htmlFor="passwordConfirm"
+              className="text-sm font-medium text-gray-500"
+            >
+              Confirm password
+            </label>
+            <input
+              type="password"
+              id="passwordConfirm"
+              name="passwordConfirm"
+              className="rounded-md border px-3 py-1 shadow-sm"
+              value={passwordConfirm}
+              onChange={(e) => setPasswordConfirm(e.currentTarget.value)}
+            />
           </div>
+
           <Button
             onClick={(e) => {
               e.preventDefault()
               handleSubmit()
             }}
-            disabled={!email || !password}
+            disabled={
+              !email ||
+              !password ||
+              !passwordConfirm ||
+              password !== passwordConfirm
+            }
             intent="primary"
             name="signIn"
           >
@@ -80,14 +102,24 @@ const SignIn: React.FC = () => {
               "loading"
             ) : (
               <>
-                <EnterIcon /> Sign in
+                <Pencil2Icon /> Register
               </>
             )}
           </Button>
         </form>
+
         {error && (
           <div className="mt-4 bg-danger-50 p-4">
-            <ErrorMessage text={"Invalid credentials"} />
+            {error.response?.status === 400 ? (
+              <Message text="Email already registered." intent="error" />
+            ) : (
+              <Message text="Something went wrong." intent="error" />
+            )}
+          </div>
+        )}
+        {isSuccess && (
+          <div className="mt-4 bg-success-50 p-4">
+            <Message text="New account created." intent="success" />
           </div>
         )}
       </Card>
@@ -95,4 +127,4 @@ const SignIn: React.FC = () => {
   )
 }
 
-export default SignIn
+export default Register
