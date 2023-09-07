@@ -4,7 +4,7 @@ import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import { useAuth } from "@/contexts/auth-context"
 
@@ -51,9 +51,9 @@ const Navbar: React.FC = () => {
             <NavLink
               key={idx}
               to={page.href}
-              className={classNames("hover:cursor-pointer", {
-                "text-primary-600": location.pathname === page.href,
-              })}
+              className={({ isActive }) =>
+                classNames("", { "text-primary-600": isActive })
+              }
             >
               {page.text}
             </NavLink>

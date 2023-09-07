@@ -1,4 +1,4 @@
-import { Navigate, Outlet, useNavigate } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import { UserContext } from "./contexts/user-context"
 import { useAuth } from "./contexts/auth-context"
@@ -27,8 +27,12 @@ const Layout = () => {
     user &&
     settings && (
       <UserContext.Provider value={{ user, settings }}>
-        <Navbar />
-        <Outlet />
+        <header>
+          <Navbar />
+        </header>
+        <main className="p-6">
+          <Outlet />
+        </main>
       </UserContext.Provider>
     )
   )
