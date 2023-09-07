@@ -6,12 +6,17 @@ import Settings from "./pages/Settings"
 import Register from "./Register"
 import Layout from "./Layout"
 import * as Toast from "@radix-ui/react-toast"
+import Spinner from "./components/ui/Spinner/Spinner"
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: Layout,
     children: [
+      {
+        index: true,
+        Component: Dashboard,
+      },
       {
         path: "/dashboard",
         Component: Dashboard,
@@ -40,7 +45,14 @@ const App = () => {
   return (
     <Toast.Provider>
       <Toast.Viewport className="fixed bottom-0 right-0 z-[100000] m-0 flex w-[390px] flex-col p-6" />
-      <RouterProvider router={router} />
+      <RouterProvider
+        router={router}
+        fallbackElement={
+          <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Spinner />
+          </div>
+        }
+      />
     </Toast.Provider>
   )
 }
