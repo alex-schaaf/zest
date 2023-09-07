@@ -16,10 +16,8 @@ const SignIn: React.FC = () => {
 
   const handleSubmit = async () => {
     if (!email || !password) return
-
-
-      await login(email, password)
-    
+    await login(email, password)
+    navigate("/dashboard")
   }
 
   return (
