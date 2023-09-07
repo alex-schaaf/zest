@@ -23,18 +23,17 @@ const Layout = () => {
     }
   }
 
-  return (
-    user &&
-    settings && (
-      <UserContext.Provider value={{ user, settings }}>
-        <header>
-          <Navbar />
-        </header>
-        <main className="p-6">
-          <Outlet />
-        </main>
-      </UserContext.Provider>
-    )
+  return user && settings ? (
+    <UserContext.Provider value={{ user, settings }}>
+      <header>
+        <Navbar />
+      </header>
+      <main className="p-6">
+        <Outlet />
+      </main>
+    </UserContext.Provider>
+  ) : (
+    <></>
   )
 }
 

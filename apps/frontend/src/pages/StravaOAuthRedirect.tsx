@@ -1,7 +1,7 @@
 import { useUser } from "@/contexts/user-context"
 import axios from "axios"
 import { useEffect, useState } from "react"
-import { useLocation } from "wouter"
+import { useNavigate } from "react-router-dom"
 
 interface StravaTokenResponse {
   token_type: "Bearer"
@@ -21,7 +21,7 @@ function getCodeParam() {
 }
 
 const StravaOAuthRedirect = () => {
-  const [, setLocation] = useLocation()
+  const navigate = useNavigate()
   const [authResponse, setAuthResponse] = useState<StravaTokenResponse>()
 
   const { user, settings } = useUser()
@@ -64,10 +64,10 @@ const StravaOAuthRedirect = () => {
             stravaAccessToken: access_token,
             stravaRefreshToken: refresh_token,
           },
-          { withCredentials: true }
+          { withCredentials: true },
         )
         .then(() => {
-          setLocation("settings")
+          navigate("/settings")
         })
     }
 

@@ -7,6 +7,7 @@ import Register from "./Register"
 import Layout from "./Layout"
 import * as Toast from "@radix-ui/react-toast"
 import Spinner from "./components/ui/Spinner/Spinner"
+import StravaOAuthRedirect from "./pages/StravaOAuthRedirect"
 
 const router = createBrowserRouter([
   {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     Component: Register,
+  },
+  {
+    path: "/auth/strava",
+    Component: StravaOAuthRedirect,
   },
 ])
 
