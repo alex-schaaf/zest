@@ -4,6 +4,7 @@ import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
 import { EnterIcon } from "@radix-ui/react-icons"
 import ErrorMessage from "../ui/ErrorMessage"
+import { useNavigate } from "react-router-dom"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("")
@@ -11,13 +12,16 @@ const SignIn: React.FC = () => {
 
   const { login, isLoading, error } = useAuth()
 
+  const navigate = useNavigate()
+
   const handleSubmit = async () => {
     if (!email || !password) return
     await login(email, password)
+    navigate("/dashboard")
   }
 
   return (
-    <div className="mt-24 space-y-8">
+    <div className="mt-24 space-y-8 mx-auto w-96">
       <div className="text-center text-8xl">🍋</div>
       <div className="space-y-2 text-center">
         <div className="text-3xl font-bold">Sign in to your account</div>

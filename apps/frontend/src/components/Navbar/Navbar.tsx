@@ -4,7 +4,7 @@ import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
-import { Link, useLocation } from "wouter"
+import { NavLink } from "react-router-dom"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import { useAuth } from "@/contexts/auth-context"
 
@@ -13,7 +13,7 @@ const dropdownItemStyles =
 
 export const pages = [
   {
-    href: "/",
+    href: "/dashboard",
     text: "Dashboard",
   },
   {
@@ -27,7 +27,6 @@ export const pages = [
 ]
 
 const Navbar: React.FC = () => {
-  const [location] = useLocation()
   const [openError, setOpenError] = useState(false)
   const [openSuccess, setOpenSuccess] = useState(false)
 
@@ -49,15 +48,15 @@ const Navbar: React.FC = () => {
         <div className="text-4xl">🍋</div>
         <nav className="flex content-center gap-4 text-base font-medium text-gray-500">
           {pages.map((page, idx) => (
-            <Link
+            <NavLink
               key={idx}
-              href={page.href}
-              className={classNames("hover:cursor-pointer", {
-                "text-primary-600": location === page.href,
-              })}
+              to={page.href}
+              className={({ isActive }) =>
+                classNames("", { "text-primary-600": isActive })
+              }
             >
               {page.text}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="flex">
