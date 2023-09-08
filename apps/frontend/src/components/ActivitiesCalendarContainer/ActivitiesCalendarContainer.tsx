@@ -1,21 +1,18 @@
-import React, { useState } from "react"
+import React from "react"
 import dayjs from "dayjs"
 
 import ActivitiesCalendar from "@/components/ActivitiesCalendar/ActivitiesCalendar"
 import useActivities from "@/hooks/useActivities"
+import { useSearchParams } from "react-router-dom"
 
 const ActivitiesCalendarContainer: React.FC = () => {
-  const [month, setMonth] = useState(dayjs().startOf("month"))
+  const [searchParams, _] = useSearchParams()
 
-  const { activities } = useActivities(month.subtract(1, "week").toDate())
-
-  return (
-    <ActivitiesCalendar
-      date={month}
-      setDate={setMonth}
-      activities={activities || []}
-    />
+  const { activities } = useActivities(
+    dayjs(searchParams.get("date")).subtract(1, "week").toDate(),
   )
+
+  return <ActivitiesCalendar activities={activities || []} />
 }
 
 export default ActivitiesCalendarContainer

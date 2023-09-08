@@ -5,7 +5,7 @@ import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
 import React, { useState, useEffect } from "react"
 import { NavLink } from "react-router-dom"
-import { ReloadIcon } from "@radix-ui/react-icons"
+import { PersonIcon, ReloadIcon } from "@radix-ui/react-icons"
 import { useAuth } from "@/contexts/auth-context"
 
 const dropdownItemStyles =
@@ -82,7 +82,7 @@ const Navbar: React.FC = () => {
                     {isLoading ? (
                       <ReloadIcon className="h-5 w-5 animate-spin text-primary-500" />
                     ) : (
-                      "AS"
+                      <PersonIcon className="h-5 w-5 text-primary-500" />
                     )}
                   </Avatar.Fallback>
                 </Avatar.Root>

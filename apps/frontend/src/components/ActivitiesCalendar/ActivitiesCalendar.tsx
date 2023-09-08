@@ -4,14 +4,17 @@ import dayjs, { Dayjs } from "dayjs"
 import classNames from "classnames"
 import Button from "../ui/Button"
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
+import { useSearchParams } from "react-router-dom"
 
 interface Props {
-  date: Dayjs
-  setDate: Dispatch<SetStateAction<Dayjs>>
   activities: StravaActivities[]
 }
 
-const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
+const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const date = dayjs(searchParams.get("date"))
+
   const days: Dayjs[] = useMemo(() => {
     const days: Dayjs[] = []
     // pad left with previous months days of the week
@@ -46,7 +49,11 @@ const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
     <>
       <div className="flex justify-between pb-6 text-center text-xl font-bold text-gray-500">
         <Button
-          onClick={() => setDate(date.subtract(1, "month"))}
+          onClick={() =>
+            setSearchParams({
+              date: date.subtract(1, "month").format("YYYY-MM-DD"),
+            })
+          }
           data-cy="calendar-back"
         >
           <ArrowLeftIcon />
@@ -60,7 +67,11 @@ const ActivitiesCalendar: React.FC<Props> = ({ date, setDate, activities }) => {
           })}
         >
           <Button
-            onClick={() => setDate(date.add(1, "month"))}
+            onClick={() =>
+              setSearchParams({
+                date: date.add(1, "month").format("YYYY-MM-DD"),
+              })
+            }
             data-cy="calendar-forward"
           >
             <ArrowRightIcon />
