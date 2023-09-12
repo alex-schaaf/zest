@@ -50,8 +50,9 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
       <div className="flex justify-between pb-6 text-center text-xl font-bold text-gray-500">
         <Button
           onClick={() =>
-            setSearchParams({
-              date: date.subtract(1, "month").format("YYYY-MM-DD"),
+            setSearchParams((params) => {
+              params.set("date", date.subtract(1, "month").format("YYYY-MM-DD"))
+              return params
             })
           }
           data-cy="calendar-back"
@@ -68,8 +69,9 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
         >
           <Button
             onClick={() =>
-              setSearchParams({
-                date: date.add(1, "month").format("YYYY-MM-DD"),
+              setSearchParams((params) => {
+                params.set("date", date.add(1, "month").format("YYYY-MM-DD"))
+                return params
               })
             }
             data-cy="calendar-forward"

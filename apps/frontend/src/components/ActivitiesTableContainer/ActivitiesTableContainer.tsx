@@ -1,11 +1,12 @@
 import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
-import React, { useState } from "react"
+import React from "react"
 import * as Select from "@radix-ui/react-select"
 import ActivitiesTable from "../ActivitiesTable/ActivitiesTable"
 import Button from "@/components/ui/Button"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
 import Spinner from "../ui/Spinner/Spinner"
+import { useSearchParams } from "react-router-dom"
 
 const options = [
   {
@@ -31,16 +32,25 @@ const options = [
 ]
 
 const ActivitiesTableContainer: React.FC = () => {
-  const [start, setStart] = useState("30")
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const start = searchParams.get("lastDays") as string
 
   const { activities, isLoading } = useActivities(
-    dayjs().startOf("day").subtract(parseInt(start), "days").toDate()
+    dayjs().startOf("day").subtract(parseInt(start), "days").toDate(),
   )
+
+  const onValueChange = (v: string) => {
+    setSearchParams((params) => {
+      params.set("lastDays", v)
+      return params
+    })
+  }
 
   return (
     <div className="space-y-6">
       <div className="">
-        <Select.Root value={start} onValueChange={setStart}>
+        <Select.Root value={start} onValueChange={onValueChange}>
           <Select.Trigger>
             <Button>
               <Select.Value />
