@@ -31,7 +31,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
             minimal && intent === "danger",
           "text-green-600 hover:bg-danger-100 hover:text-green-600":
             minimal && intent === "success",
-        }
+        },
       )}
     >
       <span
@@ -47,7 +47,7 @@ const Button = React.forwardRef<HTMLButtonElement, Props>(
         </div>
       )}
     </button>
-  )
+  ),
 )
 
 Button.displayName = "Button"
