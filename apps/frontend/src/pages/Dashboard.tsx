@@ -5,9 +5,9 @@ import { DashboardContext } from "@/contexts/dashboard-context"
 import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { PropsWithChildren } from "react"
-import ErrorMessage from "@/components/ui/ErrorMessage"
 import Card from "@/components/ui/Card"
 import YearlyOverview from "@/components/YearlyOverview"
+import Message from "@/components/ui/Message"
 
 const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities(
@@ -27,7 +27,7 @@ const Dashboard = () => {
   if (isError) {
     return (
       <div className="fixed top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2">
-        <ErrorMessage text={"Failed to load activities."} />
+        <Message text={"Failed to load activities."} intent="error" />
       </div>
     )
   }

@@ -3,8 +3,8 @@ import React, { useState } from "react"
 import { useAuth } from "@/contexts/auth-context"
 import Button from "../ui/Button"
 import { EnterIcon } from "@radix-ui/react-icons"
-import ErrorMessage from "../ui/ErrorMessage"
 import { useNavigate } from "react-router-dom"
+import Message from "../ui/Message"
 
 const SignIn: React.FC = () => {
   const [email, setEmail] = useState("")
@@ -91,7 +91,7 @@ const SignIn: React.FC = () => {
         </form>
         {error && (
           <div className="mt-4 bg-danger-50 p-4">
-            <ErrorMessage text={"Invalid credentials"} />
+            <Message text={"Invalid credentials"} intent="error" />
           </div>
         )}
       </Card>
