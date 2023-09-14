@@ -11,11 +11,6 @@ const meta: Meta<typeof StatCard> = {
 export default meta
 type Story = StoryObj<typeof StatCard>
 
-/*
- *👇 Render functions are a framework specific feature to allow you control on how the component renders.
- * See https://storybook.js.org/docs/react/api/csf
- * to learn how to use render functions.
- */
 export const Positive: Story = {
   render: () => (
     <StatCard title="Toital Distance" value={15} previousValue={10} unit="km" />
