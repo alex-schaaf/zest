@@ -12,12 +12,12 @@ const MonthlyOverview: React.FC = () => {
   const thisMonthsActivities = useMemo(
     () =>
       activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("month")),
-    [activities]
+    [activities],
   )
 
   const stats = useMemo(
     () => getActivityStats(thisMonthsActivities),
-    [thisMonthsActivities]
+    [thisMonthsActivities],
   )
 
   const lastMonthsActivites = useMemo(
@@ -25,14 +25,14 @@ const MonthlyOverview: React.FC = () => {
       activities.filter(
         (a) =>
           dayjs(a.startDate) >= dayjs().startOf("month").subtract(1, "month") &&
-          dayjs(a.startDate) < dayjs().subtract(1, "month")
+          dayjs(a.startDate) < dayjs().subtract(1, "month"),
       ),
-    [activities]
+    [activities],
   )
 
   const statsPrev = useMemo(
     () => getActivityStats(lastMonthsActivites),
-    [lastMonthsActivites]
+    [lastMonthsActivites],
   )
 
   if (thisMonthsActivities.length === 0 && lastMonthsActivites.length === 0)
@@ -45,27 +45,27 @@ const MonthlyOverview: React.FC = () => {
   return (
     <div className="grid gap-4 sm:grid-cols-2 items-start">
       <DistanceStepChartContainer activities={activities} />
-        <div className="grid gap-4 lg:grid-cols-2">
-          <StatCard
-            title={"Total Distance"}
-            value={stats.totalDistance}
-            previousValue={statsPrev.totalDistance}
-            unit={"km"}
-          />
-          <StatCard
-            title={"Total Time"}
-            value={stats.totalTime}
-            previousValue={statsPrev.totalTime}
-            unit={"min"}
-            precision={0}
-          />
-          <StatCard
-            title={"Total Elevation Gain"}
-            value={stats.totalElevation}
-            previousValue={statsPrev.totalElevation}
-            unit={"m"}
-          />
-        </div>
+      <div className="grid gap-4 lg:grid-cols-2">
+        <StatCard
+          title={"Total Distance"}
+          value={stats.totalDistance}
+          previousValue={statsPrev.totalDistance}
+          unit={"km"}
+        />
+        <StatCard
+          title={"Total Time"}
+          value={stats.totalTime}
+          previousValue={statsPrev.totalTime}
+          unit={"min"}
+          precision={0}
+        />
+        <StatCard
+          title={"Total Elevation Gain"}
+          value={stats.totalElevation}
+          previousValue={statsPrev.totalElevation}
+          unit={"m"}
+        />
+      </div>
     </div>
   )
 }

@@ -13,7 +13,7 @@ const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities(
     dayjs(new Date(new Date().getUTCFullYear(), 0, 1))
       .subtract(1, "year")
-      .toDate()
+      .toDate(),
   )
 
   if (isLoading) {
@@ -58,5 +58,9 @@ const Dashboard = () => {
 export default Dashboard
 
 export const SectionHeader: React.FC<PropsWithChildren> = (props) => {
-  return <div className="text-lg font-bold text-gray-800 pt-8 first:pt-0">{props.children}</div>
+  return (
+    <div className="text-lg font-bold text-gray-800 pt-8 first:pt-0">
+      {props.children}
+    </div>
+  )
 }

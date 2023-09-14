@@ -14,7 +14,7 @@ interface Props {
 const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
   const data = useMemo(
     () => (activities ? getData(activities) : []),
-    [activities]
+    [activities],
   )
 
   const margin = { top: 4, right: 4, bottom: 4, left: 4 }
@@ -35,8 +35,8 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
       Math.ceil(
         Math.max(
           ...Object.values(data?.map((d) => d.distanceThisMonth)),
-          ...Object.values(data?.map((d) => d.distanceLastMonth))
-        ) * 1.1
+          ...Object.values(data?.map((d) => d.distanceLastMonth)),
+        ) * 1.1,
       ),
     ])
 
@@ -106,12 +106,12 @@ const getData = (activities: StravaActivities[]) => {
   const thisMonth = cumsum(
     activities,
     now.startOf("month").toDate(),
-    now.endOf("month").toDate()
+    now.endOf("month").toDate(),
   )
   const lastMonth = cumsum(
     activities,
     last.endOf("month").subtract(now.endOf("month").date(), "days").toDate(),
-    last.endOf("month").toDate()
+    last.endOf("month").toDate(),
   )
 
   const data = []
