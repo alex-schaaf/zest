@@ -1,3 +1,3 @@
-import TrendBadge from './TrendBadge';
+import TrendBadge from "./TrendBadge"
 
-export default TrendBadge;
+export default TrendBadge

@@ -1,3 +1,3 @@
-import ActivitiesTable from './ActivitiesTable';
+import ActivitiesTable from "./ActivitiesTable"
 
-export default ActivitiesTable;
+export default ActivitiesTable

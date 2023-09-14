@@ -1,3 +1,3 @@
-import MonthlyOverview from './MonthlyOverview';
+import MonthlyOverview from "./MonthlyOverview"
 
-export default MonthlyOverview;
+export default MonthlyOverview

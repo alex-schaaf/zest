@@ -1,3 +1,3 @@
-import DistanceStepChartContainer from './DistanceStepChartContainer';
+import DistanceStepChartContainer from "./DistanceStepChartContainer"
 
-export default DistanceStepChartContainer;
+export default DistanceStepChartContainer

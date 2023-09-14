@@ -20,10 +20,10 @@ const Activities7DayStats: React.FC = () => {
       getActivityStats(
         activities.filter(
           (act) =>
-            dayjs(act.startDate) >= dayjs().startOf("day").subtract(7, "days")
-        )
+            dayjs(act.startDate) >= dayjs().startOf("day").subtract(7, "days"),
+        ),
       ),
-    [activities]
+    [activities],
   )
 
   const statsPrevious = useMemo(
@@ -33,10 +33,10 @@ const Activities7DayStats: React.FC = () => {
           (act) =>
             dayjs(act.startDate) >=
               dayjs().startOf("day").subtract(2, "week") &&
-            dayjs(act.startDate) < dayjs().startOf("day").subtract(7, "days")
-        )
+            dayjs(act.startDate) < dayjs().startOf("day").subtract(7, "days"),
+        ),
       ),
-    [activities]
+    [activities],
   )
 
   return (
@@ -70,19 +70,19 @@ const Activities7DayStats: React.FC = () => {
 export default Activities7DayStats
 
 export const getActivityStats = (
-  activities: StravaActivities[]
+  activities: StravaActivities[],
 ): ActivityStats => {
   const totalDistance = activities.reduce(
     (prev, curr) => (prev += curr.distance / 1000),
-    0
+    0,
   )
   const totalTime = activities.reduce(
     (prev, curr) => (prev += curr.time / 60),
-    0
+    0,
   )
   const totalElevation = activities.reduce(
     (prev, curr) => (prev += curr.elevationGain),
-    0
+    0,
   )
   const averageHeartrate =
     activities.reduce((prev, curr) => (prev += curr.averageHeartrate || 0), 0) /

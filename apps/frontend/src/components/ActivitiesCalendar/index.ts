@@ -1,3 +1,3 @@
-import ActivitiesCalendar from './ActivitiesCalendar';
+import ActivitiesCalendar from "./ActivitiesCalendar"
 
-export default ActivitiesCalendar;
+export default ActivitiesCalendar

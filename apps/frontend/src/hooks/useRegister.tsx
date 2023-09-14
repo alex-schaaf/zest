@@ -22,7 +22,7 @@ const useRegister = (): RegisterContextType => {
     setIsSuccess(false)
 
     try {
-      await axios.post("/auth/register", {email, password})
+      await axios.post("/auth/register", { email, password })
       setIsSuccess(true)
     } catch (err: any) {
       setError(err)
@@ -33,7 +33,7 @@ const useRegister = (): RegisterContextType => {
     }
   }
 
-  return {register, isLoading, isError, isSuccess, error}
+  return { register, isLoading, isError, isSuccess, error }
 }
 
 export default useRegister

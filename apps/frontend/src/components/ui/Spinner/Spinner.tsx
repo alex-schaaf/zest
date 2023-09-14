@@ -18,7 +18,7 @@ const Spinner: React.FC<Props> = ({ sm, md, lg, className }) => {
             "h-4 w-4": sm,
             "h-6 w-6": md,
             "h-8 w-8": lg || (!sm && !md && !lg),
-          }
+          },
         )}
         viewBox="0 0 100 101"
         fill="none"

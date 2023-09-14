@@ -32,7 +32,7 @@ const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
     mutationFn: (settingsPatch) =>
       axios.patch(
         `/users/${user.id}/settings/${user.settingsId}`,
-        settingsPatch
+        settingsPatch,
       ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["settings"] })

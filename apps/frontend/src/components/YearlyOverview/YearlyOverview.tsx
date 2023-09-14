@@ -12,9 +12,9 @@ const YearlyOverview = () => {
   const stats = useMemo(
     () =>
       getActivityStats(
-        activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year"))
+        activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year")),
       ),
-    [activities]
+    [activities],
   )
 
   const statsPrev = useMemo(
@@ -23,10 +23,10 @@ const YearlyOverview = () => {
         activities.filter(
           (a) =>
             dayjs(a.startDate) >= dayjs().startOf("year").subtract(1, "year") &&
-            dayjs(a.startDate) < dayjs().subtract(1, "year")
-        )
+            dayjs(a.startDate) < dayjs().subtract(1, "year"),
+        ),
       ),
-    [activities]
+    [activities],
   )
 
   return (

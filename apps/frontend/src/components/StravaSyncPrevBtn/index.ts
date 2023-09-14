@@ -1,3 +1,3 @@
-import StravaSyncPrevBtn from './StravaSyncPrevBtn';
+import StravaSyncPrevBtn from "./StravaSyncPrevBtn"
 
-export default StravaSyncPrevBtn;
+export default StravaSyncPrevBtn

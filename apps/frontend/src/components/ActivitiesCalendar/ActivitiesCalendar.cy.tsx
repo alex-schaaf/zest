@@ -15,7 +15,7 @@ describe("<ActivitiesCalendar />", () => {
         date={today.startOf("month")}
         setDate={() => {}}
         activities={[]}
-      />
+      />,
     )
 
     cy.contains(today.format("MMMM"))
@@ -33,7 +33,7 @@ describe("<ActivitiesCalendar />", () => {
       .should(
         "have.attr",
         "data-cy",
-        `calendar-day-${start.format("YYYY-MM-DD")}`
+        `calendar-day-${start.format("YYYY-MM-DD")}`,
       )
 
     const end = today.endOf("month").endOf("isoWeek")
@@ -43,7 +43,7 @@ describe("<ActivitiesCalendar />", () => {
       .should(
         "have.attr",
         "data-cy",
-        `calendar-day-${end.format("YYYY-MM-DD")}`
+        `calendar-day-${end.format("YYYY-MM-DD")}`,
       )
   })
 
@@ -55,18 +55,18 @@ describe("<ActivitiesCalendar />", () => {
         date={startOfMonth}
         setDate={setDateSpy}
         activities={[]}
-      />
+      />,
     )
 
     cy.get("[data-cy=calendar-back]").click()
     cy.get("@setDateSpy").should(
       "have.been.calledWith",
-      startOfMonth.subtract(1, "month")
+      startOfMonth.subtract(1, "month"),
     )
     cy.get("[data-cy=calendar-forward]").click()
     cy.get("@setDateSpy").should(
       "have.been.calledWith",
-      startOfMonth.add(1, "month")
+      startOfMonth.add(1, "month"),
     )
   })
 })

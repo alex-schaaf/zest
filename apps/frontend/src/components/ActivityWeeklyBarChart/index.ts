@@ -1,3 +1,3 @@
-import ActivityWeeklyBarChart from './ActivityWeeklyBarChart';
+import ActivityWeeklyBarChart from "./ActivityWeeklyBarChart"
 
-export default ActivityWeeklyBarChart;
+export default ActivityWeeklyBarChart

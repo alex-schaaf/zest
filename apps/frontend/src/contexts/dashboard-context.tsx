@@ -6,14 +6,14 @@ interface DashboardContextValues {
 }
 
 const DashboardContext = createContext<DashboardContextValues | undefined>(
-  undefined
+  undefined,
 )
 
 const useDashboard = () => {
   const context = useContext(DashboardContext)
   if (context === undefined) {
     throw new Error(
-      "useDashboard context must be used within an DashboardProvider"
+      "useDashboard context must be used within an DashboardProvider",
     )
   }
   return context

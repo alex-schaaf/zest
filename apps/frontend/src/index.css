@@ -7,14 +7,14 @@ body {
 }
 
 .DialogOverlay {
-  @apply bg-black fixed inset-0 opacity-50
+  @apply bg-black fixed inset-0 opacity-50;
 }
 
 .DialogContent {
   @apply bg-white rounded-lg p-6 fixed w-96  shadow-xl;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
 }
 
 .DialogTitle {
@@ -26,11 +26,11 @@ body {
 }
 
 .DropdownMenuContent {
-  @apply bg-white rounded-lg  border shadow-md w-48
+  @apply bg-white rounded-lg  border shadow-md w-48;
 }
 
 .DropdownMenuItem {
- @apply flex cursor-default select-none text-sm items-center rounded-md px-2 py-2 outline-none
+  @apply flex cursor-default select-none text-sm items-center rounded-md px-2 py-2 outline-none;
 }
 
 .LabelRoot {
@@ -38,7 +38,7 @@ body {
 }
 
 fieldset {
-  @apply flex flex-col
+  @apply flex flex-col;
 }
 
 input {

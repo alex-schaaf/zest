@@ -14,7 +14,7 @@ describe("<StatCard />", () => {
     cy.contains(`${data.title}`).should("exist")
     cy.contains(`${data.value} ${data.unit}`).should("exist")
     cy.contains(
-      `↓ ${Math.abs(data.value - data.previousValue).toFixed(1)} ${data.unit}`
+      `↓ ${Math.abs(data.value - data.previousValue).toFixed(1)} ${data.unit}`,
     ).should("exist")
   })
 
@@ -32,7 +32,7 @@ describe("<StatCard />", () => {
     cy.contains(`${data.title}`).should("exist")
     cy.contains("1h 30min").should("exist")
     cy.contains(
-      `↓ ${Math.abs(data.value - data.previousValue).toFixed(0)} ${data.unit}`
+      `↓ ${Math.abs(data.value - data.previousValue).toFixed(0)} ${data.unit}`,
     ).should("exist")
   })
 })

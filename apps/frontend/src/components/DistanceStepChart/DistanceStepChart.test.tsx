@@ -1,12 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import { render, screen } from "@testing-library/react"
+import "@testing-library/jest-dom"
 
-import DistanceStepChart from './DistanceStepChart';
+import DistanceStepChart from "./DistanceStepChart"
 
-test('', async () => {
-    // ARRANGE
-
-    // ACT
-
-    // ASSERT
+test("", async () => {
+  // ARRANGE
+  // ACT
+  // ASSERT
 })

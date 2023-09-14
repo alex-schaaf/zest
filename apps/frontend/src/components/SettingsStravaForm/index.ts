@@ -1,3 +1,3 @@
-import SettingsStravaForm from './SettingsStravaForm';
+import SettingsStravaForm from "./SettingsStravaForm"
 
-export default SettingsStravaForm;
+export default SettingsStravaForm

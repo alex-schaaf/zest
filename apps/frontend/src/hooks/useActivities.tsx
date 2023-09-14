@@ -6,7 +6,7 @@ import axios from "@/lib/axios"
 const useActivities = (
   start: Date | undefined = undefined,
   end?: Date,
-  enabled?: boolean
+  enabled?: boolean,
 ) => {
   const { user } = useUser()
 

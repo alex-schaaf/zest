@@ -1,3 +1,3 @@
-import ActivitiesCalendarContainer from './ActivitiesCalendarContainer';
+import ActivitiesCalendarContainer from "./ActivitiesCalendarContainer"
 
-export default ActivitiesCalendarContainer;
+export default ActivitiesCalendarContainer

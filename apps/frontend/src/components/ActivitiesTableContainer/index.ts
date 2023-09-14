@@ -1,3 +1,3 @@
-import ActivitiesTableContainer from './ActivitiesTableContainer';
+import ActivitiesTableContainer from "./ActivitiesTableContainer"
 
-export default ActivitiesTableContainer;
+export default ActivitiesTableContainer

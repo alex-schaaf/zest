@@ -1,3 +1,3 @@
-import DistanceStepChart from './DistanceStepChart';
+import DistanceStepChart from "./DistanceStepChart"
 
-export default DistanceStepChart;
+export default DistanceStepChart

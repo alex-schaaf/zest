@@ -17,7 +17,7 @@ interface Size {
  */
 function useElementSize<T extends HTMLElement = HTMLDivElement>(): [
   (node: T | null) => void,
-  Size
+  Size,
 ] {
   const [ref, setRef] = useState<T | null>(null)
   const [size, setSize] = useState<Size>({
@@ -52,7 +52,7 @@ export default useElementSize
 function useResizeListener<T extends HTMLElement>(
   handler: (event: Event) => void,
   element?: RefObject<T>,
-  options?: AddEventListenerOptions
+  options?: AddEventListenerOptions,
 ) {
   const savedHandler = useRef(handler)
 

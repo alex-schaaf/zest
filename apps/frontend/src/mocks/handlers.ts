@@ -14,12 +14,12 @@ export const handlers = [
     "http://localhost:3000/api/v1/users/*/settings/*",
     (req, res, ctx) => {
       return res(ctx.json(settings))
-    }
+    },
   ),
   rest.get(
     "http://localhost:3000/api/v1/users/*/activities*",
     (req, res, ctx) => {
       return res(ctx.json(activities))
-    }
+    },
   ),
 ]

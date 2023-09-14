@@ -69,7 +69,6 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     }
   }
 
-
   const logout = async () => {
     try {
       await axios.post("/auth/logout")

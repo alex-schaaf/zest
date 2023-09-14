@@ -11,7 +11,7 @@ interface DescriptionListProps {
 }
 
 const DescriptionList: React.FC<PropsWithChildren> & DescriptionListProps = (
-  props
+  props,
 ) => {
   return <div className="px-2 py-2 sm:px-6">{props.children}</div>
 }
@@ -45,7 +45,7 @@ const Field: React.FC<PropsWithChildren & { idx: number }> = (props) => {
     <div
       className={classNames(
         "px-4 py-2 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6",
-        { "bg-gray-50": props.idx % 2 === 0 }
+        { "bg-gray-50": props.idx % 2 === 0 },
       )}
     >
       {props.children}

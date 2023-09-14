@@ -1,3 +1,3 @@
-import StatCard from './StatCard';
+import StatCard from "./StatCard"
 
-export default StatCard;
+export default StatCard
