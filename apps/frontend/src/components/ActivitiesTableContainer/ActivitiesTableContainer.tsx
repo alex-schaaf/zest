@@ -36,9 +36,12 @@ const ActivitiesTableContainer: React.FC = () => {
 
   const start = searchParams.get("lastDays") as string
 
-  const { activities, isLoading } = useActivities(
-    dayjs().startOf("day").subtract(parseInt(start), "days").toDate(),
-  )
+  const { activities, isLoading } = useActivities({
+    startDateGte: dayjs()
+      .startOf("day")
+      .subtract(parseInt(start), "days")
+      .toDate(),
+  })
 
   const onValueChange = (v: string) => {
     setSearchParams((params) => {
