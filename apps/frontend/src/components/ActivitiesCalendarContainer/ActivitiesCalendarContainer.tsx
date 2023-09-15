@@ -8,9 +8,9 @@ import { useSearchParams } from "react-router-dom"
 const ActivitiesCalendarContainer: React.FC = () => {
   const [searchParams, _] = useSearchParams()
 
-  const { activities } = useActivities(
-    dayjs(searchParams.get("date")).subtract(1, "week").toDate(),
-  )
+  const { activities } = useActivities({
+    startDateGte: dayjs(searchParams.get("date")).subtract(1, "week").toDate(),
+  })
 
   return <ActivitiesCalendar activities={activities || []} />
 }
