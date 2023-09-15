@@ -9,24 +9,46 @@ import ActivityWeeklyLineChartContainer from "../ActivityWeeklyLineChart"
 const YearlyOverview = () => {
   const { activities } = useDashboard()
 
-  const stats = useMemo(
+  const activitiesCurrent = useMemo(
     () =>
-      getActivityStats(
-        activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year")),
+      activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year")),
+    [activities],
+  )
+
+  const stats = useMemo(
+    () => getActivityStats(activitiesCurrent),
+    [activitiesCurrent],
+  )
+
+  const activitiesPrev = useMemo(
+    () =>
+      activities.filter(
+        (a) =>
+          dayjs(a.startDate) >= dayjs().startOf("year").subtract(1, "year") &&
+          dayjs(a.startDate) < dayjs().subtract(1, "year"),
       ),
     [activities],
   )
 
   const statsPrev = useMemo(
+    () => getActivityStats(activitiesPrev),
+    [activitiesPrev],
+  )
+
+  const longestActivityCurrent = useMemo(
     () =>
-      getActivityStats(
-        activities.filter(
-          (a) =>
-            dayjs(a.startDate) >= dayjs().startOf("year").subtract(1, "year") &&
-            dayjs(a.startDate) < dayjs().subtract(1, "year"),
-        ),
+      activitiesCurrent.reduce((prev, current) =>
+        prev.distance > current.distance ? prev : current,
       ),
-    [activities],
+    [activitiesCurrent],
+  )
+
+  const longestActivityPrev = useMemo(
+    () =>
+      activitiesPrev.reduce((prev, current) =>
+        prev.distance > current.distance ? prev : current,
+      ),
+    [activitiesPrev],
   )
 
   return (
@@ -36,6 +58,12 @@ const YearlyOverview = () => {
           title={"Total Distance"}
           value={stats.totalDistance}
           previousValue={statsPrev.totalDistance}
+          unit={"km"}
+        />
+        <StatCard
+          title={"Longest Distance"}
+          value={longestActivityCurrent.distance / 1000}
+          previousValue={longestActivityPrev.distance / 1000}
           unit={"km"}
         />
         <StatCard
