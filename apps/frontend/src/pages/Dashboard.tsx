@@ -8,13 +8,14 @@ import { PropsWithChildren } from "react"
 import Card from "@/components/ui/Card"
 import YearlyOverview from "@/components/YearlyOverview"
 import Message from "@/components/ui/Message"
+import LongestDistanceBarChart from "@/components/LongestDistanceBarChart"
 
 const Dashboard = () => {
-  const { activities, isLoading, isError } = useActivities(
-    dayjs(new Date(new Date().getUTCFullYear(), 0, 1))
+  const { activities, isLoading, isError } = useActivities({
+    startDateGte: dayjs(new Date(new Date().getUTCFullYear(), 0, 1))
       .subtract(1, "year")
       .toDate(),
-  )
+  })
 
   if (isLoading) {
     return (
@@ -50,6 +51,8 @@ const Dashboard = () => {
         <MonthlyOverview />
         <SectionHeader>This year in running</SectionHeader>
         <YearlyOverview />
+        <SectionHeader>Statistics</SectionHeader>
+        <LongestDistanceBarChart />
       </div>
     </DashboardContext.Provider>
   )

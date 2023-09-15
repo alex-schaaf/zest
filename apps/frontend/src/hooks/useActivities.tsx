@@ -3,21 +3,33 @@ import { StravaActivities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "@/lib/axios"
 
+interface ActivitiesQueryParams {
+  skip?: number
+  take?: number
+  startDateGte?: Date
+  startDateLte?: Date
+  orderBy?: keyof StravaActivities
+  order?: "desc" | "asc"
+}
+
 const useActivities = (
-  start: Date | undefined = undefined,
-  end?: Date,
+  queryParams?: ActivitiesQueryParams,
   enabled?: boolean,
 ) => {
   const { user } = useUser()
 
   const urlParams = new URLSearchParams()
 
-  if (start) {
-    urlParams.append("startDateGte", start?.toISOString())
-  }
-
-  if (end) {
-    urlParams.append("startDateLte", end?.toISOString())
+  if (queryParams) {
+    for (const [key, value] of Object.entries(queryParams)) {
+      if (["startDateLte", "startDateGte"].includes(key)) {
+        urlParams.append(key, value.toISOString())
+      } else if (typeof value === "number") {
+        urlParams.append(key, value.toString())
+      } else {
+        urlParams.append(key, value)
+      }
+    }
   }
 
   const {
@@ -25,7 +37,7 @@ const useActivities = (
     isLoading,
     isError,
   } = useQuery<StravaActivities[], Error>({
-    queryKey: ["activities", start, end],
+    queryKey: ["activities", urlParams.toString()],
     enabled,
     queryFn: () =>
       axios

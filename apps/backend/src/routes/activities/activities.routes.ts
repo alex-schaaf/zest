@@ -11,7 +11,7 @@ interface GetActivitiesQueryParams {
   oldest?: boolean;
 }
 
-type GetActivitiesReqQuery = {
+export type GetActivitiesReqQuery = {
   skip?: string;
   take?: string;
   startDateGte?: Date;
@@ -46,7 +46,7 @@ router.get(
         [orderBy || "startDate"]: order || "desc",
       },
       skip: skip ? parseInt(skip) : 0,
-      take: parseInt(take || "30"),
+      take: take ? parseInt(take) : undefined,
     });
 
     return res.json(activities);
