@@ -95,6 +95,9 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
                 "bg-gray-50 text-gray-400": day.month() != date.month(),
                 "border-t": idx >= 7,
                 "border-l": day.isoWeekday() > 1,
+                "bg-primary-50": day
+                  .startOf("day")
+                  .isSame(dayjs().startOf("day")),
               })}
               key={idx}
               data-cy={`calendar-day-${day.format("YYYY-MM-DD")}`}
