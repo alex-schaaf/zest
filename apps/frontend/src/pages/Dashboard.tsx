@@ -52,7 +52,7 @@ const Dashboard = () => {
         <SectionHeader>This year in running</SectionHeader>
         <YearlyOverview />
         <SectionHeader>Statistics</SectionHeader>
-        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-1 xl:grid-cols-2">
           <Card>
             <LongestDistanceBarChartContainer />
           </Card>
