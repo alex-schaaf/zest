@@ -1,6 +1,5 @@
 import useActivities from "@/hooks/useActivities"
 import React from "react"
-import Card from "../ui/Card"
 import useElementSize from "@/hooks/useElementSize"
 import LongestDistanceBarChart from "../LongestDistanceBarChart"
 import { Title } from "../ui/StatCard/StatCard"
