@@ -8,7 +8,7 @@ import { PropsWithChildren } from "react"
 import Card from "@/components/ui/Card"
 import YearlyOverview from "@/components/YearlyOverview"
 import Message from "@/components/ui/Message"
-import LongestDistanceBarChart from "@/components/LongestDistanceBarChart"
+import LongestDistanceBarChartContainer from "@/components/LongestDistanceBarChartContainer"
 
 const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities({
@@ -52,7 +52,11 @@ const Dashboard = () => {
         <SectionHeader>This year in running</SectionHeader>
         <YearlyOverview />
         <SectionHeader>Statistics</SectionHeader>
-        <LongestDistanceBarChart />
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <Card>
+            <LongestDistanceBarChartContainer />
+          </Card>
+        </div>
       </div>
     </DashboardContext.Provider>
   )
