@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 import { StravaActivities } from "@prisma/client"
 import * as d3 from "d3"
 import colors from "tailwindcss/colors"
-import dayjs from "dayjs"
+import dayjs, { Dayjs } from "dayjs"
 
 interface Props {
   activities: StravaActivities[]
@@ -22,7 +22,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
 
   const distanceMax = Math.max(...data.map(({ distance }) => distance))
 
-  const margin = { top: 10, right: 0, bottom: 10, left: 30 }
+  const margin = { top: 10, right: 0, bottom: 30, left: 30 }
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.bottom
   const yMin = margin.top
@@ -30,6 +30,18 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
   const xScale = d3
     .scaleBand()
     .domain(data.map((d) => d.week.toString()))
+    .range([margin.left, xMax])
+
+  const dateObjects: Dayjs[] = []
+  for (let month = 0; month < 12; month++) {
+    // Create a Date object for the 1st day of each month
+    let date = new Date(new Date().getFullYear(), month, 1)
+    dateObjects.push(dayjs(date))
+  }
+
+  const xScaleMonth = d3
+    .scaleBand()
+    .domain(dateObjects.map((_, index) => index.toString()))
     .range([margin.left, xMax])
 
   const yScale = d3.scaleLinear().domain([0, distanceMax]).range([yMin, yMax])
@@ -57,6 +69,16 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
           ></rect>
         )
       })}
+      {dateObjects.map((date, i) => (
+        <text
+          x={
+            xScale.bandwidth() * i * 4.34524 + margin.left + xScale.bandwidth()
+          }
+          y={yScale(distanceMax + 4)}
+        >
+          {date.format("MMM")}
+        </text>
+      ))}
       <text x={xScale("0")} y={yScale(distanceMax + 0.75)}>
         0
       </text>
