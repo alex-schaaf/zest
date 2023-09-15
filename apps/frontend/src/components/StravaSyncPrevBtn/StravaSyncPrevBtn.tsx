@@ -39,7 +39,9 @@ const StravaSyncPrevBtn: React.FC = () => {
           setIsLoading(true)
           try {
             const activity: StravaActivities = await axios
-              .get(`/users/${user.id}/activities?oldest=true`)
+              .get(
+                `/users/${user.id}/activities?orderBy=startDate&order=asc&limit=1`,
+              )
               .then((res) => res.data)
 
             await sync({ before: dayjs(activity.startDate).unix() })

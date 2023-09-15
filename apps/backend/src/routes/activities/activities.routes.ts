@@ -1,5 +1,4 @@
 import express, { Request } from "express";
-
 import stravaActivityService from "../../services/stravaActivityService";
 import { Prisma, StravaActivities } from "@prisma/client";
 import { SummaryActivity } from "strava-types";
@@ -12,40 +11,44 @@ interface GetActivitiesQueryParams {
   oldest?: boolean;
 }
 
+type GetActivitiesReqQuery = {
+  skip?: string;
+  take?: string;
+  startDateGte?: Date;
+  startDateLte?: Date;
+  orderBy?: keyof StravaActivities;
+  order?: "desc" | "asc";
+};
+
 router.get(
   "/users/:userId/activities",
   async (
-    req: Request<{ userId: string }, {}, {}, GetActivitiesQueryParams>,
+    req: Request<{ userId: string }, {}, {}, GetActivitiesReqQuery>,
     res
   ) => {
     const { userId } = req.params;
-    const { start, end, oldest } = req.query;
-
-    if (oldest) {
-      const activities = await stravaActivityService.findMany({
-        where: { userId: parseInt(userId) },
-        orderBy: { startDate: "asc" },
-        take: 1,
-      });
-      return res.json(activities[0]);
-    }
+    const { skip, take, orderBy, order, startDateGte, startDateLte } =
+      req.query;
 
     const activities = await stravaActivityService.findMany({
       where: {
         userId: parseInt(userId),
-        startDate: {
-          gte: start,
-          lte: end,
-        },
         active: true,
         type: {
           equals: "Run",
         },
+        startDate: {
+          gte: startDateGte,
+          lte: startDateLte,
+        },
       },
       orderBy: {
-        startDate: "desc",
+        [orderBy || "startDate"]: order || "desc",
       },
+      skip: skip ? parseInt(skip) : 0,
+      take: parseInt(take || "30"),
     });
+
     return res.json(activities);
   }
 );

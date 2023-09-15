@@ -13,11 +13,11 @@ const useActivities = (
   const urlParams = new URLSearchParams()
 
   if (start) {
-    urlParams.append("start", start?.toISOString())
+    urlParams.append("startDateGte", start?.toISOString())
   }
 
   if (end) {
-    urlParams.append("end", end?.toISOString())
+    urlParams.append("startDateLte", end?.toISOString())
   }
 
   const {
