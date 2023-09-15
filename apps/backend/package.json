@@ -21,15 +21,16 @@
     "@types/node": "^18.11.18",
     "@types/supertest": "^2.0.12",
     "esbuild": "^0.17.0",
+    "esbuild-node-tsc": "^2.0.5",
     "jest": "^29.3.1",
     "nodemon": "^2.0.20",
+    "prettier": "^3.0.3",
     "prisma": "^4.8.1",
     "strava-types": "*",
     "supertest": "^6.3.3",
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
-    "typescript": "^4.9.4",
-    "esbuild-node-tsc": "^2.0.5"
+    "typescript": "^4.9.4"
   },
   "dependencies": {
     "@prisma/client": "^4.8.1",
