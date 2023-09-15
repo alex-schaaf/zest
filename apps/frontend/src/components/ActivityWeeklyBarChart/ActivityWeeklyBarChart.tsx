@@ -39,11 +39,6 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
     dateObjects.push(dayjs(date))
   }
 
-  const xScaleMonth = d3
-    .scaleBand()
-    .domain(dateObjects.map((_, index) => index.toString()))
-    .range([margin.left, xMax])
-
   const yScale = d3.scaleLinear().domain([0, distanceMax]).range([yMin, yMax])
 
   if (height === 0) return null
