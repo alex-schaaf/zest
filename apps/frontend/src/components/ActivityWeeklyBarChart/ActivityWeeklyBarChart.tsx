@@ -22,7 +22,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
 
   const distanceMax = Math.max(...data.map(({ distance }) => distance))
 
-  const margin = { top: 10, right: 0, bottom: 30, left: 30 }
+  const margin = { top: 10, right: 0, bottom: 35, left: 30 }
   const xMax = width - margin.left - margin.right
   const yMax = height - margin.bottom
   const yMin = margin.top
