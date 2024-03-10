@@ -38,7 +38,7 @@ const MonthlyOverview: React.FC = () => {
   if (thisMonthsActivities.length === 0 && lastMonthsActivites.length === 0)
     return (
       <Card className="justify-center py-12 text-center text-sm font-medium">
-        No activities recorded for this month yet.
+        No activities recorded for this month.
       </Card>
     )
 

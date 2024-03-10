@@ -5,6 +5,7 @@ import StatCard from "@/components/ui/StatCard"
 import { getActivityStats } from "@/components/SevenDayOverview/SevenDayOverview"
 import { useDashboard } from "@/contexts/dashboard-context"
 import ActivityWeeklyLineChartContainer from "../ActivityWeeklyLineChart"
+import Card from "@/components/ui/Card"
 
 const YearlyOverview = () => {
   const { activities } = useDashboard()
@@ -37,6 +38,7 @@ const YearlyOverview = () => {
 
   const longestActivityCurrent = useMemo(
     () =>
+      activitiesCurrent.length &&
       activitiesCurrent.reduce((prev, current) =>
         prev.distance > current.distance ? prev : current,
       ),
@@ -45,11 +47,24 @@ const YearlyOverview = () => {
 
   const longestActivityPrev = useMemo(
     () =>
+      activitiesPrev.length &&
       activitiesPrev.reduce((prev, current) =>
         prev.distance > current.distance ? prev : current,
       ),
     [activitiesPrev],
   )
+
+  if (
+    !activitiesCurrent.length ||
+    !longestActivityCurrent ||
+    !longestActivityPrev
+  ) {
+    return (
+      <Card className="justify-center py-12 text-center text-sm font-medium">
+        No activities recorded for this year.
+      </Card>
+    )
+  }
 
   return (
     <div className="space-y-4">

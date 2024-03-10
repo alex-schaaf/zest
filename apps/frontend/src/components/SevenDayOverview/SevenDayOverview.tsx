@@ -3,6 +3,7 @@ import { StravaActivities } from "@prisma/client"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import StatCard from "@/components/ui/StatCard"
+import Card from "../ui/Card"
 
 interface ActivityStats {
   totalDistance: number
@@ -15,15 +16,18 @@ interface ActivityStats {
 const Activities7DayStats: React.FC = () => {
   const { activities } = useDashboard()
 
-  const stats = useMemo(
+  const activitiesCurrent = useMemo(
     () =>
-      getActivityStats(
-        activities.filter(
-          (act) =>
-            dayjs(act.startDate) >= dayjs().startOf("day").subtract(7, "days"),
-        ),
+      activities.filter(
+        (act) =>
+          dayjs(act.startDate) >= dayjs().startOf("day").subtract(7, "days"),
       ),
     [activities],
+  )
+
+  const stats = useMemo(
+    () => getActivityStats(activitiesCurrent),
+    [activitiesCurrent],
   )
 
   const statsPrevious = useMemo(
@@ -38,6 +42,14 @@ const Activities7DayStats: React.FC = () => {
       ),
     [activities],
   )
+
+  if (activitiesCurrent.length === 0) {
+    return (
+      <Card className="justify-center py-12 text-center text-sm font-medium">
+        No activities recorded for this week.
+      </Card>
+    )
+  }
 
   return (
     <div className="space-y-4">
