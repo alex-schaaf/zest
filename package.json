@@ -16,10 +16,10 @@
     "test": "cd apps/frontend && yarn cypress run"
   },
   "devDependencies": {
-    "dotenv-cli": "^7.3.0",
+    "dotenv-cli": "^7.4.1",
     "eslint-config-custom": "*",
-    "plop": "^3.1.1",
-    "prettier": "^3.0.3",
+    "plop": "^4.0.1",
+    "prettier": "^3.2.5",
     "turbo": "^1.12.5"
   },
   "engines": {
