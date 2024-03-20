@@ -11,6 +11,24 @@ services:
       - '5432:5432'
     volumes: 
       - db:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: ./apps/api/
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./apps/api:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    ports:
+      - "3000:3000"
+    command: yarn start:dev
+    depends_on:
+      - db
+
+    
 volumes:
   db:
     driver: local
