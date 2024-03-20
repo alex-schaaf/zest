@@ -13,7 +13,8 @@
     "paths": {
       "@activity/*": ["src/activity/*"],
       "@auth/*": ["src/auth/*"],
-      "@user/*": ["src/user/*"]
+      "@user/*": ["src/user/*"],
+      "@/*": ["src/*"]
     },
     "incremental": true,
     "skipLibCheck": true,
