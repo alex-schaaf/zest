@@ -31,7 +31,6 @@ export class AuthController {
     @Body() signIn: SignInDto,
     @Res({ passthrough: true }) response: Response
   ) {
-    console.log("signIn");
     const { payload, access_token } = await this.authService.signIn(
       signIn.email,
       signIn.password
@@ -53,5 +52,11 @@ export class AuthController {
     );
     response.cookie("token", access_token, { httpOnly: true });
     return payload;
+  }
+
+  @ApiResponse({ status: 204 })
+  @Post("logout")
+  async signOut(@Res({ passthrough: true }) response: Response) {
+    response.clearCookie("token");
   }
 }
