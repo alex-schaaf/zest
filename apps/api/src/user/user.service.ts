@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { PrismaService } from "../prisma.service";
 import { Users, Prisma } from "@prisma/client";
+import { UserPatchDto, UsersWithSettings } from "./user.dto";
 
 @Injectable()
 export class UserService {
@@ -8,27 +9,37 @@ export class UserService {
 
   async findOne(
     userWhereUniqueInput: Prisma.UsersWhereUniqueInput
-  ): Promise<Users | null> {
+  ): Promise<UsersWithSettings | null> {
     return this.prisma.users.findUnique({
       where: userWhereUniqueInput,
+      include: { settings: true },
     });
   }
 
-  async createOne(email: string, passwordHash: string): Promise<Users> {
+  async createOne(
+    email: string,
+    passwordHash: string
+  ): Promise<UsersWithSettings> {
     const existingUser = await this.findOne({ email });
     if (existingUser) throw new UserAlreadyExistsError();
 
     return this.prisma.users.create({
       data: { email, passwordHash, settings: { create: {} } },
+      include: { settings: true },
     });
   }
 
   async updateOne(params: {
     where: Prisma.UsersWhereUniqueInput;
-    data: Prisma.UsersUpdateInput;
-  }): Promise<Users> {
+    data: UserPatchDto;
+  }): Promise<UsersWithSettings> {
     const { where, data } = params;
-    return this.prisma.users.update({ data, where });
+    const { settings, ...userData } = data;
+    return this.prisma.users.update({
+      data: { ...userData, settings: { update: settings } },
+      where,
+      include: { settings: true },
+    });
   }
 
   async deleteOne(where: Prisma.UsersWhereUniqueInput): Promise<Users> {
