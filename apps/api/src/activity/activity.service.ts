@@ -58,6 +58,7 @@ export class ActivityService {
           id: userId,
         },
       },
+      originService: 'strava',
     };
 
     return this.prisma.activities.create({
