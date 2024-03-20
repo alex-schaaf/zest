@@ -1,13 +1,13 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { Users, Prisma } from '@prisma/client';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../prisma.service";
+import { Users, Prisma } from "@prisma/client";
 
 @Injectable()
 export class UserService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(
-    userWhereUniqueInput: Prisma.UsersWhereUniqueInput,
+    userWhereUniqueInput: Prisma.UsersWhereUniqueInput
   ): Promise<Users | null> {
     return this.prisma.users.findUnique({
       where: userWhereUniqueInput,
@@ -39,7 +39,7 @@ export class UserService {
 export class UserAlreadyExistsError extends Error {
   constructor(message?: string) {
     super(message);
-    this.name = 'UserAlreadyExistsError';
+    this.name = "UserAlreadyExistsError";
 
     // This line is needed to restore the correct prototype chain.
     Object.setPrototypeOf(this, new.target.prototype);

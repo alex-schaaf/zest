@@ -8,7 +8,7 @@ import {
   StravaAPIActivitiesSearchParams,
 } from "@/lib/strava.service"
 import { useQueryClient } from "@tanstack/react-query"
-import { SummaryActivity } from "strava-types"
+import { SummaryActivity } from "@/strava-types/src"
 
 const useStravaSync = (): {
   isLoading: boolean

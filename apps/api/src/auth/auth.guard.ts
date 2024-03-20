@@ -2,11 +2,11 @@ import {
   ExecutionContext,
   Injectable,
   UnauthorizedException,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { JwtService } from '@nestjs/jwt';
+} from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { JwtService } from "@nestjs/jwt";
 
-import { IS_PUBLIC_KEY } from './decorators/public.decorator';
+import { IS_PUBLIC_KEY } from "./decorators/public.decorator";
 
 type Payload = { sub: string };
 
@@ -30,6 +30,7 @@ export class AuthGuard {
       context.getHandler(),
       context.getClass(),
     ]);
+
     if (isPublic) {
       return true;
     }
@@ -46,7 +47,7 @@ export class AuthGuard {
       const payload = this.jwtService.verify(token, {
         secret: process.env.JWT_SECRET,
       });
-      request['user'] = payload; // make payload accessible to route handlers
+      request["user"] = payload; // make payload accessible to route handlers
     } catch {
       throw new UnauthorizedException();
     }
@@ -54,7 +55,7 @@ export class AuthGuard {
   }
 
   private extractTokenFromCookie(
-    request: RequestWithOptionalPayload,
+    request: RequestWithOptionalPayload
   ): string | undefined {
     return request.cookies?.token;
   }

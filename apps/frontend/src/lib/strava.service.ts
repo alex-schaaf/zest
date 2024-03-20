@@ -1,6 +1,6 @@
 import axios from "axios"
 import { Settings } from "@prisma/client"
-import { SummaryActivity } from "strava-types"
+import { SummaryActivity } from "@/strava-types/src"
 
 const stravaUrl = "https://www.strava.com/api/v3"
 

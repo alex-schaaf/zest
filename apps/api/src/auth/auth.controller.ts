@@ -1,9 +1,9 @@
-import { Body, Controller, Post, Res } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { Public } from './decorators/public.decorator';
-import { Response } from 'express';
-import { ApiResponse, ApiTags } from '@nestjs/swagger';
-import { SignInDto, SignUpDto, TokenPayloadDto } from './auth.dto';
+import { Body, Controller, Post, Res } from "@nestjs/common";
+import { AuthService } from "./auth.service";
+import { Public } from "./decorators/public.decorator";
+import { Response } from "express";
+import { ApiResponse, ApiTags } from "@nestjs/swagger";
+import { SignInDto, SignUpDto, TokenPayloadDto } from "./auth.dto";
 
 // The AuthController is responsible for handling incoming requests related to
 // authentication. It uses the AuthService to handle the business logic for
@@ -19,38 +19,39 @@ import { SignInDto, SignUpDto, TokenPayloadDto } from './auth.dto';
 // We send the token payload as a response to the client, so that the
 // client-side JavaScript can use the token payload to have access to the user
 // id to make requests to the API.
-@ApiTags('auth')
-@Controller('auth')
+@ApiTags("auth")
+@Controller("auth")
 export class AuthController {
   constructor(private authService: AuthService) {}
 
   @Public()
   @ApiResponse({ status: 200, type: TokenPayloadDto })
-  @Post('login')
+  @Post("login")
   async signIn(
     @Body() signIn: SignInDto,
-    @Res({ passthrough: true }) response: Response,
+    @Res({ passthrough: true }) response: Response
   ) {
+    console.log("signIn");
     const { payload, access_token } = await this.authService.signIn(
       signIn.email,
-      signIn.password,
+      signIn.password
     );
-    response.cookie('token', access_token, { httpOnly: true });
+    response.cookie("token", access_token, { httpOnly: true });
     return payload;
   }
 
   @Public()
   @ApiResponse({ status: 201, type: TokenPayloadDto })
-  @Post('register')
+  @Post("register")
   async signUp(
     @Body() signUp: SignUpDto,
-    @Res({ passthrough: true }) response: Response,
+    @Res({ passthrough: true }) response: Response
   ) {
     const { payload, access_token } = await this.authService.signUp(
       signUp.email,
-      signUp.password,
+      signUp.password
     );
-    response.cookie('token', access_token, { httpOnly: true });
+    response.cookie("token", access_token, { httpOnly: true });
     return payload;
   }
 }

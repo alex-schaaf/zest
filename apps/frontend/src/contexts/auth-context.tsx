@@ -49,17 +49,19 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     setError(null)
 
     try {
-      const { userId, iat, exp } = await axios
+      const { sub, iat, exp } = await axios
         .post("/auth/login", { email, password })
         .then((res) => res.data)
 
-      localStorage.setItem("userId", userId)
+      console.log("sub", sub)
+
+      localStorage.setItem("sub", sub)
       localStorage.setItem("iat", iat)
       localStorage.setItem("exp", exp)
 
       await queryClient.fetchQuery<Users>({
         queryKey: ["user"],
-        queryFn: () => axios.get(`/users/${userId}`).then((res) => res.data),
+        queryFn: () => axios.get(`/users/${sub}`).then((res) => res.data),
       })
     } catch (err: any) {
       setError(err)

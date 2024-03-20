@@ -28,6 +28,21 @@ services:
     depends_on:
       - db
 
+  frontend:
+    build:
+      context: ./apps/frontend/
+      dockerfile: Dockerfile
+      target: dev
+    volumes:
+      - ./apps/frontend:/app
+      - /app/node_modules
+    env_file:
+      - .env
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+
     
 volumes:
   db:
