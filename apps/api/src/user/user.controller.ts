@@ -7,7 +7,6 @@ import { UserDto, UserPatchDto, UsersWithSettings } from "./user.dto";
 @Controller("users")
 export class UserController {
   constructor(private readonly userService: UserService) {}
-  private readonly logger = new Logger(UserController.name);
 
   @Get("/:id")
   @ApiResponse({ status: 200, type: UserDto })
