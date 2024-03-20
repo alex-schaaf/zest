@@ -36,6 +36,7 @@ describe('ActivityController', () => {
       active: true,
       data: { someData: 123 },
       userId: 1,
+      originService: 'strava',
     };
 
     jest.spyOn(activityService, 'findOne').mockResolvedValueOnce(mockActivity);
@@ -59,6 +60,7 @@ describe('ActivityController', () => {
       active: true,
       data: { someData: 123 },
       userId: 1,
+      originService: 'strava',
     };
 
     jest
@@ -101,7 +103,7 @@ describe('ActivityController', () => {
       },
     ];
 
-    prismaService.stravaActivities.findMany = jest
+    prismaService.activities.findMany = jest
       .fn()
       .mockReturnValueOnce(mockActivities);
 
