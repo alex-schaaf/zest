@@ -42,6 +42,7 @@ model Activities {
   elevationGain    Float
   averageHeartrate Float?
   startDate        DateTime
+  originService    String
 
   active Boolean @default(true)
   data   Json // the complete activity JSON returned from the StravaAPI
