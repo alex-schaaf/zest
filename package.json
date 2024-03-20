@@ -17,7 +17,6 @@
   },
   "devDependencies": {
     "dotenv-cli": "^7.4.1",
-    "eslint-config-custom": "*",
     "plop": "^4.0.1",
     "prettier": "^3.2.5"
   },

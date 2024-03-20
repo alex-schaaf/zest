@@ -7,7 +7,7 @@ import { ActivityDto, createActivityDto } from "./activity.dto";
 function excludeActivityData(
   activity: ActivityDto | null
 ): Omit<ActivityDto, "data"> | null {
-  if (activity === null) return null;
+  if (!activity) return null;
   const { data, ...activityWithoutData } = activity;
   return activityWithoutData;
 }

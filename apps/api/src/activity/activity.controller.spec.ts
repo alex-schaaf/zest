@@ -9,6 +9,7 @@ describe('ActivityController', () => {
   let activityService: ActivityService;
 
   beforeEach(async () => {
+    // eslint-disable-next-line @next/next/no-assign-module-variable
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ActivityController],
       providers: [ActivityService, PrismaService],

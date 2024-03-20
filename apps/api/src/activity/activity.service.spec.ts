@@ -6,6 +6,7 @@ describe("ActivityService", () => {
   let service: ActivityService;
 
   beforeEach(async () => {
+    // eslint-disable-next-line @next/next/no-assign-module-variable
     const module: TestingModule = await Test.createTestingModule({
       providers: [ActivityService, PrismaService],
     }).compile();

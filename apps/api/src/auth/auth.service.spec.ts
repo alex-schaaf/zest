@@ -1,14 +1,15 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { JwtService } from '@nestjs/jwt';
+import { Test, TestingModule } from "@nestjs/testing";
+import { JwtService } from "@nestjs/jwt";
 
-import { AuthService } from './auth.service';
-import { UserService } from '../user/user.service';
-import { PrismaService } from '../prisma.service';
+import { AuthService } from "./auth.service";
+import { UserService } from "../user/user.service";
+import { PrismaService } from "../prisma.service";
 
-describe('AuthService', () => {
+describe("AuthService", () => {
   let service: AuthService;
 
   beforeEach(async () => {
+    // eslint-disable-next-line @next/next/no-assign-module-variable
     const module: TestingModule = await Test.createTestingModule({
       providers: [AuthService, UserService, JwtService, PrismaService],
     }).compile();
@@ -16,7 +17,7 @@ describe('AuthService', () => {
     service = module.get<AuthService>(AuthService);
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(service).toBeDefined();
   });
 });
