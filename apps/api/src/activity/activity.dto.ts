@@ -98,4 +98,6 @@ export class ActivityDto implements Activities {
   data: null | JsonValue;
   @ApiProperty()
   userId: number;
+  @ApiProperty()
+  originService: string;
 }
