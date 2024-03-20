@@ -8,7 +8,7 @@ export class ActivityService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(userId: number) {
-    return this.prisma.stravaActivities.findUnique({
+    return this.prisma.activities.findUnique({
       where: { id: userId },
     });
   }
@@ -21,7 +21,7 @@ export class ActivityService {
     skip = 0,
     take?: number,
   ) {
-    const prismaWhere: Prisma.StravaActivitiesFindManyArgs = {
+    const prismaWhere: Prisma.ActivitiesFindManyArgs = {
       where: {
         userId,
         active: true,
@@ -39,11 +39,11 @@ export class ActivityService {
       skip,
       take,
     };
-    return this.prisma.stravaActivities.findMany(prismaWhere);
+    return this.prisma.activities.findMany(prismaWhere);
   }
 
   async createOne(userId: number, data: SummaryActivity) {
-    const parsedData: Prisma.StravaActivitiesCreateInput = {
+    const parsedData: Prisma.ActivitiesCreateInput = {
       id: data.id,
       type: data.type,
       distance: data.distance,
@@ -60,13 +60,13 @@ export class ActivityService {
       },
     };
 
-    return this.prisma.stravaActivities.create({
+    return this.prisma.activities.create({
       data: parsedData,
     });
   }
 
   async deleteOne(id: number) {
-    return this.prisma.stravaActivities.update({
+    return this.prisma.activities.update({
       where: { id },
       data: { active: false },
     });

@@ -15,9 +15,9 @@ model Users {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  settings         Settings           @relation(fields: [settingsId], references: [id])
-  settingsId       Int                @unique
-  StravaActivities StravaActivities[]
+  settings   Settings     @relation(fields: [settingsId], references: [id])
+  settingsId Int          @unique
+  Activities Activities[]
 }
 
 model Settings {
@@ -33,7 +33,7 @@ model Settings {
   Users Users?
 }
 
-model StravaActivities {
+model Activities {
   id               BigInt   @id
   type             String
   distance         Float

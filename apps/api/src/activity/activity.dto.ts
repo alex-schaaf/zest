@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-import { StravaActivities } from '@prisma/client';
+import { Activities } from '@prisma/client';
 import { ActivityType, MetaAthlete, PolylineMap } from './strava-types';
 import { JsonValue } from '@prisma/client/runtime/library';
 
@@ -75,7 +75,7 @@ export class createActivityDto {
   has_kudoed: boolean;
 }
 
-export class ActivityDto implements StravaActivities {
+export class ActivityDto implements Activities {
   @ApiProperty()
   id: bigint;
   @ApiProperty()
