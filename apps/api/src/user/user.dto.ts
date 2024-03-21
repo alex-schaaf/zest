@@ -1,10 +1,10 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { Prisma, Settings, Users } from "@prisma/client";
+import { ApiProperty } from "@nestjs/swagger"
+import { Prisma, Settings, Users } from "@prisma/client"
 
 export type UsersWithSettings = Users &
   Prisma.UsersGetPayload<{
-    select: { settings: true };
-  }>;
+    select: { settings: true }
+  }>
 
 /*
 Settings DTOs
@@ -12,19 +12,19 @@ Settings DTOs
 
 export class SettingsDto implements Settings {
   @ApiProperty()
-  id: number;
+  id: number
   @ApiProperty()
-  updatedAt: Date;
+  updatedAt: Date
   @ApiProperty()
-  stravaClientId: number | null;
+  stravaClientId: number | null
   @ApiProperty()
-  stravaClientSecret: string | null;
+  stravaClientSecret: string | null
   @ApiProperty()
-  stravaAccessToken: string | null;
+  stravaAccessToken: string | null
   @ApiProperty()
-  stravaRefreshToken: string | null;
+  stravaRefreshToken: string | null
   @ApiProperty()
-  stravaTokenExpiresAt: number | null;
+  stravaTokenExpiresAt: number | null
 }
 
 export class SettingsCreateDto {}
@@ -33,52 +33,52 @@ export class SettingsPatchDto
   implements Partial<Omit<Settings, "id" | "updatedAt">>
 {
   @ApiProperty()
-  stravaClientId?: number;
+  stravaClientId?: number
   @ApiProperty()
-  stravaClientSecret?: string;
+  stravaClientSecret?: string
   @ApiProperty()
-  stravaAccessToken?: string;
+  stravaAccessToken?: string
   @ApiProperty()
-  stravaRefreshToken?: string;
+  stravaRefreshToken?: string
   @ApiProperty()
-  stravaTokenExpiresAt?: number;
+  stravaTokenExpiresAt?: number
 }
 
 /* 
 User DTOs
 */
-type UserCreateDtoType = Pick<Users, "email"> & { password: string };
+type UserCreateDtoType = Pick<Users, "email"> & { password: string }
 export class UserCreateDto implements UserCreateDtoType {
   @ApiProperty()
-  email: string;
+  email: string
 
   @ApiProperty()
-  password: string;
+  password: string
 }
 
 type PatchUserDtoType = Partial<
   Omit<UserDto, "id" | "passwordHash" | "settings">
 > &
-  SettingsPatchDto;
+  SettingsPatchDto
 export class UserPatchDto implements PatchUserDtoType {
   @ApiProperty()
-  email?: string;
+  email?: string
 
   @ApiProperty()
-  settings?: SettingsPatchDto;
+  settings?: SettingsPatchDto
 }
 
 export class UserDto implements Omit<UsersWithSettings, "passwordHash"> {
   @ApiProperty()
-  id: number;
+  id: number
   @ApiProperty()
-  email: string;
+  email: string
   @ApiProperty()
-  createdAt: Date;
+  createdAt: Date
   @ApiProperty()
-  updatedAt: Date;
+  updatedAt: Date
   @ApiProperty()
-  settingsId: number;
+  settingsId: number
   @ApiProperty()
-  settings: SettingsDto;
+  settings: SettingsDto
 }
