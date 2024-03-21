@@ -1,8 +1,22 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  ParseIntPipe,
+  Query,
+  DefaultValuePipe,
+  Injectable,
+  PipeTransform,
+  ArgumentMetadata,
+} from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
 import { ActivityDto, createActivityDto } from "./activity.dto"
+import { Activities } from "@prisma/client"
 
 function excludeActivityData(
   activity: ActivityDto | null
@@ -12,6 +26,19 @@ function excludeActivityData(
   return activityWithoutData
 }
 
+@Injectable()
+export class ParseOptionalIntPipe
+  implements PipeTransform<string, number | undefined>
+{
+  transform(value: string, metadata: ArgumentMetadata): number | undefined {
+    const val = parseInt(value, 10)
+    if (isNaN(val)) {
+      return undefined
+    }
+    return val
+  }
+}
+
 @ApiTags("activities")
 @Controller("/users/:userId/activities")
 export class ActivityController {
@@ -19,8 +46,27 @@ export class ActivityController {
 
   @Get()
   @ApiResponse({ status: 200, type: [ActivityDto] })
-  async getActivities(@Param("userId") userId: string) {
-    const activities = await this.activityService.findMany(Number(userId))
+  async getActivities(
+    @Param("userId", ParseIntPipe) userId: number,
+    @Query("startDateGte") startDateGte?: Date,
+    @Query("startDateLte") startDateLte?: Date,
+    @Query("orderBy") orderBy?: keyof Omit<Activities, "data">,
+    @Query("order") order?: "asc" | "desc",
+    @Query("skip", ParseOptionalIntPipe)
+    skip?: number | undefined,
+    @Query("take", ParseOptionalIntPipe) take?: number | undefined
+  ) {
+    const activities = await this.activityService.findMany(
+      userId,
+      {
+        startDateGte,
+        startDateLte,
+      },
+      orderBy,
+      order,
+      skip,
+      take
+    )
     return activities.map(excludeActivityData)
   }
 

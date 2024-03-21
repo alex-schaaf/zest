@@ -4,7 +4,7 @@ import useStravaSync from "@/hooks/useStravaSync"
 import axios from "../../lib/axios"
 import { useUser } from "@/contexts/user-context"
 import dayjs from "dayjs"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import useBoolean from "@/hooks/useBoolean"
 import ToastMessage from "../ToastMessage/ToastMessage"
 
@@ -38,7 +38,7 @@ const StravaSyncPrevBtn: React.FC = () => {
         onClick={async () => {
           setIsLoading(true)
           try {
-            const activity: StravaActivities = await axios
+            const activity: Activities = await axios
               .get(
                 `/users/${user.id}/activities?orderBy=startDate&order=asc&limit=1`
               )

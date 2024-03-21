@@ -1,12 +1,12 @@
 import React, { useMemo } from "react"
 
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import dayjs from "dayjs"
 import colors from "tailwindcss/colors"
 import * as d3 from "d3"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
   width: number
   height: number
 }
@@ -99,7 +99,7 @@ const DistanceStepChart: React.FC<Props> = ({ activities, width, height }) => {
 
 export default DistanceStepChart
 
-const getData = (activities: StravaActivities[]) => {
+const getData = (activities: Activities[]) => {
   const now = dayjs()
   const last = now.subtract(1, "month")
 
@@ -125,7 +125,7 @@ const getData = (activities: StravaActivities[]) => {
   return data
 }
 
-const cumsum = (activities: StravaActivities[], start: Date, end: Date) => {
+const cumsum = (activities: Activities[], start: Date, end: Date) => {
   const data = []
   let sum = 0
   for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {

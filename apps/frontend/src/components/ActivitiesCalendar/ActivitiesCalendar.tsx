@@ -1,5 +1,5 @@
 import React, { useMemo } from "react"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
 import classNames from "classnames"
 import Button from "../ui/Button"
@@ -7,7 +7,7 @@ import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "react-router-dom"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
 }
 
 const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
@@ -32,7 +32,7 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
   }, [date])
 
   const act = useMemo(() => {
-    const act: Record<string, StravaActivities[]> = {}
+    const act: Record<string, Activities[]> = {}
     days.forEach((day) => {
       act[day.format("YYYY-MM-DD")] = []
     })

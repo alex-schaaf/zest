@@ -1,5 +1,5 @@
 import { useDashboard } from "@/contexts/dashboard-context"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import StatCard from "@/components/ui/StatCard"
@@ -81,9 +81,7 @@ const Activities7DayStats: React.FC = () => {
 
 export default Activities7DayStats
 
-export const getActivityStats = (
-  activities: StravaActivities[]
-): ActivityStats => {
+export const getActivityStats = (activities: Activities[]): ActivityStats => {
   const totalDistance = activities.reduce(
     (prev, curr) => (prev += curr.distance / 1000),
     0

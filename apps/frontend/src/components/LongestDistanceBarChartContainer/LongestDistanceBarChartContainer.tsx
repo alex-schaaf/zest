@@ -11,6 +11,8 @@ const LongestDistanceBarChartContainer: React.FC = () => {
     take: 10,
   })
 
+  console.log(activities?.length)
+
   const [ref, { width, height }] = useElementSize()
 
   if (!activities) return null

@@ -1,11 +1,11 @@
 import React, { useMemo } from "react"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import * as d3 from "d3"
 import colors from "tailwindcss/colors"
 import dayjs, { Dayjs } from "dayjs"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
   width: number
   height: number
 }
@@ -66,6 +66,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
       })}
       {dateObjects.map((date, i) => (
         <text
+          key={i}
           x={
             xScale.bandwidth() * i * 4.34524 + margin.left + xScale.bandwidth()
           }
@@ -105,7 +106,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
 
 export default ActivityWeeklyBarChart
 
-const binActivitiesWeekly = (activities: StravaActivities[]) => {
+const binActivitiesWeekly = (activities: Activities[]) => {
   const bins: Record<number, number> = {}
   for (let w = 1; w <= dayjs().isoWeeksInYear(); w++) {
     bins[w] = 0

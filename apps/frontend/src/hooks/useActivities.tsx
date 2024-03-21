@@ -1,5 +1,5 @@
 import { useUser } from "@/contexts/user-context"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import { useQuery } from "@tanstack/react-query"
 import axios from "@/lib/axios"
 
@@ -8,7 +8,7 @@ interface ActivitiesQueryParams {
   take?: number
   startDateGte?: Date
   startDateLte?: Date
-  orderBy?: keyof StravaActivities
+  orderBy?: keyof Activities
   order?: "desc" | "asc"
 }
 
@@ -32,11 +32,13 @@ const useActivities = (
     }
   }
 
+  console.log(urlParams.toString())
+
   const {
     data: activities,
     isLoading,
     isError,
-  } = useQuery<StravaActivities[], Error>({
+  } = useQuery<Activities[], Error>({
     queryKey: ["activities", urlParams.toString()],
     enabled,
     queryFn: () =>

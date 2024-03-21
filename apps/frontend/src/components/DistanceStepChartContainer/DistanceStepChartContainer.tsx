@@ -1,10 +1,10 @@
 import Card from "@/components/ui/Card"
 import DistanceStepChart from "../DistanceStepChart/DistanceStepChart"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import useElementSize from "@/hooks/useElementSize"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
 }
 
 const DistanceStepChartContainer: React.FC<Props> = ({ activities }) => {

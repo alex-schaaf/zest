@@ -1,10 +1,10 @@
 import React from "react"
 import colors from "tailwindcss/colors"
 import * as d3 from "d3"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
   width: number
   height: number
 }

@@ -6,7 +6,6 @@ import Spinner from "./components/ui/Spinner/Spinner"
 
 const Layout = () => {
   const { user, isLoading, isError } = useAuth()
-  console.log("user", user)
 
   const navigate = useNavigate()
 

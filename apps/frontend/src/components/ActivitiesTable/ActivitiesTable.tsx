@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 import {
   createColumnHelper,
   flexRender,
@@ -24,10 +24,10 @@ import { useUser } from "@/contexts/user-context"
 import ToastMessage from "../ToastMessage/ToastMessage"
 
 interface Props {
-  activities: StravaActivities[]
+  activities: Activities[]
 }
 
-const columnHelper = createColumnHelper<StravaActivities>()
+const columnHelper = createColumnHelper<Activities>()
 
 const columns = [
   columnHelper.accessor("startDate", {

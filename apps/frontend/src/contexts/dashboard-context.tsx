@@ -1,8 +1,8 @@
 import { createContext, useContext } from "react"
-import { StravaActivities } from "@prisma/client"
+import { Activities } from "@prisma/client"
 
 interface DashboardContextValues {
-  activities: StravaActivities[]
+  activities: Activities[]
 }
 
 const DashboardContext = createContext<DashboardContextValues | undefined>(
