@@ -14,7 +14,7 @@ interface ActivitiesQueryParams {
 
 const useActivities = (
   queryParams?: ActivitiesQueryParams,
-  enabled?: boolean,
+  enabled?: boolean
 ) => {
   const { user } = useUser()
 

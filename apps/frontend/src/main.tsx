@@ -35,6 +35,6 @@ prepare().then(() => {
           <App />
         </AuthProvider>
       </QueryClientProvider>
-    </React.StrictMode>,
+    </React.StrictMode>
   )
 })

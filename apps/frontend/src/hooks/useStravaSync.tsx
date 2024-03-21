@@ -49,12 +49,12 @@ const useStravaSync = (): {
 
       const activities = await getStravaActivities(
         settings.stravaAccessToken,
-        searchParams,
+        searchParams
       )
 
       await postActivities(
         user.id,
-        activities.filter((a) => a.type === "Run"),
+        activities.filter((a) => a.type === "Run")
       )
 
       setIsSuccess(true)
@@ -95,12 +95,12 @@ const tokenExpired = (expiresAt: number): boolean => {
 
 const postActivities = async (
   userId: number,
-  activities: SummaryActivity[],
+  activities: SummaryActivity[]
 ) => {
   await axios.post(
     import.meta.env.VITE_API_URL + `/users/${userId}/activities`,
     activities,
-    { withCredentials: true },
+    { withCredentials: true }
   )
 }
 
@@ -112,6 +112,6 @@ const patchUserSettings = async (userId: number, settings: Settings) => {
       stravaRefreshToken: settings.stravaRefreshToken,
       stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
     },
-    { withCredentials: true },
+    { withCredentials: true }
   )
 }

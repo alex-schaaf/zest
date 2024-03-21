@@ -13,7 +13,7 @@ const ActivityWeeklyChartContainer = () => {
   const { activities, isLoading, isError } = useActivities(
     start.toDate(),
     undefined,
-    !!start,
+    !!start
   )
 
   if (isLoading) return null

@@ -17,7 +17,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
 }) => {
   const data: { distance: number; week: number }[] = useMemo(
     () => binActivitiesWeekly(activities),
-    [activities],
+    [activities]
   )
 
   const distanceMax = Math.max(...data.map(({ distance }) => distance))
