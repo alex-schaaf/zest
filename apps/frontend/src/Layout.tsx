@@ -5,7 +5,8 @@ import { useAuth } from "./contexts/auth-context"
 import Spinner from "./components/ui/Spinner/Spinner"
 
 const Layout = () => {
-  const { user, settings, isLoading, isError } = useAuth()
+  const { user, isLoading, isError } = useAuth()
+  console.log("user", user)
 
   const navigate = useNavigate()
 
@@ -23,8 +24,8 @@ const Layout = () => {
     }
   }
 
-  return user && settings ? (
-    <UserContext.Provider value={{ user, settings }}>
+  return user ? (
+    <UserContext.Provider value={{ user }}>
       <header>
         <Navbar />
       </header>

@@ -24,22 +24,22 @@ const StravaOAuthRedirect = () => {
   const navigate = useNavigate()
   const [authResponse, setAuthResponse] = useState<StravaTokenResponse>()
 
-  const { user, settings } = useUser()
+  const { user } = useUser()
 
   useEffect(() => {
-    if (!settings) return
+    if (!user.settings) return
 
     const code = getCodeParam()
 
     if (!code) return
 
-    console.log("user.settingsStravaClientId", settings.stravaClientId)
+    console.log("user.settingsStravaClientId", user.settings.stravaClientId)
 
     const getStravaAuthTokens = async () => {
       const data = await axios
         .post("https://www.strava.com/api/v3/oauth/token", {
-          client_id: settings.stravaClientId,
-          client_secret: settings.stravaClientSecret,
+          client_id: user.settings.stravaClientId,
+          client_secret: user.settings.stravaClientSecret,
           code,
           grant_type: "authorization_code",
         })
@@ -48,7 +48,7 @@ const StravaOAuthRedirect = () => {
     }
 
     getStravaAuthTokens()
-  }, [settings])
+  }, [user.settings])
 
   useEffect(() => {
     if (!authResponse || !user) return

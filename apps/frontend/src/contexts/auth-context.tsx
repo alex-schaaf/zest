@@ -4,8 +4,7 @@ import { createContext, PropsWithChildren, useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 
 type AuthContextType = {
-  user?: Users
-  settings?: Settings
+  user?: UsersWithSettings
   login: (email: string, password: string) => Promise<void>
   logout: () => Promise<void>
   isLoading: boolean
@@ -15,7 +14,9 @@ type AuthContextType = {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-export type UserWithSettings = Users & { settings: Settings }
+export type UsersWithSettings = Omit<Users, "passwordHash"> & {
+  settings: Settings
+}
 
 const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -27,22 +28,22 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     data: user,
     isLoading: isLoadingUser,
     isError,
-  } = useQuery<Users>({
+  } = useQuery<UsersWithSettings>({
     queryKey: ["user"],
-    queryFn: () => axios.get("/users").then((res) => res.data),
+    queryFn: () => axios.get("/users/from-cookie").then((res) => res.data),
     refetchOnWindowFocus: false,
     retry: 0,
   })
 
-  const { data: settings } = useQuery<Settings>({
-    queryKey: ["settings"],
-    enabled: !!user,
-    refetchOnWindowFocus: false,
-    queryFn: () =>
-      axios
-        .get(`/users/${user?.id}/settings/${user?.settingsId}`)
-        .then((res) => res.data),
-  })
+  // const { data: settings } = useQuery<Settings>({
+  //   queryKey: ["settings"],
+  //   enabled: !!user,
+  //   refetchOnWindowFocus: false,
+  //   queryFn: () =>
+  //     axios
+  //       .get(`/users/${user?.id}/settings/${user?.settingsId}`)
+  //       .then((res) => res.data),
+  // })
 
   const login = async (email: string, password: string) => {
     setIsLoading(true)
@@ -85,7 +86,6 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
     <AuthContext.Provider
       value={{
         user,
-        settings,
         login,
         logout,
         isLoading: !isError && isLoading,

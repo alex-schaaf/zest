@@ -10,8 +10,8 @@ import { AppModule } from "./app.module"
 import * as cookieParser from "cookie-parser"
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true })
-  app.setGlobalPrefix("api")
+  const app = await NestFactory.create(AppModule)
+  // app.setGlobalPrefix("api")
   app.enableVersioning({
     type: VersioningType.URI,
     defaultVersion: "1",

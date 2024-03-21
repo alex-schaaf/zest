@@ -17,17 +17,21 @@ const useStravaSync = (): {
   canSync: boolean
   sync: (searchParams?: StravaAPIActivitiesSearchParams) => Promise<void>
 } => {
-  const { user, settings } = useUser()
+  const { user } = useUser()
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
 
   const queryClient = useQueryClient()
 
-  const canSync = getCanSync(settings)
+  const canSync = getCanSync(user.settings)
 
   const sync = async (searchParams: StravaAPIActivitiesSearchParams = {}) => {
-    if (!user || !settings.stravaTokenExpiresAt || !settings.stravaAccessToken)
+    if (
+      !user ||
+      !user.settings.stravaTokenExpiresAt ||
+      !user.settings.stravaAccessToken
+    )
       return
 
     try {
@@ -35,20 +39,22 @@ const useStravaSync = (): {
       setIsError(false)
       setIsSuccess(null)
 
-      if (tokenExpired(settings.stravaTokenExpiresAt)) {
-        const refreshedTokens = await refreshStravaAccessToken(settings)
-        const updatedUserSettings = { ...settings, ...refreshedTokens }
-        settings.stravaRefreshToken = updatedUserSettings.stravaRefreshToken
-        settings.stravaAccessToken = updatedUserSettings.stravaAccessToken
-        settings.stravaTokenExpiresAt = updatedUserSettings.stravaTokenExpiresAt
+      if (tokenExpired(user.settings.stravaTokenExpiresAt)) {
+        const refreshedTokens = await refreshStravaAccessToken(user.settings)
+        const updatedUserSettings = { ...user.settings, ...refreshedTokens }
+        user.settings.stravaRefreshToken =
+          updatedUserSettings.stravaRefreshToken
+        user.settings.stravaAccessToken = updatedUserSettings.stravaAccessToken
+        user.settings.stravaTokenExpiresAt =
+          updatedUserSettings.stravaTokenExpiresAt
 
-        await patchUserSettings(user.id, settings)
+        await patchUserSettings(user.id, user.settings)
       }
 
-      if (!settings.stravaAccessToken) return
+      if (!user.settings.stravaAccessToken) return
 
       const activities = await getStravaActivities(
-        settings.stravaAccessToken,
+        user.settings.stravaAccessToken,
         searchParams
       )
 
