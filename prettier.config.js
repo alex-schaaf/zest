@@ -4,4 +4,4 @@ const config = {
   singleQuote: false,
 }
 
-export default config
+module.exports = config;
