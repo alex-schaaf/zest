@@ -7,16 +7,13 @@ import {
   Post,
   ParseIntPipe,
   Query,
-  DefaultValuePipe,
-  Injectable,
-  PipeTransform,
-  ArgumentMetadata,
 } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
 import { ActivityDto, createActivityDto } from "./activity.dto"
 import { Activities } from "@prisma/client"
+import { ParseOptionalIntPipe } from "@/utils/pipes"
 
 function excludeActivityData(
   activity: ActivityDto | null
@@ -24,19 +21,6 @@ function excludeActivityData(
   if (!activity) return null
   const { data, ...activityWithoutData } = activity
   return activityWithoutData
-}
-
-@Injectable()
-export class ParseOptionalIntPipe
-  implements PipeTransform<string, number | undefined>
-{
-  transform(value: string, metadata: ArgumentMetadata): number | undefined {
-    const val = parseInt(value, 10)
-    if (isNaN(val)) {
-      return undefined
-    }
-    return val
-  }
 }
 
 @ApiTags("activities")
