@@ -5,6 +5,7 @@ import {
   Patch,
   Body,
   UnauthorizedException,
+  ParseIntPipe,
 } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { ApiResponse, ApiTags } from "@nestjs/swagger"
@@ -47,21 +48,23 @@ export class UserController {
     return excludePasswordHash(user)
   }
 
-  @Get("/:id")
+  @Get("/:userId")
   @ApiResponse({ status: 200, type: UserDto })
-  async getUserById(@Param("id") id: string): Promise<UserDto | null> {
-    const user = await this.userService.findOne({ id: Number(id) })
+  async getUserById(
+    @Param("userId", ParseIntPipe) userId: number
+  ): Promise<UserDto | null> {
+    const user = await this.userService.findOne({ id: userId })
     return excludePasswordHash(user)
   }
 
-  @Patch("/:id")
+  @Patch("/:userId")
   @ApiResponse({ status: 200, type: UserDto })
   async updateUser(
-    @Param("id") id: string,
+    @Param("userId", ParseIntPipe) userId: number,
     @Body() body: UserPatchDto
   ): Promise<UserDto | null> {
     const user = await this.userService.updateOne({
-      where: { id: Number(id) },
+      where: { id: userId },
       data: body,
     })
     return excludePasswordHash(user)
