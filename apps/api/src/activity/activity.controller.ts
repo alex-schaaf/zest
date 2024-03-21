@@ -70,30 +70,32 @@ export class ActivityController {
     return activities.map(excludeActivityData)
   }
 
-  @Get("/:id")
+  @Get("/:activityId")
   @ApiResponse({ status: 200, type: ActivityDto })
-  async getActivityById(@Param("id") id: string) {
-    const activity = await this.activityService.findOne(Number(id))
+  async getActivityById(@Param("activityId", ParseIntPipe) activityId: number) {
+    const activity = await this.activityService.findOne(activityId)
     return excludeActivityData(activity)
   }
   @Post()
   @ApiBody({ type: createActivityDto })
   @ApiResponse({ status: 201, type: ActivityDto })
   async createActivity(
-    @Param("userId") userId: string,
+    @Param("userId", ParseIntPipe) userId: number,
     @Body("activity") activity: createActivityDto
   ) {
     const createdActivity = await this.activityService.createOne(
-      Number(userId),
+      userId,
       activity
     )
     return excludeActivityData(createdActivity)
   }
 
-  @Delete("/:id")
+  @Delete("/:activityId")
   @ApiResponse({ status: 200, type: ActivityDto })
-  async deleteActivityById(@Param("id") id: string) {
-    const activity = await this.activityService.deleteOne(Number(id))
+  async deleteActivityById(
+    @Param("activityId", ParseIntPipe) activityId: number
+  ) {
+    const activity = await this.activityService.deleteOne(activityId)
     return excludeActivityData(activity)
   }
 }
