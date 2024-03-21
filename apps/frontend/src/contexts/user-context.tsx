@@ -1,8 +1,9 @@
 import { Settings, Users } from "@prisma/client"
 import { createContext, useContext } from "react"
+import { UsersWithSettings } from "./auth-context"
 
 export const UserContext = createContext<
-  { user: Users; settings: Settings } | undefined
+  { user: UsersWithSettings } | undefined
 >(undefined)
 
 const useUser = () => {

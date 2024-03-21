@@ -16,7 +16,7 @@ interface Inputs {
 }
 
 const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
-  const { user, settings } = useUser()
+  const { user } = useUser()
 
   const {
     register,
@@ -53,7 +53,7 @@ const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
         <Label.Root className="LabelRoot">Client ID</Label.Root>
         <input
           type="text"
-          placeholder={settings.stravaClientId?.toString()}
+          placeholder={user.settings.stravaClientId?.toString()}
           {...register("stravaClientId", { valueAsNumber: true })}
         />
       </fieldset>
@@ -61,7 +61,9 @@ const SettingsStravaForm: React.FC<Props> = ({ setOpen }) => {
         <Label.Root className="LabelRoot">Client Secret</Label.Root>
         <input
           type="password"
-          placeholder={"•".repeat(settings.stravaClientSecret?.length || 0)}
+          placeholder={"•".repeat(
+            user.settings.stravaClientSecret?.length || 0
+          )}
           {...register("stravaClientSecret")}
         />
       </fieldset>

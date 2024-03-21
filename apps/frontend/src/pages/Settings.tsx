@@ -59,7 +59,7 @@ const stravaOptions: {
 ]
 
 const SettingsView = () => {
-  const { user, settings } = useUser()
+  const { user } = useUser()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -73,14 +73,14 @@ const SettingsView = () => {
               Personal details and settings.
             </DescriptionList.Subtitle>
           </DescriptionList.Header>
-          {options.map(({ key, name, formatter }, idx) => (
+          {/* {options.map(({ key, name, formatter }, idx) => (
             <DescriptionList.Field idx={idx} key={idx}>
               <DescriptionList.Term>{name}</DescriptionList.Term>
               <DescriptionList.Description>
                 <>{formatter ? formatter(user[key]) : user[key]}</>
               </DescriptionList.Description>
             </DescriptionList.Field>
-          ))}
+          ))} */}
         </DescriptionList>
       </Card>
 
@@ -125,7 +125,11 @@ const SettingsView = () => {
             <DescriptionList.Field idx={idx} key={idx}>
               <DescriptionList.Term>{name}</DescriptionList.Term>
               <DescriptionList.Description>
-                <>{formatter ? formatter(settings[key]) : settings[key]}</>
+                <>
+                  {formatter
+                    ? formatter(user.settings[key])
+                    : user.settings[key]}
+                </>
               </DescriptionList.Description>
             </DescriptionList.Field>
           ))}
