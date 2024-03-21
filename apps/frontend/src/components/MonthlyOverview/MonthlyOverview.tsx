@@ -12,12 +12,12 @@ const MonthlyOverview: React.FC = () => {
   const thisMonthsActivities = useMemo(
     () =>
       activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("month")),
-    [activities],
+    [activities]
   )
 
   const stats = useMemo(
     () => getActivityStats(thisMonthsActivities),
-    [thisMonthsActivities],
+    [thisMonthsActivities]
   )
 
   const lastMonthsActivites = useMemo(
@@ -25,14 +25,14 @@ const MonthlyOverview: React.FC = () => {
       activities.filter(
         (a) =>
           dayjs(a.startDate) >= dayjs().startOf("month").subtract(1, "month") &&
-          dayjs(a.startDate) < dayjs().subtract(1, "month"),
+          dayjs(a.startDate) < dayjs().subtract(1, "month")
       ),
-    [activities],
+    [activities]
   )
 
   const statsPrev = useMemo(
     () => getActivityStats(lastMonthsActivites),
-    [lastMonthsActivites],
+    [lastMonthsActivites]
   )
 
   if (thisMonthsActivities.length === 0 && lastMonthsActivites.length === 0)

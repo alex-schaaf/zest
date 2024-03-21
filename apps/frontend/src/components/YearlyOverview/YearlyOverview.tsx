@@ -13,12 +13,12 @@ const YearlyOverview = () => {
   const activitiesCurrent = useMemo(
     () =>
       activities.filter((a) => dayjs(a.startDate) >= dayjs().startOf("year")),
-    [activities],
+    [activities]
   )
 
   const stats = useMemo(
     () => getActivityStats(activitiesCurrent),
-    [activitiesCurrent],
+    [activitiesCurrent]
   )
 
   const activitiesPrev = useMemo(
@@ -26,32 +26,32 @@ const YearlyOverview = () => {
       activities.filter(
         (a) =>
           dayjs(a.startDate) >= dayjs().startOf("year").subtract(1, "year") &&
-          dayjs(a.startDate) < dayjs().subtract(1, "year"),
+          dayjs(a.startDate) < dayjs().subtract(1, "year")
       ),
-    [activities],
+    [activities]
   )
 
   const statsPrev = useMemo(
     () => getActivityStats(activitiesPrev),
-    [activitiesPrev],
+    [activitiesPrev]
   )
 
   const longestActivityCurrent = useMemo(
     () =>
       activitiesCurrent.length &&
       activitiesCurrent.reduce((prev, current) =>
-        prev.distance > current.distance ? prev : current,
+        prev.distance > current.distance ? prev : current
       ),
-    [activitiesCurrent],
+    [activitiesCurrent]
   )
 
   const longestActivityPrev = useMemo(
     () =>
       activitiesPrev.length &&
       activitiesPrev.reduce((prev, current) =>
-        prev.distance > current.distance ? prev : current,
+        prev.distance > current.distance ? prev : current
       ),
-    [activitiesPrev],
+    [activitiesPrev]
   )
 
   if (

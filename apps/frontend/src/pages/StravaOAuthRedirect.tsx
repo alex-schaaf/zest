@@ -64,7 +64,7 @@ const StravaOAuthRedirect = () => {
             stravaAccessToken: access_token,
             stravaRefreshToken: refresh_token,
           },
-          { withCredentials: true },
+          { withCredentials: true }
         )
         .then(() => {
           navigate("/settings")

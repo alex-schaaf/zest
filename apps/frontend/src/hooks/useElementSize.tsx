@@ -52,7 +52,7 @@ export default useElementSize
 function useResizeListener<T extends HTMLElement>(
   handler: (event: Event) => void,
   element?: RefObject<T>,
-  options?: AddEventListenerOptions,
+  options?: AddEventListenerOptions
 ) {
   const savedHandler = useRef(handler)
 

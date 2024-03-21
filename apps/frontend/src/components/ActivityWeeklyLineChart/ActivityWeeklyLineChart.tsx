@@ -17,7 +17,7 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
 }) => {
   const data: { distance: number; week: number }[] = useMemo(
     () => binActivitiesWeekly(activities),
-    [activities],
+    [activities]
   )
 
   if (height === 0) return null
@@ -88,7 +88,7 @@ const ActivityWeeklLineChart: React.FC<Props> = ({
           <>
             <path
               d={`M ${xScale(week - 1)} ${yScale(0)} L ${xScale(
-                week - 1,
+                week - 1
               )} ${yScale(distanceMax)}`}
               stroke={
                 week == dayjs().isoWeek() ? colors.blue[500] : colors.gray[200]

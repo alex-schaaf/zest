@@ -40,7 +40,7 @@ const StravaSyncPrevBtn: React.FC = () => {
           try {
             const activity: StravaActivities = await axios
               .get(
-                `/users/${user.id}/activities?orderBy=startDate&order=asc&limit=1`,
+                `/users/${user.id}/activities?orderBy=startDate&order=asc&limit=1`
               )
               .then((res) => res.data)
 
