@@ -1,103 +1,103 @@
-import { ApiProperty } from '@nestjs/swagger';
+import { ApiProperty } from "@nestjs/swagger"
 
-import { Activities } from '@prisma/client';
-import { ActivityType, MetaAthlete, PolylineMap } from './strava-types';
-import { JsonValue } from '@prisma/client/runtime/library';
+import { Activities } from "@prisma/client"
+import { ActivityType, MetaAthlete, PolylineMap } from "./strava-types"
+import { JsonValue } from "@prisma/client/runtime/library"
 
 export class createActivityDto {
   @ApiProperty()
-  id: number;
+  id: number
   @ApiProperty()
-  external_id: string;
+  external_id: string
   @ApiProperty()
-  upload_id: number;
+  upload_id: number
   @ApiProperty()
-  athlete: MetaAthlete;
+  athlete: MetaAthlete
   @ApiProperty()
-  name: string;
+  name: string
   @ApiProperty()
-  distance: number;
+  distance: number
   @ApiProperty()
-  moving_time: number;
+  moving_time: number
   @ApiProperty()
-  elapsed_time: number;
+  elapsed_time: number
   @ApiProperty()
-  total_elevation_gain: number;
+  total_elevation_gain: number
   @ApiProperty()
-  elev_high: number;
+  elev_high: number
   @ApiProperty()
-  elev_low: number;
+  elev_low: number
   @ApiProperty()
-  type: ActivityType;
+  type: ActivityType
   @ApiProperty()
-  start_date: Date;
+  start_date: Date
   @ApiProperty()
-  start_date_local: Date;
+  start_date_local: Date
   @ApiProperty()
-  timezone: string;
+  timezone: string
   @ApiProperty()
-  start_latlng: number[];
+  start_latlng: number[]
   @ApiProperty()
-  end_latlng: number[];
+  end_latlng: number[]
   @ApiProperty()
-  achievement_count: number;
+  achievement_count: number
   @ApiProperty()
-  kudos_count: number;
+  kudos_count: number
   @ApiProperty()
-  comment_count: number;
+  comment_count: number
   @ApiProperty()
-  athlete_count: number;
+  athlete_count: number
   @ApiProperty()
-  photo_count: number;
+  photo_count: number
   @ApiProperty()
-  total_photo_count: number;
+  total_photo_count: number
   @ApiProperty()
-  map: PolylineMap;
+  map: PolylineMap
   @ApiProperty()
-  trainer: boolean;
+  trainer: boolean
   @ApiProperty()
-  commute: boolean;
+  commute: boolean
   @ApiProperty()
-  manual: boolean;
+  manual: boolean
   @ApiProperty()
-  private: boolean;
+  private: boolean
   @ApiProperty()
-  flagged: boolean;
+  flagged: boolean
   @ApiProperty()
-  workout_type: number;
+  workout_type: number
   @ApiProperty()
-  average_speed: number;
+  average_speed: number
   @ApiProperty()
-  average_heartrate: number | null;
+  average_heartrate: number | null
   @ApiProperty()
-  max_speed: number;
+  max_speed: number
   @ApiProperty()
-  has_kudoed: boolean;
+  has_kudoed: boolean
 }
 
 export class ActivityDto implements Activities {
   @ApiProperty()
-  id: bigint;
+  id: bigint
   @ApiProperty()
-  type: string;
+  type: string
   @ApiProperty()
-  distance: number;
+  distance: number
   @ApiProperty()
-  time: number;
+  time: number
   @ApiProperty()
-  speed: number;
+  speed: number
   @ApiProperty()
-  elevationGain: number;
+  elevationGain: number
   @ApiProperty()
-  averageHeartrate: number | null;
+  averageHeartrate: number | null
   @ApiProperty()
-  startDate: Date;
+  startDate: Date
   @ApiProperty()
-  active: boolean;
+  active: boolean
   @ApiProperty()
-  data: null | JsonValue;
+  data: null | JsonValue
   @ApiProperty()
-  userId: number;
+  userId: number
   @ApiProperty()
-  originService: string;
+  originService: string
 }

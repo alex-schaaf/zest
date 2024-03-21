@@ -1,15 +1,15 @@
-import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common";
-import { ActivityService } from "./activity.service";
+import { Body, Controller, Delete, Get, Param, Post } from "@nestjs/common"
+import { ActivityService } from "./activity.service"
 
-import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger";
-import { ActivityDto, createActivityDto } from "./activity.dto";
+import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
+import { ActivityDto, createActivityDto } from "./activity.dto"
 
 function excludeActivityData(
   activity: ActivityDto | null
 ): Omit<ActivityDto, "data"> | null {
-  if (!activity) return null;
-  const { data, ...activityWithoutData } = activity;
-  return activityWithoutData;
+  if (!activity) return null
+  const { data, ...activityWithoutData } = activity
+  return activityWithoutData
 }
 
 @ApiTags("activities")
@@ -20,15 +20,15 @@ export class ActivityController {
   @Get()
   @ApiResponse({ status: 200, type: [ActivityDto] })
   async getActivities(@Param("userId") userId: string) {
-    const activities = await this.activityService.findMany(Number(userId));
-    return activities.map(excludeActivityData);
+    const activities = await this.activityService.findMany(Number(userId))
+    return activities.map(excludeActivityData)
   }
 
   @Get("/:id")
   @ApiResponse({ status: 200, type: ActivityDto })
   async getActivityById(@Param("id") id: string) {
-    const activity = await this.activityService.findOne(Number(id));
-    return excludeActivityData(activity);
+    const activity = await this.activityService.findOne(Number(id))
+    return excludeActivityData(activity)
   }
   @Post()
   @ApiBody({ type: createActivityDto })
@@ -40,14 +40,14 @@ export class ActivityController {
     const createdActivity = await this.activityService.createOne(
       Number(userId),
       activity
-    );
-    return excludeActivityData(createdActivity);
+    )
+    return excludeActivityData(createdActivity)
   }
 
   @Delete("/:id")
   @ApiResponse({ status: 200, type: ActivityDto })
   async deleteActivityById(@Param("id") id: string) {
-    const activity = await this.activityService.deleteOne(Number(id));
-    return excludeActivityData(activity);
+    const activity = await this.activityService.deleteOne(Number(id))
+    return excludeActivityData(activity)
   }
 }

@@ -1,7 +1,7 @@
-import { Controller, Get, Param, Patch, Body } from "@nestjs/common";
-import { UserService } from "./user.service";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { UserDto, UserPatchDto, UsersWithSettings } from "./user.dto";
+import { Controller, Get, Param, Patch, Body } from "@nestjs/common"
+import { UserService } from "./user.service"
+import { ApiResponse, ApiTags } from "@nestjs/swagger"
+import { UserDto, UserPatchDto, UsersWithSettings } from "./user.dto"
 
 @ApiTags("users")
 @Controller("users")
@@ -11,8 +11,8 @@ export class UserController {
   @Get("/:id")
   @ApiResponse({ status: 200, type: UserDto })
   async getUserById(@Param("id") id: string): Promise<UserDto | null> {
-    const user = await this.userService.findOne({ id: Number(id) });
-    return excludePasswordHash(user);
+    const user = await this.userService.findOne({ id: Number(id) })
+    return excludePasswordHash(user)
   }
 
   @Patch("/:id")
@@ -24,13 +24,13 @@ export class UserController {
     const user = await this.userService.updateOne({
       where: { id: Number(id) },
       data: body,
-    });
-    return excludePasswordHash(user);
+    })
+    return excludePasswordHash(user)
   }
 }
 
 function excludePasswordHash(user: UsersWithSettings | null): UserDto | null {
-  if (user === null) return null;
-  const { passwordHash, ...userWithoutPasswordHash } = user;
-  return userWithoutPasswordHash;
+  if (user === null) return null
+  const { passwordHash, ...userWithoutPasswordHash } = user
+  return userWithoutPasswordHash
 }

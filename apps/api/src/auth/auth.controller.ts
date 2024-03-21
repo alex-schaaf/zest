@@ -1,9 +1,9 @@
-import { Body, Controller, Post, Res } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { Public } from "./decorators/public.decorator";
-import { Response } from "express";
-import { ApiResponse, ApiTags } from "@nestjs/swagger";
-import { SignInDto, SignUpDto, TokenPayloadDto } from "./auth.dto";
+import { Body, Controller, Post, Res } from "@nestjs/common"
+import { AuthService } from "./auth.service"
+import { Public } from "./decorators/public.decorator"
+import { Response } from "express"
+import { ApiResponse, ApiTags } from "@nestjs/swagger"
+import { SignInDto, SignUpDto, TokenPayloadDto } from "./auth.dto"
 
 // The AuthController is responsible for handling incoming requests related to
 // authentication. It uses the AuthService to handle the business logic for
@@ -34,9 +34,9 @@ export class AuthController {
     const { payload, access_token } = await this.authService.signIn(
       signIn.email,
       signIn.password
-    );
-    response.cookie("token", access_token, { httpOnly: true });
-    return payload;
+    )
+    response.cookie("token", access_token, { httpOnly: true })
+    return payload
   }
 
   @Public()
@@ -49,14 +49,14 @@ export class AuthController {
     const { payload, access_token } = await this.authService.signUp(
       signUp.email,
       signUp.password
-    );
-    response.cookie("token", access_token, { httpOnly: true });
-    return payload;
+    )
+    response.cookie("token", access_token, { httpOnly: true })
+    return payload
   }
 
   @ApiResponse({ status: 204 })
   @Post("logout")
   async signOut(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie("token");
+    response.clearCookie("token")
   }
 }

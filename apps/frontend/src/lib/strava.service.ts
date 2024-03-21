@@ -13,7 +13,7 @@ export interface StravaAPIActivitiesSearchParams {
 
 export const getStravaActivities = async (
   access_token: string,
-  stravaSearchParams: StravaAPIActivitiesSearchParams = {},
+  stravaSearchParams: StravaAPIActivitiesSearchParams = {}
 ): Promise<SummaryActivity[]> => {
   const searchParams = new URLSearchParams({
     access_token,
@@ -38,7 +38,7 @@ type StravaRefreshResponse = Pick<
 >
 
 export const refreshStravaAccessToken = async (
-  params: StravaRefreshParams,
+  params: StravaRefreshParams
 ): Promise<StravaRefreshResponse> => {
   if (
     !params.stravaClientId ||
@@ -56,7 +56,7 @@ export const refreshStravaAccessToken = async (
           client_secret: params.stravaClientSecret,
           grant_type: "refresh_token",
           refresh_token: params.stravaRefreshToken,
-        }),
+        })
     )
     .then((res) => res.data)
 

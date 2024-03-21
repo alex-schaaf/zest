@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma.service';
-import { SummaryActivity } from './strava-types';
-import { Prisma } from '@prisma/client';
+import { Injectable } from "@nestjs/common"
+import { PrismaService } from "../prisma.service"
+import { SummaryActivity } from "./strava-types"
+import { Prisma } from "@prisma/client"
 
 @Injectable()
 export class ActivityService {
@@ -10,23 +10,23 @@ export class ActivityService {
   async findOne(userId: number) {
     return this.prisma.activities.findUnique({
       where: { id: userId },
-    });
+    })
   }
 
   async findMany(
     userId: number,
     filters?: { startDateGte?: Date; startDateLte?: Date },
-    orderBy = 'startDate',
-    order: 'asc' | 'desc' = 'desc',
+    orderBy = "startDate",
+    order: "asc" | "desc" = "desc",
     skip = 0,
-    take?: number,
+    take?: number
   ) {
     const prismaWhere: Prisma.ActivitiesFindManyArgs = {
       where: {
         userId,
         active: true,
         type: {
-          equals: 'Run',
+          equals: "Run",
         },
         startDate: {
           gte: filters?.startDateGte,
@@ -38,8 +38,8 @@ export class ActivityService {
       },
       skip,
       take,
-    };
-    return this.prisma.activities.findMany(prismaWhere);
+    }
+    return this.prisma.activities.findMany(prismaWhere)
   }
 
   async createOne(userId: number, data: SummaryActivity) {
@@ -58,18 +58,18 @@ export class ActivityService {
           id: userId,
         },
       },
-      originService: 'strava',
-    };
+      originService: "strava",
+    }
 
     return this.prisma.activities.create({
       data: parsedData,
-    });
+    })
   }
 
   async deleteOne(id: number) {
     return this.prisma.activities.update({
       where: { id },
       data: { active: false },
-    });
+    })
   }
 }
