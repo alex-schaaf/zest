@@ -21,7 +21,6 @@ export class ActivityService {
     skip = 0,
     take?: number
   ) {
-    console.log(`findMany, take=${take}`)
     const prismaWhere: Prisma.ActivitiesFindManyArgs = {
       where: {
         userId,

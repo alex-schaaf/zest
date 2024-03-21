@@ -8,8 +8,6 @@ import dayjs from "dayjs"
 const Activities = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  console.log("searchParams", searchParams)
-
   useEffect(() => {
     if (searchParams.get("date") && searchParams.get("lastDays")) {
       return

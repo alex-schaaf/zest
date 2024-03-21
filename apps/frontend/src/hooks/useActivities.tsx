@@ -32,8 +32,6 @@ const useActivities = (
     }
   }
 
-  console.log(urlParams.toString())
-
   const {
     data: activities,
     isLoading,

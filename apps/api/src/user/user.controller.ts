@@ -35,7 +35,6 @@ export class UserController {
   async getUserByCookie(
     @Cookies("token") token: string
   ): Promise<UserDto | null> {
-    console.log("Received from-cookie request")
     if (!token) {
       throw new UnauthorizedException("no token")
     }

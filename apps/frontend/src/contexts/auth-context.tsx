@@ -54,8 +54,6 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
         .post("/auth/login", { email, password })
         .then((res) => res.data)
 
-      console.log("sub", sub)
-
       localStorage.setItem("sub", sub)
       localStorage.setItem("iat", iat)
       localStorage.setItem("exp", exp)

@@ -33,8 +33,6 @@ const StravaOAuthRedirect = () => {
 
     if (!code) return
 
-    console.log("user.settingsStravaClientId", user.settings.stravaClientId)
-
     const getStravaAuthTokens = async () => {
       const data = await axios
         .post("https://www.strava.com/api/v3/oauth/token", {
