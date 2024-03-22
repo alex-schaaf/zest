@@ -23,6 +23,10 @@ function excludeActivityData(
   return activityWithoutData
 }
 
+class CreateActivityResponseDto {
+  count: number
+}
+
 @ApiTags("activities")
 @Controller("/users/:userId/activities")
 export class ActivityController {
@@ -60,18 +64,18 @@ export class ActivityController {
     const activity = await this.activityService.findOne(activityId)
     return excludeActivityData(activity)
   }
+
   @Post()
   @ApiBody({ type: createActivityDto })
-  @ApiResponse({ status: 201, type: ActivityDto })
+  @ApiResponse({ status: 201, type: CreateActivityResponseDto })
   async createActivity(
     @Param("userId", ParseIntPipe) userId: number,
-    @Body("activity") activity: createActivityDto
+    @Body() activities: createActivityDto[] | createActivityDto
   ) {
-    const createdActivity = await this.activityService.createOne(
-      userId,
-      activity
-    )
-    return excludeActivityData(createdActivity)
+    if (!Array.isArray(activities)) {
+      activities = [activities]
+    }
+    return await this.activityService.createMany(userId, activities)
   }
 
   @Delete("/:activityId")

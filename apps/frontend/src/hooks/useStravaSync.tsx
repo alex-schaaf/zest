@@ -112,11 +112,13 @@ const postActivities = async (
 
 const patchUserSettings = async (userId: number, settings: Settings) => {
   await axios.patch(
-    import.meta.env.VITE_API_URL + `/users/${userId}/settings/${settings.id}`,
+    import.meta.env.VITE_API_URL + `/users/${userId}`,
     {
-      stravaAccessToken: settings.stravaAccessToken,
-      stravaRefreshToken: settings.stravaRefreshToken,
-      stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
+      settings: {
+        stravaAccessToken: settings.stravaAccessToken,
+        stravaRefreshToken: settings.stravaRefreshToken,
+        stravaTokenExpiresAt: settings.stravaTokenExpiresAt,
+      },
     },
     { withCredentials: true }
   )

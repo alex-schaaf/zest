@@ -30,7 +30,6 @@ const StravaOAuthRedirect = () => {
     if (!user.settings) return
 
     const code = getCodeParam()
-
     if (!code) return
 
     const getStravaAuthTokens = async () => {
@@ -55,12 +54,13 @@ const StravaOAuthRedirect = () => {
     const storeStravaAuthTokens = async () => {
       axios
         .patch(
-          import.meta.env.VITE_API_URL +
-            `/users/${user.id}/settings/${user.settingsId}`,
+          import.meta.env.VITE_API_URL + `/users/${user.id}`,
           {
-            stravaTokenExpiresAt: expires_at,
-            stravaAccessToken: access_token,
-            stravaRefreshToken: refresh_token,
+            settings: {
+              stravaTokenExpiresAt: expires_at,
+              stravaAccessToken: access_token,
+              stravaRefreshToken: refresh_token,
+            },
           },
           { withCredentials: true }
         )

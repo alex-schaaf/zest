@@ -42,27 +42,48 @@ export class ActivityService {
     return this.prisma.activities.findMany(prismaWhere)
   }
 
-  async createOne(userId: number, data: SummaryActivity) {
-    const parsedData: Prisma.ActivitiesCreateInput = {
-      id: data.id,
-      type: data.type,
-      distance: data.distance,
-      time: data.moving_time,
-      speed: data.average_speed,
-      elevationGain: data.total_elevation_gain,
-      startDate: data.start_date,
-      averageHeartrate: data.average_heartrate,
-      data: data as unknown as Prisma.InputJsonValue,
-      Users: {
-        connect: {
-          id: userId,
-        },
-      },
-      originService: "strava",
-    }
+  // async createOne(userId: number, data: SummaryActivity) {
+  //   const parsedData: Prisma.ActivitiesCreateInput = {
+  //     id: BigInt(data.id),
+  //     type: data.type,
+  //     distance: data.distance,
+  //     time: data.moving_time,
+  //     speed: data.average_speed,
+  //     elevationGain: data.total_elevation_gain,
+  //     startDate: data.start_date,
+  //     averageHeartrate: data.average_heartrate,
+  //     data: data as unknown as Prisma.InputJsonValue,
+  //     Users: {
+  //       connect: {
+  //         id: userId,
+  //       },
+  //     },
+  //     originService: "strava",
+  //   }
 
-    return this.prisma.activities.create({
+  //   return this.prisma.activities.create({
+  //     data: parsedData,
+  //   })
+  // }
+
+  async createMany(userId: number, data: SummaryActivity[]) {
+    const parsedData = data.map((activity) => ({
+      id: BigInt(activity.id),
+      type: activity.type,
+      distance: activity.distance,
+      time: activity.moving_time,
+      speed: activity.average_speed,
+      elevationGain: activity.total_elevation_gain,
+      startDate: activity.start_date,
+      averageHeartrate: activity.average_heartrate,
+      data: activity as unknown as Prisma.InputJsonValue,
+      originService: "strava",
+      userId,
+    }))
+
+    return this.prisma.activities.createMany({
       data: parsedData,
+      skipDuplicates: true,
     })
   }
 
