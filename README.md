@@ -33,7 +33,9 @@ Every folder in the `/apps`folder represents a `yarn`
 - `apps/api` contains the Nest.js API
 - `apps/frontend` contains the Vite.js React frontend
 
-Running scripts for the individual workspaces can be done from the root project folder using `yarn workspace <workspace-name> run <script-name>`. For example running the apps individually in development mode:
+Running scripts for the individual workspaces can be done from the root project
+folder using `yarn workspace <workspace-name> run <script-name>`. For example
+running the apps individually in development mode:
 
 ```bash
 # start the api in development mode
@@ -52,4 +54,17 @@ The easiest way to get started is to run all `zest` services using Docker compos
 docker compose -f docker-compose.development.yml up
 ```
 
-This will start up all services in dev mode with the API server available at `localhost:80/api` and the web interface at `localhost:80`. The database can additionally be accesses at `localhost:5432`.
+This will start up all services in dev mode with the API server available at
+`localhost:80/api` and the web interface at `localhost:80`. The database can
+additionally be accesses at `localhost:5432`.
+
+### Testing
+
+#### API
+
+Testing is done using the `jest` testing framework. Tests are stored `*.spec.ts`
+files next to the code files they are testing.
+
+```
+yarn workspace api run test
+```
