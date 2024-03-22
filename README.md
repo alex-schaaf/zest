@@ -25,27 +25,31 @@ Integrations:
 
 Install dependencies by running `yarn` in the root folder.
 
-1. Start the Postgres database container using `docker compose up`
-2. Migrate the Postgres database using `cd apps/backend && npx prisma migrate
-db`
-3. Seed the Postgres database using `npx prisma db seed`
-4. Run `yarn dev` in the root folder to run both the API and the frontend dev
-   servers
+### Project structure
 
-The backend will be available at `localhost:3000` and the frontend at
-`localhost:5173`.
+Every folder in the `/apps`folder represents a `yarn`
+[workspace](https://yarnpkg.com/features/workspaces).
 
-## Testing
+- `apps/api` contains the Nest.js API
+- `apps/frontend` contains the Vite.js React frontend
 
-Testing is done using Cypress. Make sure to have the app running before
-executing a test run.
+Running scripts for the individual workspaces can be done from the root project folder using `yarn workspace <workspace-name> run <script-name>`. For example running the apps individually in development mode:
 
+```bash
+# start the api in development mode
+yarn workspace api run start:dev
+
+# start the frontend in development mode
+yarn workspace frontend run dev
 ```
-yarn test
+
+### Development mode
+
+The easiest way to get started is to run all `zest` services using Docker compose.
+
+```bash
+# run all services: database, api server, vite dev server and nginx reverse proxy
+docker compose -f docker-compose.development.yml up
 ```
 
-## Production build
-
-```
-yarn build
-```
+This will start up all services in dev mode with the API server available at `localhost:80/api` and the web interface at `localhost:80`. The database can additionally be accesses at `localhost:5432`.
