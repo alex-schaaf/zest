@@ -3,6 +3,7 @@ import { Test, TestingModule } from "@nestjs/testing"
 import { PrismaService } from "../prisma.service"
 import { UserController } from "./user.controller"
 import { UserService } from "./user.service"
+import { JwtService } from "@nestjs/jwt"
 
 describe("UserController", () => {
   let userController: UserController
@@ -12,7 +13,7 @@ describe("UserController", () => {
     // eslint-disable-next-line @next/next/no-assign-module-variable
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService, PrismaService],
+      providers: [UserService, PrismaService, JwtService],
     }).compile()
 
     userController = module.get<UserController>(UserController)
@@ -46,7 +47,7 @@ describe("UserController", () => {
 
       jest.spyOn(userService, "findOne").mockResolvedValueOnce(userInDB)
 
-      const queriedUser = await userController.getUserById("1")
+      const queriedUser = await userController.getUserById(1)
       expect(queriedUser).not.toHaveProperty("passwordHash")
     })
   })
@@ -77,7 +78,7 @@ describe("UserController", () => {
         .spyOn(userService, "updateOne")
         .mockResolvedValueOnce({ ...user, email: newEmail as string })
 
-      const updatedUser = await userController.updateUser(user.id.toString(), {
+      const updatedUser = await userController.updateUser(user.id, {
         email: newEmail,
       })
 
