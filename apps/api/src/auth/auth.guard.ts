@@ -10,7 +10,7 @@ import { IS_PUBLIC_KEY } from "./decorators/public.decorator"
 
 type Payload = { sub: string }
 
-type RequestWithOptionalPayload = Request & {
+export type RequestWithOptionalPayload = Request & {
   user?: Payload
   headers: Headers & { authorization?: string }
   cookies?: { token?: string }
