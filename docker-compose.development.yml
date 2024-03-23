@@ -38,7 +38,7 @@ services:
     env_file:
       - .env.docker-compose
 
-    command: yarn dev
+    command: yarn start:dev
     depends_on:
       - api
 
