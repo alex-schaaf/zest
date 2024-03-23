@@ -3,7 +3,7 @@ import { Activities } from "@prisma/client"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import StatCard from "@/components/ui/StatCard"
-import Card from "../ui/Card"
+import Card from "../../ui/Card"
 
 interface ActivityStats {
   totalDistance: number

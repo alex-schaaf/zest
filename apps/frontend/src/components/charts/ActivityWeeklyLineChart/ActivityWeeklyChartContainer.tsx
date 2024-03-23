@@ -2,9 +2,9 @@ import dayjs from "dayjs"
 
 import useActivities from "@/hooks/useActivities"
 import useElementSize from "@/hooks/useElementSize"
-import Card from "../ui/Card"
+import Card from "../../ui/Card"
 import ActivityWeeklyBarChart from "../ActivityWeeklyBarChart"
-import { Title } from "../ui/StatCard/StatCard"
+import { Title } from "../../ui/StatCard/StatCard"
 
 const ActivityWeeklyChartContainer = () => {
   const [ref, { width, height }] = useElementSize()

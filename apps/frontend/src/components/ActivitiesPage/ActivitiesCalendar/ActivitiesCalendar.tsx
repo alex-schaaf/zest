@@ -2,7 +2,7 @@ import React, { useMemo } from "react"
 import { Activities } from "@prisma/client"
 import dayjs, { Dayjs } from "dayjs"
 import classNames from "classnames"
-import Button from "../ui/Button"
+import Button from "../../ui/Button"
 import { ArrowLeftIcon, ArrowRightIcon } from "@radix-ui/react-icons"
 import { useSearchParams } from "react-router-dom"
 

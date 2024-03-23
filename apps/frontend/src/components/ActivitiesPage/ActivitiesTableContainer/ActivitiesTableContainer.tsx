@@ -5,7 +5,7 @@ import * as Select from "@radix-ui/react-select"
 import ActivitiesTable from "../ActivitiesTable/ActivitiesTable"
 import Button from "@/components/ui/Button"
 import { CheckIcon, ChevronDownIcon } from "@radix-ui/react-icons"
-import Spinner from "../ui/Spinner/Spinner"
+import Spinner from "../../ui/Spinner/Spinner"
 import { useSearchParams } from "react-router-dom"
 
 const options = [

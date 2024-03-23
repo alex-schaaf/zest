@@ -16,12 +16,12 @@ import {
   TriangleDownIcon,
   TriangleUpIcon,
 } from "@radix-ui/react-icons"
-import Button from "../ui/Button"
+import Button from "../../ui/Button"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import axios from "../../lib/axios"
+import axios from "../../../lib/axios"
 import { useUser } from "@/contexts/user-context"
-import ToastMessage from "../ToastMessage/ToastMessage"
+import ToastMessage from "../../ui/ToastMessage/ToastMessage"
 
 interface Props {
   activities: Activities[]

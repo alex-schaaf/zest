@@ -1,5 +1,5 @@
 import Card from "@/components/ui/Card"
-import DescriptionList from "@/components/DescriptionList"
+import DescriptionList from "@/components/ui/DescriptionList"
 import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
 import { Users, Settings } from "@prisma/client"
@@ -12,7 +12,7 @@ import {
 import { ReactNode, useState } from "react"
 import Button from "@/components/ui/Button"
 import * as Dialog from "@radix-ui/react-dialog"
-import SettingsStravaForm from "@/components/SettingsStravaForm"
+import SettingsStravaForm from "@/components/SettingsPage/SettingsStravaForm"
 import StravaSyncPrevBtn from "@/components/StravaSyncPrevBtn"
 
 const formatDateStr = (s: string | number | Date | null) => {

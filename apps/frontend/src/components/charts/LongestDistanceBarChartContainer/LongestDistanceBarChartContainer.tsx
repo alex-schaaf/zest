@@ -2,7 +2,7 @@ import useActivities from "@/hooks/useActivities"
 import React from "react"
 import useElementSize from "@/hooks/useElementSize"
 import LongestDistanceBarChart from "../LongestDistanceBarChart"
-import { Title } from "../ui/StatCard/StatCard"
+import { Title } from "../../ui/StatCard/StatCard"
 
 const LongestDistanceBarChartContainer: React.FC = () => {
   const { activities } = useActivities({

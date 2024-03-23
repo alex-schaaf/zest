@@ -1,14 +1,14 @@
-import SevenDayOverview from "@/components/SevenDayOverview"
+import SevenDayOverview from "@/components/DashboardPage/SevenDayOverview"
 import Spinner from "@/components/ui/Spinner"
-import MonthlyOverview from "@/components/MonthlyOverview"
+import MonthlyOverview from "@/components/DashboardPage/MonthlyOverview"
 import { DashboardContext } from "@/contexts/dashboard-context"
 import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { PropsWithChildren } from "react"
 import Card from "@/components/ui/Card"
-import YearlyOverview from "@/components/YearlyOverview"
+import YearlyOverview from "@/components/DashboardPage/YearlyOverview"
 import Message from "@/components/ui/Message"
-import LongestDistanceBarChartContainer from "@/components/LongestDistanceBarChartContainer"
+import LongestDistanceBarChartContainer from "@/components/charts/LongestDistanceBarChartContainer"
 
 const Dashboard = () => {
   const { activities, isLoading, isError } = useActivities({

@@ -1,8 +1,8 @@
 import Card from "@/components/ui/Card"
-import ActivitiesCalendarContainer from "@/components/ActivitiesCalendarContainer"
-import ActivitiesTableContainer from "@/components/ActivitiesTableContainer"
+import ActivitiesCalendarContainer from "@/components/ActivitiesPage/ActivitiesCalendarContainer"
+import ActivitiesTableContainer from "@/components/ActivitiesPage/ActivitiesTableContainer"
 import { useEffect } from "react"
-import { useParams, useSearchParams } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import dayjs from "dayjs"
 
 const Activities = () => {
