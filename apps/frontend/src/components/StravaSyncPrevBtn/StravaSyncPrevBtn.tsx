@@ -6,7 +6,7 @@ import { useUser } from "@/contexts/user-context"
 import dayjs from "dayjs"
 import { Activities } from "@prisma/client"
 import useBoolean from "@/hooks/useBoolean"
-import ToastMessage from "../ToastMessage/ToastMessage"
+import ToastMessage from "../ui/ToastMessage/ToastMessage"
 
 const StravaSyncPrevBtn: React.FC = () => {
   const { sync } = useStravaSync()

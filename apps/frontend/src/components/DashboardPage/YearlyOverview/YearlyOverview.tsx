@@ -2,9 +2,9 @@ import { useMemo } from "react"
 import dayjs from "dayjs"
 import StatCard from "@/components/ui/StatCard"
 
-import { getActivityStats } from "@/components/SevenDayOverview/SevenDayOverview"
+import { getActivityStats } from "@/components/DashboardPage/SevenDayOverview/SevenDayOverview"
 import { useDashboard } from "@/contexts/dashboard-context"
-import ActivityWeeklyLineChartContainer from "../ActivityWeeklyLineChart"
+import ActivityWeeklyLineChartContainer from "../../charts/ActivityWeeklyLineChart"
 import Card from "@/components/ui/Card"
 
 const YearlyOverview = () => {

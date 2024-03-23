@@ -1,5 +1,5 @@
 import { Outlet, useNavigate } from "react-router-dom"
-import Navbar from "./components/Navbar"
+import Navbar from "./components/ui/Navbar"
 import { UserContext } from "./contexts/user-context"
 import { useAuth } from "./contexts/auth-context"
 import Spinner from "./components/ui/Spinner/Spinner"

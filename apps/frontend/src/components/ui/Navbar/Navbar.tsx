@@ -1,5 +1,5 @@
 import useStravaSync from "@/hooks/useStravaSync"
-import ToastMessage from "@/components/ToastMessage"
+import ToastMessage from "@/components/ui/ToastMessage"
 import * as Avatar from "@radix-ui/react-avatar"
 import * as DropdownMenu from "@radix-ui/react-dropdown-menu"
 import classNames from "classnames"
