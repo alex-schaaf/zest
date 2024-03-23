@@ -3,12 +3,14 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "dev:mock": "VITE_MOCK=mock vite",
     "build": "tsc && vite build",
+    "format": "prettier --write  \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
+    "start:dev": "vite",
+    "start:dev:mock": "VITE_MOCK=mock vite",
     "preview": "vite preview",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
