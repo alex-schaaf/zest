@@ -49,7 +49,7 @@ const router = createBrowserRouter([
 const App = () => {
   return (
     <Toast.Provider>
-      <Toast.Viewport className="fixed bottom-0 right-0 z-[100000] m-0 flex w-[390px] flex-col p-6" />
+      <Toast.Viewport className="fixed bottom-0 right-0 z-[100000] m-0 flex w-[390px] flex-col p-6 gap-4" />
       <RouterProvider
         router={router}
         fallbackElement={
