@@ -84,6 +84,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
       <text x={xScale("0")} y={yScale(1)}>
         {distanceMax.toFixed(0)}
       </text>
+      {/* XAxis */}
       <line
         x1={xScale("1")}
         x2={xScale("52")}
@@ -92,6 +93,7 @@ const ActivityWeeklyBarChart: React.FC<Props> = ({
         stroke={colors.gray[900]}
         strokeWidth={1}
       />
+      {/* YAxis */}
       <line
         x1={xScale("1") || 0 + 0.5}
         x2={xScale("1") || 0 + 0.5}

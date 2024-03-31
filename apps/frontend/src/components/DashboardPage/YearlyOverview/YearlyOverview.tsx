@@ -68,6 +68,7 @@ const YearlyOverview = () => {
 
   return (
     <div className="space-y-4">
+      <ActivityWeeklyLineChartContainer />
       <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
         <StatCard
           title={"Total Distance"}
@@ -100,8 +101,6 @@ const YearlyOverview = () => {
           unit={"bpm"}
         />
       </div>
-
-      <ActivityWeeklyLineChartContainer />
     </div>
   )
 }
