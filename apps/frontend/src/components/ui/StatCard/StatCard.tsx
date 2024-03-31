@@ -4,9 +4,7 @@ import React, { PropsWithChildren } from "react"
 import TrendBadge from "../TrendBadge"
 
 export const Title: React.FC<PropsWithChildren> = (props) => {
-  return (
-    <div className="text-xs font-semibold text-gray-400">{props.children}</div>
-  )
+  return <div className="text-sm text-gray-500">{props.children}</div>
 }
 
 const Value: React.FC<PropsWithChildren> = (props) => {
@@ -27,17 +25,17 @@ const StatCard: React.FC<StatCardProps> = (props) => {
   return (
     <Card className="">
       <Title>{props.title}</Title>
-      <div className="flex flex-wrap items-end justify-between gap-8">
-        <Value>
-          {isTime ? (
-            <RenderTime value={props.value} />
-          ) : (
-            <>
-              <span>{props.value.toFixed(props.precision || 0)}</span>
-              <span>{props.unit}</span>
-            </>
-          )}
-        </Value>
+      <Value>
+        {isTime ? (
+          <RenderTime value={props.value} />
+        ) : (
+          <>
+            <span>{props.value.toFixed(props.precision || 0)}</span>
+            <span>{props.unit}</span>
+          </>
+        )}
+      </Value>
+      <div className="text-sm flex gap-1 text-gray-500">
         {props.previousValue !== undefined && (
           <TrendBadge
             current={props.value}

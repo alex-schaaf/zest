@@ -20,43 +20,28 @@ const TrendBadge: React.FC<TrendBadgeProps> = ({
 
   if (current === previous) {
     return (
-      <span
-        className={classNames(
-          style,
-          "bg-warning-50 text-warning-500 border-warning-200"
-        )}
-      >
+      <>
         <span>-</span>
         <span>{unit}</span>
-      </span>
+      </>
     )
   } else if (current > previous) {
     const ratio = current - previous
     return (
-      <span
-        className={classNames(
-          style,
-          "bg-success-50 text-success-500 border border-success-200"
-        )}
-      >
-        <span>{arrowUp}</span>
+      <>
+        <span className="text-success-500">{arrowUp}</span>
         <span>{ratio.toFixed(precision)}</span>
         <span>{unit}</span>
-      </span>
+      </>
     )
   } else {
     const ratio = previous - current
     return (
-      <span
-        className={classNames(
-          style,
-          "bg-danger-50 text-danger-500 border-danger-200"
-        )}
-      >
-        <span>{arrowDown}</span>
+      <>
+        <span className="text-danger-500">{arrowDown}</span>
         <span>{ratio.toFixed(precision)}</span>
         <span>{unit}</span>
-      </span>
+      </>
     )
   }
 }

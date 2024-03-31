@@ -21,7 +21,7 @@ const formatDateStr = (s: string | number | Date | null) => {
 }
 
 const options: {
-  key: keyof Users
+  key: keyof Omit<Users, "passwordHash">
   name: string
   formatter?: (s: string | number | Date | null) => string
 }[] = [
@@ -73,14 +73,14 @@ const SettingsView = () => {
               Personal details and settings.
             </DescriptionList.Subtitle>
           </DescriptionList.Header>
-          {/* {options.map(({ key, name, formatter }, idx) => (
+          {options.map(({ key, name, formatter }, idx) => (
             <DescriptionList.Field idx={idx} key={idx}>
               <DescriptionList.Term>{name}</DescriptionList.Term>
               <DescriptionList.Description>
                 <>{formatter ? formatter(user[key]) : user[key]}</>
               </DescriptionList.Description>
             </DescriptionList.Field>
-          ))} */}
+          ))}
         </DescriptionList>
       </Card>
 

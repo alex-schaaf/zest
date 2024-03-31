@@ -5,7 +5,7 @@ const Card: React.FC<PropsWithChildren & { className?: string }> = (props) => {
   return (
     <div
       className={classNames(
-        "rounded-md border border-gray-200 bg-white p-4 shadow-sm",
+        "rounded-xl border-gray-200 bg-white p-4 shadow",
         props.className
       )}
     >

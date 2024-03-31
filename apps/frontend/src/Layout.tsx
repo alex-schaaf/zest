@@ -3,6 +3,7 @@ import Navbar from "./components/ui/Navbar"
 import { UserContext } from "./contexts/user-context"
 import { useAuth } from "./contexts/auth-context"
 import Spinner from "./components/ui/Spinner/Spinner"
+import { useEffect } from "react"
 
 const Layout = () => {
   const { user, isLoading, isError } = useAuth()
@@ -17,11 +18,11 @@ const Layout = () => {
     )
   }
 
-  if (isError) {
-    if (!["/login", "/register"].includes(location.pathname)) {
+  useEffect(() => {
+    if (isError && !["/login", "/register"].includes(location.pathname)) {
       navigate("/login")
     }
-  }
+  }, [isError])
 
   return user ? (
     <UserContext.Provider value={{ user }}>
