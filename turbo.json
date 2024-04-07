@@ -1,12 +1,27 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "globalDotEnv": [".env.local", ".env"],
   "pipeline": {
     "build": {
+      "env": ["BACKEND_PORT", "FRONTEND_PORT", "VITE_API_URL"],
+      "dotEnv": [
+        ".env.production.local",
+        ".env.local",
+        ".env.production",
+        ".env"
+      ],
       "dependsOn": ["^build"],
       "outputs": ["./dist/**"]
     },
     "lint": {},
+    "format": {},
     "dev": {
+      "dotEnv": [
+        ".env.development.local",
+        ".env.local",
+        ".env.development",
+        ".env"
+      ],
       "cache": false,
       "persistent": true
     }

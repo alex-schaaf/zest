@@ -12,6 +12,8 @@ import * as cookieParser from "cookie-parser"
 async function bootstrap() {
   const app = await NestFactory.create(AppModule)
 
+  console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
+
   /*
    * Enable versioning. This allows for multiple versions of the API to be
    * maintained simultaneously. The default version is "1", and the version is

@@ -4,9 +4,8 @@
   "version": "0.0.0",
   "scripts": {
     "build": "tsc && vite build",
-    "format": "prettier --write  \"src/**/*.{ts,tsx}\" \"test/**/*.{ts,tsx}\"",
-    "start:dev": "vite",
-    "start:dev:mock": "VITE_MOCK=mock vite",
+    "format": "prettier --write  \"src/**/*.{ts,tsx}\"",
+    "dev": "vite",
     "preview": "vite preview",
     "test": "jest",
     "test:watch": "jest --watch",
