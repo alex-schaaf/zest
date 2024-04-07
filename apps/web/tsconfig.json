@@ -18,8 +18,7 @@
     "rootDir": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "types": ["cypress"]
+    }
   },
   "include": ["src", "public", "cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

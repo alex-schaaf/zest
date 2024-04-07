@@ -28,7 +28,7 @@ const Register = () => {
         <div className="text-3xl font-bold">Create a new account</div>
         <div className=" text-sm">
           Or{" "}
-          <a href="/" className="text-primary-500">
+          <a href="/login" className="text-primary-500">
             sign into existing account
           </a>
         </div>
@@ -96,7 +96,7 @@ const Register = () => {
               password !== passwordConfirm
             }
             intent="primary"
-            name="signIn"
+            name="register"
           >
             {isLoading ? (
               "loading"
