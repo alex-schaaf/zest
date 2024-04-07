@@ -3,8 +3,9 @@ import { ApiProperty } from "@nestjs/swagger"
 import { Activities } from "@prisma/client"
 import { ActivityType, MetaAthlete, PolylineMap } from "./strava-types"
 import { JsonValue } from "@prisma/client/runtime/library"
+import { z } from "zod"
 
-export class createActivityDto {
+export class CreateActivityDto {
   @ApiProperty()
   id: number
   @ApiProperty()

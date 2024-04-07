@@ -7,13 +7,15 @@ import {
   Post,
   ParseIntPipe,
   Query,
+  BadRequestException,
 } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
-import { ActivityDto, createActivityDto } from "./activity.dto"
+import { ActivityDto, CreateActivityDto } from "./activity.dto"
 import { Activities } from "@prisma/client"
 import { ParseOptionalIntPipe } from "@/utils/pipes"
+import { createActivitiesSchema } from "./activity.schema"
 
 function excludeActivityData(
   activity: ActivityDto | null
@@ -66,14 +68,19 @@ export class ActivityController {
   }
 
   @Post()
-  @ApiBody({ type: createActivityDto })
+  @ApiBody({ type: CreateActivityDto })
   @ApiResponse({ status: 201, type: CreateActivityResponseDto })
   async createActivity(
     @Param("userId", ParseIntPipe) userId: number,
-    @Body() activities: createActivityDto[] | createActivityDto
+    @Body() activities: CreateActivityDto[] | CreateActivityDto
   ) {
     if (!Array.isArray(activities)) {
       activities = [activities]
+    }
+    try {
+      createActivitiesSchema.parse(activities)
+    } catch (error) {
+      throw new BadRequestException(error.message)
     }
     return await this.activityService.createMany(userId, activities)
   }

@@ -1,0 +1,47 @@
+import { z } from "zod"
+
+const createActivitySchema = z.object({
+  id: z.number(),
+  external_id: z.string(),
+  upload_id: z.number(),
+  athlete: z.object({
+    id: z.number(),
+    resource_state: z.number(),
+  }),
+  name: z.string(),
+  distance: z.number(),
+  moving_time: z.number(),
+  elapsed_time: z.number(),
+  total_elevation_gain: z.number(),
+  elev_high: z.number(),
+  elev_low: z.number(),
+  type: z.string(),
+  start_date: z.string(),
+  start_date_local: z.string(),
+  timezone: z.string(),
+  start_latlng: z.array(z.number()),
+  end_latlng: z.array(z.number()),
+  achievement_count: z.number(),
+  kudos_count: z.number(),
+  comment_count: z.number(),
+  athlete_count: z.number(),
+  photo_count: z.number(),
+  total_photo_count: z.number(),
+  map: z.object({
+    id: z.string(),
+    summary_polyline: z.string(),
+    resource_state: z.number(),
+  }),
+  trainer: z.boolean(),
+  commute: z.boolean(),
+  manual: z.boolean(),
+  private: z.boolean(),
+  flagged: z.boolean(),
+  workout_type: z.number(),
+  average_speed: z.number(),
+  average_heartrate: z.union([z.number(), z.null()]),
+  max_speed: z.number(),
+  has_kudoed: z.boolean(),
+})
+
+export const createActivitiesSchema = z.array(createActivitySchema)
