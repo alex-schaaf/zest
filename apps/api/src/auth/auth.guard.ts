@@ -21,7 +21,10 @@ export type RequestWithOptionalPayload = Request & {
 
 @Injectable()
 export class AuthGuard {
-  constructor(private jwtService: JwtService, private reflector: Reflector) {}
+  constructor(
+    private jwtService: JwtService,
+    private reflector: Reflector
+  ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     // if route is set to public, we don't need check for authentication
