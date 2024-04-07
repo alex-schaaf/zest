@@ -11,8 +11,7 @@ const ActivityWeeklyChartContainer = () => {
   const start = dayjs().startOf("year")
 
   const { activities, isLoading, isError } = useActivities(
-    start.toDate(),
-    undefined,
+    { startDateGte: start.toDate() },
     !!start
   )
 

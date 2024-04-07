@@ -10,13 +10,7 @@ describe("<ActivitiesCalendar />", () => {
   it("renders empty calendar correctly", () => {
     const today = dayjs()
 
-    cy.mount(
-      <ActivitiesCalendar
-        date={today.startOf("month")}
-        setDate={() => {}}
-        activities={[]}
-      />
-    )
+    cy.mount(<ActivitiesCalendar activities={[]} />)
 
     cy.contains(today.format("MMMM"))
     cy.contains(today.format("YYYY"))
@@ -50,13 +44,7 @@ describe("<ActivitiesCalendar />", () => {
   it("changes month forward and backward correctly", () => {
     const startOfMonth = dayjs().startOf("month").subtract(1, "month")
     const setDateSpy = cy.spy().as("setDateSpy")
-    cy.mount(
-      <ActivitiesCalendar
-        date={startOfMonth}
-        setDate={setDateSpy}
-        activities={[]}
-      />
-    )
+    cy.mount(<ActivitiesCalendar activities={[]} />)
 
     cy.get("[data-cy=calendar-back]").click()
     cy.get("@setDateSpy").should(
