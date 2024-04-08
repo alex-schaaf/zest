@@ -58,13 +58,16 @@ export class AuthController {
     } catch (error) {
       throw new BadRequestException(error.errors)
     }
-
-    const { payload, access_token } = await this.authService.signUp(
-      signUp.email,
-      signUp.password
-    )
-    response.cookie("token", access_token, { httpOnly: true })
-    return payload
+    try {
+      const { payload, access_token } = await this.authService.signUp(
+        signUp.email,
+        signUp.password
+      )
+      response.cookie("token", access_token, { httpOnly: true })
+      return payload
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
   }
 
   @ApiResponse({ status: 204 })
