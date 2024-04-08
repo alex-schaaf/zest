@@ -6,7 +6,6 @@ const createActivitySchema = z.object({
   upload_id: z.number(),
   athlete: z.object({
     id: z.number(),
-    resource_state: z.number(),
   }),
   name: z.string(),
   distance: z.number(),
@@ -30,7 +29,6 @@ const createActivitySchema = z.object({
   map: z.object({
     id: z.string(),
     summary_polyline: z.string(),
-    resource_state: z.number(),
   }),
   trainer: z.boolean(),
   commute: z.boolean(),

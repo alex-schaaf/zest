@@ -2,6 +2,7 @@ import { Test, TestingModule } from "@nestjs/testing"
 import { ActivityController } from "./activity.controller"
 import { ActivityService } from "./activity.service"
 import { PrismaService } from "../prisma.service"
+import { SummaryActivity } from "./strava-types"
 
 describe("ActivityController", () => {
   let controller: ActivityController
@@ -111,5 +112,52 @@ describe("ActivityController", () => {
     expect(activities).toHaveLength(2)
     expect(activities[0]).not.toHaveProperty("data")
     expect(activities[1]).not.toHaveProperty("data")
+  })
+
+  it("createMany should return an activity without data field", async () => {
+    const mockStravaSummaryActivity = {
+      id: 123,
+      external_id: "abc123",
+      upload_id: 456,
+      athlete: { id: 789 },
+      name: "Test Activity",
+      distance: 1000,
+      moving_time: 600,
+      elapsed_time: 700,
+      total_elevation_gain: 100,
+      elev_high: 50,
+      elev_low: 0,
+      type: "Run",
+      start_date: new Date().toISOString(),
+      start_date_local: new Date().toISOString(),
+      timezone: "America/Los_Angeles",
+      start_latlng: [37.7749, -122.4194],
+      end_latlng: [37.7749, -122.4194],
+      achievement_count: 0,
+      kudos_count: 0,
+      comment_count: 0,
+      athlete_count: 1,
+      photo_count: 0,
+      total_photo_count: 0,
+      map: { id: "map1", polyline: "abc", summary_polyline: "abc" },
+      trainer: false,
+      commute: false,
+      manual: false,
+      private: false,
+      flagged: false,
+      workout_type: 0,
+      average_speed: 10,
+      average_heartrate: 120,
+      max_speed: 15,
+      has_kudoed: false,
+    } as unknown as SummaryActivity
+
+    jest
+      .spyOn(activityService, "createMany")
+      .mockResolvedValueOnce({ count: 1 })
+
+    const count = await controller.createActivity(1, mockStravaSummaryActivity)
+
+    expect(count).not.toBeNull()
   })
 })

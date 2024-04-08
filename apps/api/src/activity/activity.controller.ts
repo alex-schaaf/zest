@@ -7,7 +7,7 @@ import {
   Post,
   ParseIntPipe,
   Query,
-  BadRequestException,
+  Logger,
 } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 
@@ -33,6 +33,8 @@ class CreateActivityResponseDto {
 @Controller("/users/:userId/activities")
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
+
+  private readonly logger = new Logger(ActivityController.name)
 
   @Get()
   @ApiResponse({ status: 200, type: [ActivityDto] })
@@ -76,11 +78,6 @@ export class ActivityController {
   ) {
     if (!Array.isArray(activities)) {
       activities = [activities]
-    }
-    try {
-      createActivitiesSchema.parse(activities)
-    } catch (error) {
-      throw new BadRequestException(error.message)
     }
     return await this.activityService.createMany(userId, activities)
   }
