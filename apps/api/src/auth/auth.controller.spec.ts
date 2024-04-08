@@ -5,7 +5,7 @@ import { AuthService, hashPassword } from "./auth.service"
 import { UserAlreadyExistsError, UserService } from "../user/user.service"
 import { JwtService } from "@nestjs/jwt"
 import { PrismaService } from "../prisma.service"
-import { UnauthorizedException } from "@nestjs/common"
+import { BadRequestException, UnauthorizedException } from "@nestjs/common"
 import { Response } from "express"
 
 describe("AuthController", () => {
@@ -178,5 +178,27 @@ describe("AuthController", () => {
     await expect(
       controller.signUp({ email: user.email, password }, response)
     ).rejects.toThrow(UserAlreadyExistsError)
+  })
+
+  it("signUp should throw Exception if entered email is invalid", async () => {
+    const response = { cookie: jest.fn() } as any as Response
+
+    await expect(
+      controller.signUp(
+        { email: "invalid.email.com", password: "plainPassword" },
+        response
+      )
+    ).rejects.toThrow(BadRequestException)
+  })
+
+  it("signUp should throw Exception if entered password is invalid", async () => {
+    const response = { cookie: jest.fn() } as any as Response
+
+    await expect(
+      controller.signUp(
+        { email: "valid@email.com", password: "tooshort" },
+        response
+      )
+    ).rejects.toThrow(BadRequestException)
   })
 })

@@ -1,9 +1,16 @@
-import { Body, Controller, Post, Res } from "@nestjs/common"
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Post,
+  Res,
+} from "@nestjs/common"
 import { AuthService } from "./auth.service"
 import { Public } from "./decorators/public.decorator"
 import { Response } from "express"
 import { ApiResponse, ApiTags } from "@nestjs/swagger"
 import { SignInDto, SignUpDto, TokenPayloadDto } from "./auth.dto"
+import { z } from "zod"
 
 // The AuthController is responsible for handling incoming requests related to
 // authentication. It uses the AuthService to handle the business logic for
@@ -46,6 +53,12 @@ export class AuthController {
     @Body() signUp: SignUpDto,
     @Res({ passthrough: true }) response: Response
   ) {
+    try {
+      RegisterFormData.parse(signUp)
+    } catch (error) {
+      throw new BadRequestException(error.errors)
+    }
+
     const { payload, access_token } = await this.authService.signUp(
       signUp.email,
       signUp.password
@@ -60,3 +73,8 @@ export class AuthController {
     response.clearCookie("token")
   }
 }
+
+const RegisterFormData = z.object({
+  email: z.string().email(),
+  password: z.string().min(12),
+})
