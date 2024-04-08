@@ -30,6 +30,9 @@
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "jsonwebtoken": "^9.0.2",
+    "nestjs-pino": "^4.0.0",
+    "pino-http": "^9.0.0",
+    "pino-pretty": "^11.0.0",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",
     "zod": "^3.22.4"

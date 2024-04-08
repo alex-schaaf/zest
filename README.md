@@ -37,26 +37,16 @@ Running scripts for the individual workspaces can be done from the root project
 folder using `yarn workspace <workspace-name> run <script-name>`. For example
 running the apps individually in development mode:
 
-```bash
-# start the api in development mode
-yarn workspace api run start:dev
-
-# start the frontend in development mode
-yarn workspace frontend run dev
-```
-
 ### Development mode
 
-The easiest way to get started is to run all `zest` services using Docker compose.
-
 ```bash
-# run all services: database, api server, vite dev server and nginx reverse proxy
-docker compose -f docker-compose.development.yml up
+# start both api and web in dev mode
+turbo dev
 ```
 
-This will start up all services in dev mode with the API server available at
-`localhost:80/api` and the web interface at `localhost:80`. The database can
-additionally be accesses at `localhost:5432`.
+- The API is available at `localhost:3000`, with the Swagger docs accessible at
+  `localhost:3000/docs`.
+- The frontend is available at `localhost:5173`.
 
 ### Testing
 
