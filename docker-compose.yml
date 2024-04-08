@@ -9,6 +9,18 @@ services:
     volumes: 
       - db:/var/lib/postgresql/data
 
+  api:
+    container_name: api
+    build:
+      context: .
+      dockerfile: ./apps/api/Dockerfile
+    env_file:
+      - ./apps/api/.env
+      - ./apps/api/.env.docker
+    restart: always
+    ports:
+      - 3000:3000
+
 volumes:
   db:
     driver: local

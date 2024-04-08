@@ -1,38 +1,30 @@
-FROM node:18-alpine as dev
-
+FROM node:18-alpine AS base
+RUN apk update
 RUN apk add --no-cache libc6-compat
+
+FROM base AS builder
 WORKDIR /app
-
-ENV NODE_ENV development
-
+RUN yarn global add turbo
 COPY . .
+RUN turbo prune api --docker
 
-RUN yarn --frozen-lockfile
+FROM base AS installer
+WORKDIR /app
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/apps/api/prisma ./prisma
+RUN yarn install --frozen-lockfile
 RUN yarn prisma generate
 
-#
-# Build
-#
-FROM node:18-alpine as build
+COPY --from=builder /app/out/full/ .
+COPY turbo.json turbo.json
 
-RUN apk add --no-cache libc6-compat
+RUN yarn global add turbo
+RUN turbo build --filter=api...
+
+FROM base AS runner
 WORKDIR /app
 
-RUN yarn build
+COPY --from=installer /app .
 
-RUN yarn --frozen-lockfile --production && yarn cache clean
-
-#
-# Production
-#
-FROM node:18-alpine as prod
-
-RUN apk add --no-cache libc6-compat
-WORKDIR /app
-
-ENV NODE_ENV production
-
-COPY --from=build /app/dist ./dist
-COPY --from=build /app/node_modules ./node_modules
-
-CMD ["node", "dist/main.js"]
+CMD ["node", "apps/api/dist/src/main.js"]
