@@ -18,7 +18,8 @@
     "rootDir": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "types": ["@testing-library/jest-dom"]
   },
   "include": ["src", "public", "cypress", "cypress.config.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -29,7 +29,9 @@ const TrendBadge: React.FC<TrendBadgeProps> = ({
     const ratio = current - previous
     return (
       <>
-        <span className="text-success-500">{arrowUp}</span>
+        <span data-testid="change-indicator" className="text-success-500">
+          {arrowUp}
+        </span>
         <span>{ratio.toFixed(precision)}</span>
         <span>{unit}</span>
       </>
@@ -38,7 +40,9 @@ const TrendBadge: React.FC<TrendBadgeProps> = ({
     const ratio = previous - current
     return (
       <>
-        <span className="text-danger-500">{arrowDown}</span>
+        <span data-testid="change-indicator" className="text-danger-500">
+          {arrowDown}
+        </span>
         <span>{ratio.toFixed(precision)}</span>
         <span>{unit}</span>
       </>
