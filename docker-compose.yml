@@ -20,6 +20,22 @@ services:
     restart: always
     ports:
       - 3000:3000
+    depends_on:
+      - db
+
+  web:
+    container_name: web
+    build:
+      context: .
+      dockerfile: ./apps/web/Dockerfile
+    env_file:
+      - ./apps/web/.env
+      - ./apps/web/.env.docker
+    restart: always
+    ports:
+      - 5173:5173
+    depends_on:
+      - api
 
 volumes:
   db:

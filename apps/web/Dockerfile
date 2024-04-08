@@ -1,34 +1,31 @@
-FROM node:18-alpine as dev
-
+FROM node:18-alpine AS base
+RUN apk update
 RUN apk add --no-cache libc6-compat
+
+FROM base AS builder
 WORKDIR /app
-
-ENV NODE_ENV development
-
+ENV NODE_ENV production
+RUN yarn global add turbo
 COPY . .
+RUN turbo prune --scope=web --docker
 
+FROM base AS installer
+WORKDIR /app
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/yarn.lock ./yarn.lock
+COPY --from=builder /app/turbo.json ./turbo.json
 RUN yarn --frozen-lockfile
 
-#
-# Build
-#
-FROM node:18-alpine as build
-
+FROM base AS sourcer
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
+COPY --from=installer /app/ .
+COPY --from=builder /app/out/full/ .
+RUN yarn global add turbo
+RUN turbo run build --scope=web --include-dependencies --no-deps
 
-RUN yarn build
-
-#
-# Production
-#
-FROM node:18-alpine as prod
-
+FROM nginx:stable-alpine AS runner
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
-RUN apk update
-RUN apd add nginx -y
-
-COPY --from=build /app/dist /var/www/html/
+COPY --from=sourcer /app/apps/web/dist /usr/share/nginx/html
+COPY nginx.production.conf /etc/nginx/conf.d/default.conf
 
 CMD ["nginx", "-g", "daemon off;"]

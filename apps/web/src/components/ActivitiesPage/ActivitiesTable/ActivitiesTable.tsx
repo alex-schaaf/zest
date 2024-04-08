@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import {
   createColumnHelper,
   flexRender,

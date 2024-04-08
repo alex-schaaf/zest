@@ -1,4 +1,4 @@
-import { Settings } from "@prisma/client"
+import { Settings } from "@/types/user.types"
 import axios from "axios"
 import { useState } from "react"
 import { useUser } from "@/contexts/user-context"

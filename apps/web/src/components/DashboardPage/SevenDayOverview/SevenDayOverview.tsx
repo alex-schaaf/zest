@@ -1,5 +1,5 @@
 import { useDashboard } from "@/contexts/dashboard-context"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import dayjs from "dayjs"
 import React, { useMemo } from "react"
 import StatCard from "@/components/ui/StatCard"

@@ -1,6 +1,6 @@
 import React, { useMemo } from "react"
 
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import dayjs from "dayjs"
 import colors from "tailwindcss/colors"
 import * as d3 from "d3"

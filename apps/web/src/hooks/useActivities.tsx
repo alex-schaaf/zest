@@ -1,5 +1,5 @@
 import { useUser } from "@/contexts/user-context"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import { useQuery } from "@tanstack/react-query"
 import axios from "@/lib/axios"
 

@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 
 interface DashboardContextValues {
   activities: Activities[]

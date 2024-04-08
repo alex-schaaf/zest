@@ -1,6 +1,6 @@
 import Card from "@/components/ui/Card"
 import DistanceStepChart from "../DistanceStepChart/DistanceStepChart"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import useElementSize from "@/hooks/useElementSize"
 
 interface Props {

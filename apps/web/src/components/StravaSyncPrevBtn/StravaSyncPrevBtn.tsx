@@ -4,7 +4,7 @@ import useStravaSync from "@/hooks/useStravaSync"
 import axios from "../../lib/axios"
 import { useUser } from "@/contexts/user-context"
 import dayjs from "dayjs"
-import { Activities } from "@prisma/client"
+import { Activities } from "@/types/activity.types"
 import useBoolean from "@/hooks/useBoolean"
 import ToastMessage from "../ui/ToastMessage/ToastMessage"
 

@@ -2,7 +2,7 @@ import Card from "@/components/ui/Card"
 import DescriptionList from "@/components/ui/DescriptionList"
 import StravaAuthBtn from "@/components/StravaAuthBtn"
 import { useUser } from "@/contexts/user-context"
-import { Users, Settings } from "@prisma/client"
+import { Users, Settings } from "@/types/user.types"
 import {
   CheckIcon,
   Cross2Icon,
@@ -15,7 +15,7 @@ import * as Dialog from "@radix-ui/react-dialog"
 import SettingsStravaForm from "@/components/SettingsPage/SettingsStravaForm"
 import StravaSyncPrevBtn from "@/components/StravaSyncPrevBtn"
 
-const formatDateStr = (s: string | number | Date | null) => {
+const formatDateStr = (s: string | number | Date | null | undefined) => {
   if (s == null) return ""
   return new Date(s).toString()
 }
@@ -127,7 +127,7 @@ const SettingsView = () => {
               <DescriptionList.Description>
                 <>
                   {formatter
-                    ? formatter(user.settings[key])
+                    ? formatter(user.settings[key] ?? null)
                     : user.settings[key]}
                 </>
               </DescriptionList.Description>

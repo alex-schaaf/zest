@@ -1,4 +1,4 @@
-import { Users, Settings } from "@prisma/client"
+import { UsersWithSettings } from "@/types/user.types"
 import axios from "@/lib/axios"
 import { createContext, PropsWithChildren, useContext, useState } from "react"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
@@ -13,10 +13,6 @@ type AuthContextType = {
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
-export type UsersWithSettings = Omit<Users, "passwordHash"> & {
-  settings: Settings
-}
 
 const AuthProvider: React.FC<PropsWithChildren> = (props) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -58,7 +54,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
       localStorage.setItem("iat", iat)
       localStorage.setItem("exp", exp)
 
-      await queryClient.fetchQuery<Users>({
+      await queryClient.fetchQuery<UsersWithSettings>({
         queryKey: ["user"],
         queryFn: () => axios.get(`/users/${sub}`).then((res) => res.data),
       })
