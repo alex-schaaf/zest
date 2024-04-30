@@ -1,8 +1,11 @@
-module.exports = {
+import path from "path"
+import type { JestConfigWithTsJest } from "ts-jest"
+
+const config: JestConfigWithTsJest = {
   setupFiles: ["<rootDir>/../test/setTestEnvVars.ts"],
   moduleFileExtensions: ["js", "json", "ts"],
   preset: "ts-jest",
-  rootDir: "src",
+  rootDir: path.resolve(__dirname, "src"),
   testRegex: ".*\\.spec\\.ts$",
   transform: {
     "^.+\\.(t|j)s$": "ts-jest",
@@ -14,3 +17,5 @@ module.exports = {
     "^@/(.*)$": "<rootDir>/$1",
   },
 }
+
+export default config
