@@ -15,7 +15,6 @@ import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
 import { ActivityDto, CreateActivityDto } from "./activity.dto"
 import { Activities } from "@prisma/client"
 import { ParseOptionalIntPipe } from "@/utils/pipes"
-import { createActivitiesSchema } from "./activity.schema"
 
 function excludeActivityData(
   activity: ActivityDto | null
