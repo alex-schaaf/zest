@@ -9,9 +9,13 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "format": "prettier --write \"./apps/**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"./apps/**/*.{ts,tsx,md}\"",
+    "format:write": "prettier --write \"./apps/**/*.{ts,tsx,md}\"",
     "plop": "plop",
     "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,json,css,scss,md}": "prettier --write"
   },
   "devDependencies": {
     "dotenv-cli": "^7.4.1",
