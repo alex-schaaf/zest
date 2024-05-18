@@ -15,9 +15,9 @@ model Users {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  settings   Settings     @relation(fields: [settingsId], references: [id])
+  settings   Settings     @relation(fields: [settingsId], references: [id], onDelete: Cascade)
   settingsId Int          @unique
-  Activities Activities[]
+  Activities Activities[] 
 }
 
 model Settings {
@@ -47,6 +47,6 @@ model Activities {
   active Boolean @default(true)
   data   Json // the complete activity JSON returned from the StravaAPI
 
-  Users  Users @relation(fields: [userId], references: [id])
+  Users  Users @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
 }
