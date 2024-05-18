@@ -22,10 +22,7 @@ export type RequestWithOptionalPayload = Request & {
 
 @Injectable()
 export class AuthGuard {
-  constructor(
-    private jwtService: JwtService,
-    private reflector: Reflector
-  ) {}
+  constructor(private jwtService: JwtService, private reflector: Reflector) {}
 
   /* 
     The `canActivate` method is called before the route handler is executed. It
