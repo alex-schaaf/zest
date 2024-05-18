@@ -10,6 +10,9 @@ import {
   Paper,
 } from "@mantine/core"
 import { useForm } from "@mantine/form"
+import { notifications } from "@mantine/notifications"
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface SignUpFormValues {
   email: string
@@ -17,15 +20,16 @@ interface SignUpFormValues {
   passwordConfirm: string
 }
 
-const SignUpPage = () => {
-  const { register } = useRegister()
+const RegisterPage = () => {
+  const { register, isError, isSuccess, error } = useRegister()
+  const navigate = useNavigate()
 
   const { onSubmit, key, getInputProps } = useForm<SignUpFormValues>({
     mode: "uncontrolled",
     initialValues: {
-      email: "",
-      password: "",
-      passwordConfirm: "",
+      email: "user@example.com",
+      password: "password",
+      passwordConfirm: "password",
     },
 
     validate: {
@@ -36,13 +40,38 @@ const SignUpPage = () => {
     },
   })
 
+  useEffect(() => {
+    console.log(isError)
+    if (isError) {
+      notifications.show({
+        title: "Registration failed!",
+        message: error.response.data.message,
+        color: "red",
+      })
+    }
+  }, [isError])
+
+  useEffect(() => {
+    if (isSuccess) {
+      notifications.show({
+        title: "Registration successful!",
+        message: "Redirecting to login page...",
+        color: "green",
+      })
+
+      setTimeout(() => {
+        navigate("/login")
+      }, 1500)
+    }
+  }, [isSuccess])
+
   return (
     <Container size={420} mx="auto" my={40}>
       <Title ta="center">Sign Up</Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
-        Already have an ccount?{" "}
+        Already have an account?{" "}
         <Anchor size="sm" component="button">
-          Sign in
+          Sign in here
         </Anchor>
       </Text>
       <Paper p={30} mt={30}>
@@ -78,7 +107,7 @@ const SignUpPage = () => {
 
           <Group justify="flex-end" mt={30}>
             <Button type="submit" fullWidth>
-              Sign Up
+              Register
             </Button>
           </Group>
         </form>
@@ -87,4 +116,4 @@ const SignUpPage = () => {
   )
 }
 
-export default SignUpPage
+export default RegisterPage
