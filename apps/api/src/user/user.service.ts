@@ -21,7 +21,7 @@ export class UserService {
     passwordHash: string
   ): Promise<UsersWithSettings> {
     const existingUser = await this.findOne({ email })
-    if (existingUser) throw new UserAlreadyExistsError()
+    if (existingUser) throw new UserAlreadyExistsError("User already exists")
 
     return this.prisma.users.create({
       data: { email, passwordHash, settings: { create: {} } },
