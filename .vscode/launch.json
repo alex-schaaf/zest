@@ -4,14 +4,32 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Debug Nest Framework",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "start:debug", "--", "--inspect-brk"],
+      "name": "Debug Backend",
+      "runtimeExecutable": "yarn",
+      "runtimeArgs": [
+        "workspace",
+        "api",
+        "run",
+        "start:debug",
+        "--",
+        "--inspect-brk"
+      ],
       "autoAttachChildProcesses": true,
       "restart": true,
       "sourceMaps": true,
       "stopOnEntry": false,
-      "console": "integratedTerminal"
+      "console": "integratedTerminal",
+      "env": {
+        "NODE_ENV": "development",
+        "DATABASE_URL": "postgresql://postgres:postgres@localhost:5432/fit?schema=public"
+      }
+    },
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Launch chrome against localhost",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/apps/web"
     }
   ]
 }
