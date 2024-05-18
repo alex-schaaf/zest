@@ -52,38 +52,40 @@ const router = createBrowserRouter([
 function Layout() {
   const [opened, { toggle }] = useDisclosure()
   return (
-    <MantineProvider defaultColorScheme="dark">
-      <AppShell
-        header={{ height: 60 }}
-        navbar={{
-          width: 300,
-          breakpoint: "sm",
-          collapsed: { mobile: !opened },
-        }}
-        padding="md"
-      >
-        <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-        </AppShell.Header>
-        <AppShell.Navbar p="md">
-          <NavLink to="/" label="Dashboard" component={NavLinkRouter} />
-          <NavLink
-            to="/activities"
-            label="Activities"
-            component={NavLinkRouter}
-          />
-          <NavLink to="/settings" label="Settings" component={NavLinkRouter} />
-        </AppShell.Navbar>
-        <AppShell.Main>
-          <Outlet />
-        </AppShell.Main>
-      </AppShell>
-    </MantineProvider>
+    <AppShell
+      header={{ height: 60 }}
+      navbar={{
+        width: 300,
+        breakpoint: "sm",
+        collapsed: { mobile: !opened },
+      }}
+      padding="sm"
+    >
+      <AppShell.Header>
+        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+      </AppShell.Header>
+      <AppShell.Navbar p="xs">
+        <NavLink to="/" label="Dashboard" component={NavLinkRouter} />
+        <NavLink
+          to="/activities"
+          label="Activities"
+          component={NavLinkRouter}
+        />
+        <NavLink to="/settings" label="Settings" component={NavLinkRouter} />
+      </AppShell.Navbar>
+      <AppShell.Main>
+        <Outlet />
+      </AppShell.Main>
+    </AppShell>
   )
 }
 
 function App() {
-  return <RouterProvider router={router}></RouterProvider>
+  return (
+    <MantineProvider defaultColorScheme="dark">
+      <RouterProvider router={router}></RouterProvider>{" "}
+    </MantineProvider>
+  )
 }
 
 export default App
