@@ -1,16 +1,25 @@
 import "@mantine/core/styles.css"
+import "@mantine/notifications/styles.css"
 import "./App.css"
 
 import { AppShell, Burger, MantineProvider, NavLink } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
-import { RouterProvider, createBrowserRouter } from "react-router-dom"
+import {
+  RouterProvider,
+  createBrowserRouter,
+  useNavigate,
+} from "react-router-dom"
 import DashboardPage from "./pages/Dashboard.page"
 import ActivitiesPage from "./pages/Activites.page"
 import SettingsPage from "./pages/Settings.page"
-import SignInPage from "./pages/SignIn.page"
-import SignUpPage from "./pages/SignUp.page"
+import LoginPage from "./pages/Login.page"
+import RegisterPage from "./pages/Register.page"
 import { Outlet } from "react-router-dom"
 import { NavLink as NavLinkRouter } from "react-router-dom"
+import { Notifications } from "@mantine/notifications"
+import { AuthProvider, useAuthContext } from "./contexts/auth-context"
+import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
+import { useEffect } from "react"
 
 const router = createBrowserRouter([
   {
@@ -40,17 +49,38 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/sign-in",
-    Component: SignInPage,
+    path: "/login",
+    Component: LoginPage,
   },
   {
-    path: "/sign-up",
-    Component: SignUpPage,
+    path: "/register",
+    Component: RegisterPage,
   },
 ])
 
+const queryClient = new QueryClient()
+
 function Layout() {
   const [opened, { toggle }] = useDisclosure()
+  const navigate = useNavigate()
+
+  const { user, isLoading, isError } = useAuthContext()
+
+  useEffect(() => {
+    // if (isError && !["/login", "/register"].includes(location.pathname)) {
+    if (isError) {
+      navigate("/login")
+    }
+  }, [isError])
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (!user) {
+    return <></>
+  }
+
   return (
     <AppShell
       header={{ height: 60 }}
@@ -83,7 +113,11 @@ function Layout() {
 function App() {
   return (
     <MantineProvider defaultColorScheme="dark">
-      <RouterProvider router={router}></RouterProvider>{" "}
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <RouterProvider router={router}></RouterProvider> <Notifications />
+        </AuthProvider>
+      </QueryClientProvider>
     </MantineProvider>
   )
 }
