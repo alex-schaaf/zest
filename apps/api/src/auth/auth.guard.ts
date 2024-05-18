@@ -67,7 +67,7 @@ export class AuthGuard {
         to access resources not owned by them.
       */
       const requestParamsUserId = request.params.userId
-      if (requestParamsUserId && requestParamsUserId !== payload.sub) {
+      if (parseInt(requestParamsUserId) !== parseInt(payload.sub)) {
         throw new UnauthorizedException()
       }
     } catch {

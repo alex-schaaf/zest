@@ -28,6 +28,9 @@ export class AuthService {
     private jwtService: JwtService
   ) {}
 
+  /*
+    ------------ SIGN IN ------------
+  */
   async signIn(
     email: string,
     password: string
@@ -52,6 +55,9 @@ export class AuthService {
     }
   }
 
+  /*
+    ------------ SIGN UP ------------
+  */
   async signUp(
     email: string,
     password: string

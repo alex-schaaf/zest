@@ -14,6 +14,7 @@ import { UserDto, UserPatchDto, UsersWithSettings } from "./user.dto"
 import { createParamDecorator, ExecutionContext } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { TokenPayloadDto } from "@auth/auth.dto"
+import { Public } from "@auth/decorators/public.decorator"
 
 export const Cookies = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
@@ -30,6 +31,7 @@ export class UserController {
     private readonly jwtService: JwtService
   ) {}
 
+  @Public()
   @Get("/from-cookie")
   @ApiResponse({ status: 200, type: UserDto })
   async getUserByCookie(

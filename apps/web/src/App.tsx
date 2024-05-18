@@ -30,6 +30,10 @@ const router = createBrowserRouter([
         path: "/settings",
         Component: Settings,
       },
+      {
+        path: "/auth/strava",
+        Component: StravaOAuthRedirect,
+      },
     ],
   },
   {
@@ -39,10 +43,6 @@ const router = createBrowserRouter([
   {
     path: "/register",
     Component: Register,
-  },
-  {
-    path: "/auth/strava",
-    Component: StravaOAuthRedirect,
   },
 ])
 

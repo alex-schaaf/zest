@@ -14,11 +14,18 @@ const Register = () => {
   const { register, isLoading, error, isSuccess } = useRegister()
 
   const handleSubmit = async () => {
-    if (!email || !password) return
+    if (!email || !password || !passwordConfirm) return
+    if (password !== passwordConfirm) return
     await register(email, password)
     setEmail("")
     setPassword("")
     setPasswordConfirm("")
+  }
+
+  if (isSuccess) {
+    setTimeout(() => {
+      window.location.href = "/login"
+    }, 1500)
   }
 
   return (
@@ -111,7 +118,7 @@ const Register = () => {
         {error && (
           <div className="mt-4 bg-danger-50 p-4">
             {error.response?.status === 400 ? (
-              <Message text="Email already registered." intent="error" />
+              <Message text="Bad request." intent="error" />
             ) : (
               <Message text="Something went wrong." intent="error" />
             )}

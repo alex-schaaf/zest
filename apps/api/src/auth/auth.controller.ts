@@ -31,6 +31,9 @@ import { z } from "zod"
 export class AuthController {
   constructor(private authService: AuthService) {}
 
+  /*
+    ------------ SIGN IN ------------
+  */
   @Public()
   @ApiResponse({ status: 200, type: TokenPayloadDto })
   @Post("login")
@@ -46,6 +49,9 @@ export class AuthController {
     return payload
   }
 
+  /*
+    ------------ SIGN UP ------------
+  */
   @Public()
   @ApiResponse({ status: 201, type: TokenPayloadDto })
   @Post("register")
@@ -54,7 +60,7 @@ export class AuthController {
     @Res({ passthrough: true }) response: Response
   ) {
     try {
-      RegisterFormData.parse(signUp)
+      RegisterFormData.parse(signUp) // validate the request body
     } catch (error) {
       throw new BadRequestException(error.errors)
     }
@@ -70,6 +76,9 @@ export class AuthController {
     }
   }
 
+  /*
+    ------------ SIGN OUT ------------
+  */
   @ApiResponse({ status: 204 })
   @Post("logout")
   async signOut(@Res({ passthrough: true }) response: Response) {
@@ -79,5 +88,5 @@ export class AuthController {
 
 const RegisterFormData = z.object({
   email: z.string().email(),
-  password: z.string().min(12),
+  // password: z.string().min(8),
 })
