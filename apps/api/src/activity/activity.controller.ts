@@ -63,7 +63,10 @@ export class ActivityController {
 
   @Get("/:activityId")
   @ApiResponse({ status: 200, type: ActivityDto })
-  async getActivityById(@Param("userId", ParseIntPipe) userId: number, @Param("activityId", ParseIntPipe) activityId: number) {
+  async getActivityById(
+    @Param("userId", ParseIntPipe) userId: number,
+    @Param("activityId", ParseIntPipe) activityId: number
+  ) {
     const activity = await this.activityService.findOne(activityId)
     return excludeActivityData(activity)
   }
