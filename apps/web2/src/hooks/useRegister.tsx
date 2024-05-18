@@ -26,8 +26,8 @@ const useRegister = (): RegisterContextType => {
       setIsSuccess(true)
     } catch (err: any) {
       setError(err)
+      setIsError(true)
       setIsSuccess(false)
-      console.error(err)
     } finally {
       setIsLoading(false)
     }
