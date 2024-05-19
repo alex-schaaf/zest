@@ -3,10 +3,13 @@ import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { useMemo } from "react"
 import MonthlyStatGrid from "./MonthlyStatGrid"
-import { Stack, Title } from "@mantine/core"
+import { Paper, SimpleGrid, Stack, Title } from "@mantine/core"
+import MonthlyDistanceSparkline from "./MonthlyDistanceSparkline"
+import { useElementSize } from "@mantine/hooks"
 
 const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
+  const { ref, width, height } = useElementSize()
   // startDateGte: dayjs().startOf("month").subtract(1, "month").toDate(),
 
   const activitiesThisMonth = useMemo(
@@ -16,6 +19,9 @@ const DashboardPage = () => {
       ) ?? [],
     [activities]
   )
+
+  console.log(dayjs())
+  console.log(dayjs().subtract(1, "month"))
 
   const activitiesLastMonth = useMemo(
     () =>
@@ -43,6 +49,19 @@ const DashboardPage = () => {
         activities={activitiesThisMonth}
         previousActivities={activitiesLastMonth}
       />
+      <SimpleGrid cols={3} spacing="lg">
+        <Paper withBorder ref={ref} p={15}>
+          <MonthlyDistanceSparkline
+            activities={activities.filter((activity) =>
+              dayjs(activity.startDate).isAfter(
+                dayjs().startOf("month").subtract(1, "month")
+              )
+            )}
+            width={width}
+            height={120}
+          />
+        </Paper>
+      </SimpleGrid>
     </Stack>
   )
 }
