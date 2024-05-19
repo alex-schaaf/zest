@@ -2,7 +2,7 @@ import "@mantine/core/styles.css"
 import "@mantine/notifications/styles.css"
 import "./App.css"
 
-import { AppShell, Burger, MantineProvider } from "@mantine/core"
+import { AppShell, Box, Burger, MantineProvider } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import {
   RouterProvider,
@@ -101,7 +101,9 @@ function Layout() {
           <Navbar />
         </AppShell.Navbar>
         <AppShell.Main>
-          <Outlet />
+          <Box p="md">
+            <Outlet />
+          </Box>
         </AppShell.Main>
       </AppShell>
     </UserContext.Provider>
