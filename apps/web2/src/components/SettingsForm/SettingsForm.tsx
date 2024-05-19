@@ -16,6 +16,8 @@ interface Props {
 }
 
 const SettingsForm: React.FC<Props> = ({ user }) => {
+  const queryClient = useQueryClient()
+
   const mutation = useMutation({
     mutationFn: (values: Partial<SettingsFormValues>) =>
       axios.patch(`/users/${user.id}`, values),
@@ -45,8 +47,6 @@ const SettingsForm: React.FC<Props> = ({ user }) => {
       },
     },
   })
-
-  const queryClient = useQueryClient()
 
   const handleSubmit = (values: SettingsFormValues) => {
     const patchValues: Partial<SettingsFormValues> = {}

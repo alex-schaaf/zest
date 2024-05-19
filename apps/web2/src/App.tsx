@@ -21,6 +21,7 @@ import { AuthProvider, useAuthContext } from "./contexts/auth-context"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { UserContext } from "./contexts/user-context"
+import StravaOAuthPage from "./pages/StravaOAuth.page"
 
 const router = createBrowserRouter([
   {
@@ -43,10 +44,10 @@ const router = createBrowserRouter([
         path: "/settings",
         Component: SettingsPage,
       },
-      // {
-      //   path: "/auth/strava",
-      //   Component: StravaOAuthRedirect,
-      // },
+      {
+        path: "/auth/strava",
+        Component: StravaOAuthPage,
+      },
     ],
   },
   {
