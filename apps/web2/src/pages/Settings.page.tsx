@@ -79,7 +79,12 @@ const SettingsPage = () => {
             {...form.getInputProps("settings.stravaClientSecret")}
           />
 
-          <Button mt={20} type="submit" leftSection={<IconDeviceFloppy />}>
+          <Button
+            disabled={!form.isDirty()}
+            mt={20}
+            type="submit"
+            leftSection={<IconDeviceFloppy />}
+          >
             Save
           </Button>
         </form>
