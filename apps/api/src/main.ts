@@ -55,6 +55,7 @@ async function bootstrap() {
    * development, but should be disabled in production to prevent CSRF attacks.
    */
   if (process.env.NODE_ENV === "development") {
+    console.debug(`Enabling CORS for ${process.env.FRONTEND_PORT}`)
     app.enableCors({
       origin: `http://localhost:${process.env.FRONTEND_PORT}`,
       credentials: true,
