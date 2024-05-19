@@ -76,7 +76,8 @@ const SettingsPage = () => {
             leftSection={<IconKey />}
             component="a"
             href={stravaUrl.toString()}
-            disabled={!!user.settings.stravaAccessToken}
+            data-disabled={!!user.settings.stravaAccessToken}
+            onClick={(event) => event.preventDefault()}
           >
             Authorize Strava
           </Button>
