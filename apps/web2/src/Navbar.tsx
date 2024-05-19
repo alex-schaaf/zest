@@ -1,10 +1,9 @@
-import { Button, NavLink, Stack, Text } from "@mantine/core"
+import { Button, NavLink } from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
 import useStrava from "./hooks/useStrava"
 import {
   IconLayoutDashboard,
   IconLogout,
-  IconLogout2,
   IconRotate360,
   IconSettings,
   IconTable,
