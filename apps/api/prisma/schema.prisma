@@ -17,14 +17,14 @@ model Users {
 
   settings   Settings     @relation(fields: [settingsId], references: [id], onDelete: Cascade)
   settingsId Int          @unique
-  Activities Activities[] 
+  Activities Activities[]
 }
 
 model Settings {
   id        Int      @id @default(autoincrement())
   updatedAt DateTime @updatedAt
 
-  stravaClientId       Int?
+  stravaClientId       String?
   stravaClientSecret   String?
   stravaAccessToken    String?
   stravaRefreshToken   String?
