@@ -1,0 +1,22 @@
+.navbar {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.navbarMain {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.link {
+  border-radius: 4px;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
