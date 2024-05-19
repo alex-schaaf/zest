@@ -6,6 +6,7 @@ import { useForm } from "@mantine/form"
 import { IconDeviceFloppy } from "@tabler/icons-react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "@/lib/axios"
+import { notifications } from "@mantine/notifications"
 
 type SettingsFormValues = Pick<UserWithSettings, "email"> & {
   settings: Pick<Settings, "stravaClientId" | "stravaClientSecret">
@@ -16,7 +17,21 @@ const SettingsPage = () => {
   const mutation = useMutation({
     mutationFn: (values: Partial<SettingsFormValues>) =>
       axios.patch(`/users/${user.id}`, values),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["user"] }),
+    onError: (error) => {
+      notifications.show({
+        title: "Error!",
+        message: error.message,
+        color: "red",
+      })
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["user"] })
+      notifications.show({
+        title: "Success!",
+        message: "Your settings were saved.",
+        color: "green",
+      })
+    },
   })
 
   const form = useForm<SettingsFormValues>({
