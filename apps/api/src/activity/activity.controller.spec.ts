@@ -43,7 +43,7 @@ describe("ActivityController", () => {
 
     jest.spyOn(activityService, "findOne").mockResolvedValueOnce(mockActivity)
 
-    const activity = await controller.getActivityById(1)
+    const activity = await controller.getActivityById(1, 1)
 
     expect(activity).not.toBeNull()
     expect(activity).not.toHaveProperty("data")
@@ -67,7 +67,7 @@ describe("ActivityController", () => {
 
     jest.spyOn(activityService, "deleteOne").mockResolvedValueOnce(mockActivity)
 
-    const activity = await controller.deleteActivityById(1)
+    const activity = await controller.deleteActivityById(1, 1)
 
     expect(activity).not.toBeNull()
     expect(activity).not.toHaveProperty("data")
