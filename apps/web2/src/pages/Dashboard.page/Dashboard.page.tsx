@@ -3,14 +3,11 @@ import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
 import { useMemo } from "react"
 import MonthlyStatGrid from "./MonthlyStatGrid"
+import { Stack, Title } from "@mantine/core"
 
 const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
   // startDateGte: dayjs().startOf("month").subtract(1, "month").toDate(),
-
-  console.log(dayjs().startOf("month").subtract(1, "month").toDate())
-
-  console.log(activities?.length)
 
   const activitiesThisMonth = useMemo(
     () =>
@@ -26,7 +23,7 @@ const DashboardPage = () => {
         (activity) =>
           dayjs(activity.startDate).isAfter(
             dayjs().startOf("month").subtract(1, "month")
-          ) && dayjs(activity.startDate).isBefore(dayjs().startOf("month"))
+          ) && dayjs(activity.startDate).isBefore(dayjs().subtract(1, "month"))
       ) ?? [],
     [activities]
   )
@@ -40,12 +37,13 @@ const DashboardPage = () => {
   }
 
   return (
-    <div>
+    <Stack>
+      <Title order={2}>This month</Title>
       <MonthlyStatGrid
         activities={activitiesThisMonth}
         previousActivities={activitiesLastMonth}
       />
-    </div>
+    </Stack>
   )
 }
 
