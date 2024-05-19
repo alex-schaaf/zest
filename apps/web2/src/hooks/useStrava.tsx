@@ -51,7 +51,9 @@ const useStrava = (): UseStrava => {
             client_secret: params.stravaClientSecret,
             grant_type: "refresh_token",
             refresh_token: params.stravaRefreshToken,
-          })
+          }),
+        {},
+        { withCredentials: false }
       )
       .then((res) => ({
         stravaAccessToken: res.data.access_token,
@@ -157,6 +159,8 @@ export const getStravaActivities = async (
   })
 
   return await axios
-    .get(stravaUrl + "/athlete/activities?" + searchParams.toString())
+    .get(stravaUrl + "/athlete/activities?" + searchParams.toString(), {
+      withCredentials: false,
+    })
     .then((res) => res.data)
 }
