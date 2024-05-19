@@ -2,7 +2,18 @@ import "@mantine/core/styles.css"
 import "@mantine/notifications/styles.css"
 import "./App.css"
 
-import { AppShell, Box, Burger, MantineProvider } from "@mantine/core"
+import {
+  AppShell,
+  Box,
+  Burger,
+  Button,
+  Center,
+  Flex,
+  Group,
+  MantineProvider,
+  Text,
+  Title,
+} from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import {
   RouterProvider,
@@ -22,6 +33,8 @@ import { useEffect } from "react"
 import { UserContext } from "./contexts/user-context"
 import StravaOAuthPage from "./pages/StravaOAuth.page"
 import Navbar from "./Navbar"
+import { IconBrandGithub, IconLemon, IconLemon2 } from "@tabler/icons-react"
+import Header from "./Header"
 
 const router = createBrowserRouter([
   {
@@ -80,7 +93,7 @@ function Layout() {
   }
 
   if (!user) {
-    return <></>
+    return <>Something went wrong: no user</>
   }
 
   return (
@@ -95,7 +108,7 @@ function Layout() {
         padding="sm"
       >
         <AppShell.Header>
-          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+          <Header opened={opened} toggle={toggle} />
         </AppShell.Header>
         <AppShell.Navbar p="xs">
           <Navbar />
