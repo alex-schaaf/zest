@@ -86,7 +86,7 @@ function excludePasswordHash(user: UsersWithSettings | null): UserDto | null {
 }
 
 const UserPatchDtoSchema = z.object({
-  email: z.string().email(),
+  email: z.string().email().optional(),
   settings: z.object({
     stravaClientId: z.string().optional(),
     stravaClientSecret: z.string().optional(),
