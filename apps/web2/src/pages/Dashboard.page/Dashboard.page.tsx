@@ -1,8 +1,8 @@
-import StatGrid from "@/components/StatGrid"
 import useActivities from "@/hooks/useActivities"
 
 import dayjs from "dayjs"
 import { useMemo } from "react"
+import MonthlyStatGrid from "./MonthlyStatGrid"
 
 const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
@@ -41,7 +41,7 @@ const DashboardPage = () => {
 
   return (
     <div>
-      <StatGrid
+      <MonthlyStatGrid
         activities={activitiesThisMonth}
         previousActivities={activitiesLastMonth}
       />
