@@ -10,8 +10,8 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
-    "format:check": "prettier --check \"./apps/**/*.{ts,tsx,md}\"",
-    "format:write": "prettier --write \"./apps/**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"./apps/**/*.{ts,tsx,md,css}\"",
+    "format:write": "prettier --write \"./apps/**/*.{ts,tsx,md,css}\"",
     "plop": "plop",
     "prepare": "husky"
   },
