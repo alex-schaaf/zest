@@ -2,7 +2,13 @@ import "@mantine/core/styles.css"
 import "@mantine/notifications/styles.css"
 import "./App.css"
 
-import { AppShell, Burger, MantineProvider, NavLink } from "@mantine/core"
+import {
+  AppShell,
+  Burger,
+  Button,
+  MantineProvider,
+  NavLink,
+} from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import {
   RouterProvider,
@@ -22,6 +28,7 @@ import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { UserContext } from "./contexts/user-context"
 import StravaOAuthPage from "./pages/StravaOAuth.page"
+import Navbar from "./Navbar"
 
 const router = createBrowserRouter([
   {
@@ -98,13 +105,7 @@ function Layout() {
           <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
         </AppShell.Header>
         <AppShell.Navbar p="xs">
-          <NavLink to="/" label="Dashboard" component={NavLinkRouter} />
-          <NavLink
-            to="/activities"
-            label="Activities"
-            component={NavLinkRouter}
-          />
-          <NavLink to="/settings" label="Settings" component={NavLinkRouter} />
+          <Navbar />
         </AppShell.Navbar>
         <AppShell.Main>
           <Outlet />
