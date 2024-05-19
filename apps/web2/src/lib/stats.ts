@@ -6,6 +6,7 @@ export interface ActivityStats {
   totalElevation: number
   averageSpeed: number
   averageHeartrate: number
+  numberOfActivities: number
 }
 
 export const calcActivityStats = (activities: Activity[]) => {
@@ -34,5 +35,6 @@ export const calcActivityStats = (activities: Activity[]) => {
     totalElevation,
     averageSpeed,
     averageHeartrate,
+    numberOfActivities: activities.length,
   }
 }
