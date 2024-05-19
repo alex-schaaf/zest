@@ -9,8 +9,7 @@ import { useElementSize } from "@mantine/hooks"
 
 const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
-  const { ref, width, height } = useElementSize()
-  // startDateGte: dayjs().startOf("month").subtract(1, "month").toDate(),
+  const { ref, width } = useElementSize()
 
   const activitiesThisMonth = useMemo(
     () =>
