@@ -6,6 +6,7 @@ import {
   Body,
   UnauthorizedException,
   ParseIntPipe,
+  BadRequestException,
 } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { ApiResponse, ApiTags } from "@nestjs/swagger"
@@ -15,6 +16,7 @@ import { createParamDecorator, ExecutionContext } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { TokenPayloadDto } from "@auth/auth.dto"
 import { Public } from "@auth/decorators/public.decorator"
+import { z } from "zod"
 
 export const Cookies = createParamDecorator(
   (data: string, ctx: ExecutionContext) => {
@@ -63,6 +65,12 @@ export class UserController {
     @Param("userId", ParseIntPipe) userId: number,
     @Body() body: UserPatchDto
   ): Promise<UserDto | null> {
+    try {
+      UserPatchDtoSchema.parse(body)
+    } catch (error) {
+      throw new BadRequestException(error.errors)
+    }
+
     const user = await this.userService.updateOne({
       where: { id: userId },
       data: body,
@@ -76,3 +84,14 @@ function excludePasswordHash(user: UsersWithSettings | null): UserDto | null {
   const { passwordHash, ...userWithoutPasswordHash } = user
   return userWithoutPasswordHash
 }
+
+const UserPatchDtoSchema = z.object({
+  email: z.string().email(),
+  settings: z.object({
+    stravaClientId: z.string().optional(),
+    stravaClientSecret: z.string().optional(),
+    stravaAccessToken: z.string().optional(),
+    stravaRefreshToken: z.string().optional(),
+    stravaTokenExpiresAt: z.number().optional(),
+  }),
+})

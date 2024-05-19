@@ -20,6 +20,7 @@ import { Notifications } from "@mantine/notifications"
 import { AuthProvider, useAuthContext } from "./contexts/auth-context"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useEffect } from "react"
+import { UserContext } from "./contexts/user-context"
 
 const router = createBrowserRouter([
   {
@@ -82,31 +83,33 @@ function Layout() {
   }
 
   return (
-    <AppShell
-      header={{ height: 60 }}
-      navbar={{
-        width: 300,
-        breakpoint: "sm",
-        collapsed: { mobile: !opened },
-      }}
-      padding="sm"
-    >
-      <AppShell.Header>
-        <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
-      </AppShell.Header>
-      <AppShell.Navbar p="xs">
-        <NavLink to="/" label="Dashboard" component={NavLinkRouter} />
-        <NavLink
-          to="/activities"
-          label="Activities"
-          component={NavLinkRouter}
-        />
-        <NavLink to="/settings" label="Settings" component={NavLinkRouter} />
-      </AppShell.Navbar>
-      <AppShell.Main>
-        <Outlet />
-      </AppShell.Main>
-    </AppShell>
+    <UserContext.Provider value={{ user }}>
+      <AppShell
+        header={{ height: 60 }}
+        navbar={{
+          width: 300,
+          breakpoint: "sm",
+          collapsed: { mobile: !opened },
+        }}
+        padding="sm"
+      >
+        <AppShell.Header>
+          <Burger opened={opened} onClick={toggle} hiddenFrom="sm" size="sm" />
+        </AppShell.Header>
+        <AppShell.Navbar p="xs">
+          <NavLink to="/" label="Dashboard" component={NavLinkRouter} />
+          <NavLink
+            to="/activities"
+            label="Activities"
+            component={NavLinkRouter}
+          />
+          <NavLink to="/settings" label="Settings" component={NavLinkRouter} />
+        </AppShell.Navbar>
+        <AppShell.Main>
+          <Outlet />
+        </AppShell.Main>
+      </AppShell>
+    </UserContext.Provider>
   )
 }
 
