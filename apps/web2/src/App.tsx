@@ -2,13 +2,7 @@ import "@mantine/core/styles.css"
 import "@mantine/notifications/styles.css"
 import "./App.css"
 
-import {
-  AppShell,
-  Burger,
-  Button,
-  MantineProvider,
-  NavLink,
-} from "@mantine/core"
+import { AppShell, Burger, MantineProvider } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import {
   RouterProvider,
@@ -21,7 +15,6 @@ import SettingsPage from "./pages/Settings.page"
 import LoginPage from "./pages/Login.page"
 import RegisterPage from "./pages/Register.page"
 import { Outlet } from "react-router-dom"
-import { NavLink as NavLinkRouter } from "react-router-dom"
 import { Notifications } from "@mantine/notifications"
 import { AuthProvider, useAuthContext } from "./contexts/auth-context"
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
