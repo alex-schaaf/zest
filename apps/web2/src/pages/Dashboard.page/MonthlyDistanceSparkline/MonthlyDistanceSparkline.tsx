@@ -1,7 +1,7 @@
 import React, { useMemo } from "react"
 import { Activity } from "@/types/activity.types"
 import { getMonthlyDistanceSparklineData } from "./lib"
-import { AreaChart, LineChart, Sparkline } from "@mantine/charts"
+import { AreaChart } from "@mantine/charts"
 import dayjs from "dayjs"
 
 interface MonthlyDistanceSparklineProps {
