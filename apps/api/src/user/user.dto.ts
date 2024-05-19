@@ -16,7 +16,7 @@ export class SettingsDto implements Settings {
   @ApiProperty()
   updatedAt: Date
   @ApiProperty()
-  stravaClientId: number | null
+  stravaClientId: string | null
   @ApiProperty()
   stravaClientSecret: string | null
   @ApiProperty()
@@ -33,7 +33,7 @@ export class SettingsPatchDto
   implements Partial<Omit<Settings, "id" | "updatedAt">>
 {
   @ApiProperty()
-  stravaClientId?: number
+  stravaClientId?: string
   @ApiProperty()
   stravaClientSecret?: string
   @ApiProperty()
