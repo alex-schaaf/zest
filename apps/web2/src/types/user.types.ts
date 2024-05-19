@@ -17,6 +17,6 @@ export interface Settings {
   stravaClientId?: number
   stravaClientSecret?: string
   stravaRefreshToken?: string
-  stravaClientSecret?: string
+  stravaAccessToken?: string
   stravaTokenExpiresAt?: number
 }

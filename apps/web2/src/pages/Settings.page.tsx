@@ -1,8 +1,37 @@
 import { useUserContext } from "@/contexts/user-context"
 
 import SettingsForm from "@/components/SettingsForm"
-import { Button, Card, Group, Stack, Text } from "@mantine/core"
-import { IconKey } from "@tabler/icons-react"
+import {
+  Box,
+  Button,
+  Card,
+  Flex,
+  Group,
+  Stack,
+  Text,
+  ThemeIcon,
+  Title,
+} from "@mantine/core"
+import { IconCheck, IconKey } from "@tabler/icons-react"
+
+const Value: React.FC<{ value: string | undefined; title: string }> = ({
+  value,
+  title,
+}) => {
+  const iconColor = value ? "green" : "red"
+  const iconVariant = value ? "light" : undefined
+  const iconSize = value ? "sm" : undefined
+  const iconStyle = value ? { width: "70%", height: "70%" } : {}
+
+  return (
+    <Flex gap={5}>
+      <ThemeIcon color={iconColor} variant={iconVariant} size={iconSize}>
+        <IconCheck style={iconStyle} />
+      </ThemeIcon>
+      <Text size="md">{title}</Text>
+    </Flex>
+  )
+}
 
 const SettingsPage = () => {
   const { user } = useUserContext()
@@ -21,27 +50,38 @@ const SettingsPage = () => {
 
   return (
     <Stack>
-      <SettingsForm user={user} />
-      <Card maw={420} withBorder>
-        <Stack>
-          <Text size="lg" fw={700}>
-            Strava Authorization
-          </Text>
-          <Text size="sm">
-            Authorize with your Strava account to sync your activities.
-          </Text>
-          <Group>
-            <Button
-              color="orange"
-              leftSection={<IconKey />}
-              component="a"
-              href={stravaUrl.toString()}
-            >
-              Authorize Strava
-            </Button>
-          </Group>
-        </Stack>
-      </Card>
+      <Stack>
+        <Title order={2}>Settings</Title>
+        <SettingsForm user={user} />
+      </Stack>
+      <Stack maw={420}>
+        <Title order={2}>Strava Authorization</Title>
+        <Text size="sm">
+          Authorize with your Strava account to sync your activities.
+        </Text>
+        <Flex gap="25">
+          <Value
+            value={user.settings.stravaAccessToken}
+            title={"Access token"}
+          />
+          <Value
+            value={user.settings.stravaRefreshToken}
+            title={"Refresh token"}
+          />
+        </Flex>
+
+        <Group>
+          <Button
+            color="orange"
+            leftSection={<IconKey />}
+            component="a"
+            href={stravaUrl.toString()}
+            disabled={!!user.settings.stravaAccessToken}
+          >
+            Authorize Strava
+          </Button>
+        </Group>
+      </Stack>
     </Stack>
   )
 }

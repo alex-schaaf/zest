@@ -1,5 +1,5 @@
 import { Settings, UserWithSettings } from "@/types/user.types"
-import { Box, Button, Text, TextInput } from "@mantine/core"
+import { Box, Button, Stack, Text, TextInput, Title } from "@mantine/core"
 import { useForm } from "@mantine/form"
 
 import { IconDeviceFloppy } from "@tabler/icons-react"
@@ -69,41 +69,42 @@ const SettingsForm: React.FC<Props> = ({ user }) => {
     <div>
       <Box maw={420}>
         <form onSubmit={form.onSubmit((values) => handleSubmit(values))}>
-          <Text mt={20} fw={700}>
-            Personal
-          </Text>
-          <TextInput
-            mt={10}
-            label="Email"
-            key={form.key("email")}
-            {...form.getInputProps("email")}
-          />
+          <Stack>
+            <Box>
+              <Title order={3}>Personal</Title>
+              <TextInput
+                mt={10}
+                label="Email"
+                key={form.key("email")}
+                {...form.getInputProps("email")}
+              />
+            </Box>
+            <Box>
+              <Title order={3}>Strava</Title>
+              <TextInput
+                mt={10}
+                label="Strava Client ID"
+                key={form.key("settings.stravaClientId")}
+                {...form.getInputProps("settings.stravaClientId")}
+              />
+              <TextInput
+                mt={10}
+                label="Strava Client Secret"
+                type="password"
+                key={form.key("settings.stravaClientSecret")}
+                {...form.getInputProps("settings.stravaClientSecret")}
+              />
 
-          <Text mt={20} fw={700}>
-            Strava
-          </Text>
-          <TextInput
-            mt={10}
-            label="Strava Client ID"
-            key={form.key("settings.stravaClientId")}
-            {...form.getInputProps("settings.stravaClientId")}
-          />
-          <TextInput
-            mt={10}
-            label="Strava Client Secret"
-            type="password"
-            key={form.key("settings.stravaClientSecret")}
-            {...form.getInputProps("settings.stravaClientSecret")}
-          />
-
-          <Button
-            disabled={!form.isDirty()}
-            mt={20}
-            type="submit"
-            leftSection={<IconDeviceFloppy />}
-          >
-            Save
-          </Button>
+              <Button
+                disabled={!form.isDirty()}
+                mt={20}
+                type="submit"
+                leftSection={<IconDeviceFloppy />}
+              >
+                Save
+              </Button>
+            </Box>
+          </Stack>
         </form>
       </Box>
     </div>
