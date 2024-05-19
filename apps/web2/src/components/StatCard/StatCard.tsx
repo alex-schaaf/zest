@@ -1,7 +1,11 @@
 import { Group, Paper, Text } from "@mantine/core"
 import classes from "./StatCard.module.css"
 
-import { IconArrowDownRight, IconArrowUpRight } from "@tabler/icons-react"
+import {
+  IconArrowDownRight,
+  IconArrowRight,
+  IconArrowUpRight,
+} from "@tabler/icons-react"
 
 interface StatCardProps {
   title: string
@@ -13,7 +17,7 @@ interface StatCardProps {
 }
 
 const StatCard: React.FC<StatCardProps> = (stat) => {
-  const DiffIcon = stat.diff > 0 ? IconArrowUpRight : IconArrowDownRight
+  const DiffIcon = getDiffIcon(stat.diff)
 
   return (
     <Paper withBorder p="md" radius="md">
@@ -28,7 +32,7 @@ const StatCard: React.FC<StatCardProps> = (stat) => {
           {stat.value} {stat.unit}
         </Text>
         <Text
-          c={stat.diff > 0 ? "green" : "red"}
+          c={stat.diff === 0 ? "dimmed" : stat.diff > 0 ? "green" : "red"}
           fz="sm"
           fw={500}
           className={classes.diff}
@@ -49,3 +53,13 @@ const StatCard: React.FC<StatCardProps> = (stat) => {
 }
 
 export default StatCard
+
+const getDiffIcon = (diff: number) => {
+  if (diff > 0) {
+    return IconArrowUpRight
+  } else if (diff < 0) {
+    return IconArrowDownRight
+  } else {
+    return IconArrowRight
+  }
+}
