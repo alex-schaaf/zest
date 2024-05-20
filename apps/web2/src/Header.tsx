@@ -38,7 +38,7 @@ const Header: React.FC<HeaderProps> = (props) => {
         </Text>
       </Flex>
       <Group>
-        <Button onClick={toggleColorScheme}>
+        <Button variant="default" onClick={toggleColorScheme}>
           <IconBrightness />
         </Button>
         <Button
