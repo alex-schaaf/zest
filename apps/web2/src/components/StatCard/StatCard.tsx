@@ -27,7 +27,7 @@ const StatCard: React.FC<StatCardProps> = (stat) => {
         </Text>
       </Group>
 
-      <Group align="flex-end" gap="xs" mt={25}>
+      <Group align="flex-end" gap="xs" mt="lg">
         <Text className={classes.value}>
           {stat.value} {stat.unit}
         </Text>
@@ -45,7 +45,7 @@ const StatCard: React.FC<StatCardProps> = (stat) => {
         </Text>
       </Group>
 
-      <Text fz="xs" c="dimmed" mt={7}>
+      <Text fz="xs" c="dimmed" mt="xs">
         Compared to previous month
       </Text>
     </Paper>
