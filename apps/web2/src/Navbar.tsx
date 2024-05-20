@@ -1,4 +1,4 @@
-import { Button, NavLink } from "@mantine/core"
+import { Button, Group, NavLink, SimpleGrid } from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
 import useStrava from "@/hooks/useStrava"
 import {
@@ -29,7 +29,7 @@ const links = [
 ]
 
 const Navbar = () => {
-  const { isLoading, syncActivities } = useStrava()
+  const { isLoading, syncActivities, syncPreviousActivities } = useStrava()
 
   return (
     <nav className={classes.navbar}>
@@ -45,18 +45,31 @@ const Navbar = () => {
       </div>
 
       <div className={classes.footer}>
-        <Button
-          onClick={() => {
-            syncActivities()
-          }}
-          fullWidth
-          loading={isLoading}
-          variant="default"
-          color="orange"
-          leftSection={<IconRotate360 />}
-        >
-          Sync Activities
-        </Button>
+        <SimpleGrid cols={2}>
+          <Button
+            onClick={() => {
+              syncActivities()
+            }}
+            fullWidth
+            loading={isLoading}
+            color="primary"
+            leftSection={<IconRotate360 />}
+          >
+            Sync New
+          </Button>
+          <Button
+            onClick={() => {
+              syncPreviousActivities()
+            }}
+            fullWidth
+            loading={isLoading}
+            variant="light"
+            color="primary"
+            leftSection={<IconRotate360 />}
+          >
+            Sync Old
+          </Button>
+        </SimpleGrid>
         <Button
           disabled
           fullWidth
