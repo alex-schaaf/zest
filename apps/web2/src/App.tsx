@@ -2,18 +2,7 @@ import "@mantine/core/styles.css"
 import "@mantine/notifications/styles.css"
 import "./App.css"
 
-import {
-  AppShell,
-  Box,
-  Burger,
-  Button,
-  Center,
-  Flex,
-  Group,
-  MantineProvider,
-  Text,
-  Title,
-} from "@mantine/core"
+import { AppShell, Box } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks"
 import {
   RouterProvider,
@@ -28,12 +17,10 @@ import RegisterPage from "./pages/Register.page"
 import { Outlet } from "react-router-dom"
 import { Notifications } from "@mantine/notifications"
 import { AuthProvider, useAuthContext } from "./contexts/auth-context"
-import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 import { useEffect } from "react"
 import { UserContext } from "./contexts/user-context"
 import StravaOAuthPage from "./pages/StravaOAuth.page"
 import Navbar from "./Navbar"
-import { IconBrandGithub, IconLemon, IconLemon2 } from "@tabler/icons-react"
 import Header from "./Header"
 
 const router = createBrowserRouter([
@@ -72,8 +59,6 @@ const router = createBrowserRouter([
     Component: RegisterPage,
   },
 ])
-
-const queryClient = new QueryClient()
 
 function Layout() {
   const [opened, { toggle }] = useDisclosure()
@@ -125,13 +110,9 @@ function Layout() {
 
 function App() {
   return (
-    <MantineProvider defaultColorScheme="dark">
-      <QueryClientProvider client={queryClient}>
-        <AuthProvider>
-          <RouterProvider router={router}></RouterProvider> <Notifications />
-        </AuthProvider>
-      </QueryClientProvider>
-    </MantineProvider>
+    <AuthProvider>
+      <RouterProvider router={router}></RouterProvider> <Notifications />
+    </AuthProvider>
   )
 }
 

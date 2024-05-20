@@ -1,5 +1,13 @@
-import { Burger, Button, Flex, Text } from "@mantine/core"
-import { IconBrandGithub, IconLemon } from "@tabler/icons-react"
+import {
+  Burger,
+  Button,
+  Flex,
+  Group,
+  Text,
+  useComputedColorScheme,
+  useMantineColorScheme,
+} from "@mantine/core"
+import { IconBrandGithub, IconBrightness, IconLemon } from "@tabler/icons-react"
 
 interface HeaderProps {
   opened: boolean
@@ -7,6 +15,14 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = (props) => {
+  const { setColorScheme } = useMantineColorScheme()
+
+  const computedColorScheme = useComputedColorScheme("dark")
+
+  const toggleColorScheme = () => {
+    setColorScheme(computedColorScheme === "dark" ? "light" : "dark")
+  }
+
   return (
     <Flex justify="space-between" align="center" h={60} px="sm">
       <Flex align="center" gap="sm">
@@ -21,15 +37,19 @@ const Header: React.FC<HeaderProps> = (props) => {
           zest
         </Text>
       </Flex>
-
-      <Button
-        variant="default"
-        rightSection={<IconBrandGithub />}
-        component="a"
-        href="https://github.com/alex-schaaf/zest"
-      >
-        GitHub
-      </Button>
+      <Group>
+        <Button variant="default" onClick={toggleColorScheme}>
+          <IconBrightness />
+        </Button>
+        <Button
+          variant="default"
+          rightSection={<IconBrandGithub />}
+          component="a"
+          href="https://github.com/alex-schaaf/zest"
+        >
+          GitHub
+        </Button>
+      </Group>
     </Flex>
   )
 }
