@@ -1,12 +1,24 @@
-import { Button, Group, NavLink, SimpleGrid } from "@mantine/core"
+import {
+  Button,
+  Combobox,
+  Group,
+  Menu,
+  NavLink,
+  SimpleGrid,
+  Stack,
+  Text,
+} from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
 import useStrava from "@/hooks/useStrava"
 import {
   IconCalendarMonth,
+  IconHistory,
   IconLayoutDashboard,
   IconLogout,
+  IconNews,
   IconRotate360,
   IconSettings,
+  IconSparkles,
 } from "@tabler/icons-react"
 import classes from "./Navbar.module.css"
 
@@ -45,31 +57,45 @@ const Navbar = () => {
       </div>
 
       <div className={classes.footer}>
-        <SimpleGrid cols={2}>
-          <Button
-            onClick={() => {
-              syncActivities()
-            }}
-            fullWidth
-            loading={isLoading}
-            color="primary"
-            leftSection={<IconRotate360 />}
-          >
-            Sync New
-          </Button>
-          <Button
-            onClick={() => {
-              syncPreviousActivities()
-            }}
-            fullWidth
-            loading={isLoading}
-            variant="light"
-            color="primary"
-            leftSection={<IconRotate360 />}
-          >
-            Sync Old
-          </Button>
-        </SimpleGrid>
+        <Menu width={240}>
+          <Menu.Target>
+            <Button
+              fullWidth
+              loading={isLoading}
+              color="primary"
+              leftSection={<IconRotate360 />}
+            >
+              Synchronize
+            </Button>
+          </Menu.Target>
+          <Menu.Dropdown>
+            <Menu.Item p={0}>
+              <Button
+                variant="transparent"
+                color="dimmed"
+                leftSection={<IconHistory />}
+                fullWidth
+                onClick={() => {
+                  syncPreviousActivities()
+                }}
+              >
+                <Text>Old Activities</Text>
+              </Button>
+            </Menu.Item>
+            <Menu.Item p={0} mt={6}>
+              <Button
+                variant="light"
+                leftSection={<IconSparkles />}
+                fullWidth
+                onClick={() => {
+                  syncActivities()
+                }}
+              >
+                <Text>New Activities</Text>
+              </Button>
+            </Menu.Item>
+          </Menu.Dropdown>
+        </Menu>
         <Button
           disabled
           fullWidth
