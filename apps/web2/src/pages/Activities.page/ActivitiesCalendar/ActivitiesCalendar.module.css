@@ -57,14 +57,3 @@
   font-weight: 500;
   color: #9ca3af;
 }
-
-/* 
-classNames("h-24 p-2 text-center", {
-                "bg-gray-50 text-gray-400": day.month() != date.month(),
-                "border-t": idx >= 7,
-                "border-l": day.isoWeekday() > 1,
-                "bg-primary-50": day
-                  .startOf("day")
-                  .isSame(dayjs().startOf("day")),
-              })
-*/
