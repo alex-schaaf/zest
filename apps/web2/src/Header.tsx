@@ -32,13 +32,13 @@ const Header: React.FC<HeaderProps> = (props) => {
           hiddenFrom="sm"
           size="sm"
         />
-        <IconLemon color="yellow" />
+        <IconLemon color="teal" />
         <Text fw={700} size="xl">
           zest
         </Text>
       </Flex>
       <Group>
-        <Button variant="default" onClick={toggleColorScheme}>
+        <Button onClick={toggleColorScheme}>
           <IconBrightness />
         </Button>
         <Button

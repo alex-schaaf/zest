@@ -25,11 +25,11 @@ const MonthlyDistanceSparkline: React.FC<MonthlyDistanceSparklineProps> = ({
       data={data}
       dataKey="index"
       series={[
-        { name: "distanceThisMonth", color: "teal" },
+        { name: "distanceThisMonth", color: "primary" },
         { name: "distanceLastMonth", color: "grey", strokeDasharray: "4 4" },
       ]}
       referenceLines={[
-        { x: dayjs().date() - 1, color: "teal" },
+        { x: dayjs().date() - 1, color: "primary" },
         { y: 0, color: "grey", strokeWidth: 2 },
         { x: dayjs().endOf("month").date() - 1, color: "grey", strokeWidth: 2 },
       ]}
