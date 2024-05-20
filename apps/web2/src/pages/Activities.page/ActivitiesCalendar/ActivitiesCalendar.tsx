@@ -5,6 +5,7 @@ import { Activity } from "@/types/activity.types"
 import classNames from "classnames"
 import classes from "./ActivitiesCalendar.module.css"
 import { IconRun } from "@tabler/icons-react"
+import { getCalendarDayActivities, getCalendarDays } from "./lib"
 
 interface Props {
   activities: Activity[]
@@ -14,42 +15,17 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   const date = dayjs(searchParams.get("date"))
-
-  const days: Dayjs[] = useMemo(() => {
-    const days: Dayjs[] = []
-    // pad left with previous months days of the week
-    for (let i = date.isoWeekday() - 1; i > 0; i--) {
-      days.push(date.subtract(i, "days"))
-    }
-    for (let i = 0; i < date.daysInMonth(); i++) {
-      days.push(date.add(i, "days"))
-    }
-    // pad right with next months days of the week
-    for (let i = 1; i < 7 - date.endOf("month").isoWeekday() + 1; i++) {
-      days.push(date.endOf("month").add(i, "days"))
-    }
-    return days
-  }, [date])
-
-  const act = useMemo(() => {
-    const act: Record<string, Activity[]> = {}
-    days.forEach((day) => {
-      act[day.format("YYYY-MM-DD")] = []
-    })
-    activities.forEach((activity) => {
-      const date = dayjs(activity.startDate).format("YYYY-MM-DD")
-      if (Object.keys(act).includes(date)) {
-        act[date].push(activity)
-      }
-    })
-    return act
-  }, [days, activities])
+  const calendarDays: Dayjs[] = useMemo(() => getCalendarDays(date), [date])
+  const calendarDayActivities = useMemo(
+    () => getCalendarDayActivities(calendarDays, activities),
+    [calendarDays, activities]
+  )
 
   return (
     <>
       <div className={classes.calendar}>
-        {days.map((day, idx) => {
-          const activities = act[day.format("YYYY-MM-DD")]
+        {calendarDays.map((day, idx) => {
+          const activities = calendarDayActivities[day.format("YYYY-MM-DD")]
 
           return (
             <div
