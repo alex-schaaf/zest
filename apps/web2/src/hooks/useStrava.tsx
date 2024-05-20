@@ -5,6 +5,8 @@ import { useState } from "react"
 import axios from "@/lib/axios"
 import { SummaryActivity } from "@/types/strava.types"
 import { notifications } from "@mantine/notifications"
+import { Activity } from "@/types/activity.types"
+import dayjs from "dayjs"
 
 interface UseStrava {
   isLoading: boolean
@@ -13,6 +15,7 @@ interface UseStrava {
   syncActivities: (
     searchParams?: StravaAPIActivitiesSearchParams
   ) => Promise<void>
+  syncPreviousActivities: () => Promise<void>
 }
 
 const stravaUrl = "https://www.strava.com/api/v3"
@@ -124,7 +127,39 @@ const useStrava = (): UseStrava => {
     }
   }
 
-  return { isLoading, isError, isSuccess, syncActivities }
+  const syncPreviousActivities = async () => {
+    setIsLoading(true)
+    setIsError(false)
+    setIsSuccess(null)
+
+    let activity: Activity | undefined = undefined
+
+    try {
+      activity = await axios
+        .get(`/users/${user.id}/activities?orderBy=startDate&order=asc&take=1`)
+        .then((res) => res.data[0])
+    } catch {
+      setIsError(true)
+      setIsSuccess(false)
+      setIsLoading(false)
+      notifications.show({
+        title: "Error!",
+        message: "There was an error syncing your activities.",
+        color: "red",
+      })
+      return
+    }
+
+    await syncActivities({ before: dayjs(activity?.startDate).unix() })
+  }
+
+  return {
+    isLoading,
+    isError,
+    isSuccess,
+    syncActivities,
+    syncPreviousActivities,
+  }
 }
 
 export default useStrava
