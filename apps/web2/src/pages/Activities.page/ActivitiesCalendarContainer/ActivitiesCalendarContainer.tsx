@@ -9,8 +9,6 @@ interface ActivitiesCalendarProps {}
 const ActivitiesCalendarContainer: React.FC<ActivitiesCalendarProps> = () => {
   const [searchParams, _] = useSearchParams()
 
-  console.log(dayjs(searchParams.get("date")).subtract(1, "month").toDate())
-
   const { activities, isLoading, isError } = useActivities({
     startDateGte: dayjs(searchParams.get("date")).subtract(1, "month").toDate(),
   })
