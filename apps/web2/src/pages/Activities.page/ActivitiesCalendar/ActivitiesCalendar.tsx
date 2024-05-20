@@ -4,8 +4,9 @@ import { useSearchParams } from "react-router-dom"
 import { Activity } from "@/types/activity.types"
 import classNames from "classnames"
 import classes from "./ActivitiesCalendar.module.css"
-import { IconRun } from "@tabler/icons-react"
+import { IconArrowLeft, IconArrowRight, IconRun } from "@tabler/icons-react"
 import { getCalendarDayActivities, getCalendarDays } from "./lib"
+import { Box, Button, Flex, Stack, Title } from "@mantine/core"
 
 interface Props {
   activities: Activity[]
@@ -21,9 +22,32 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
     [calendarDays, activities]
   )
 
+  const goBackOneMonth = () => {
+    setSearchParams((params) => {
+      params.set("date", date.subtract(1, "month").format("YYYY-MM-DD"))
+      return params
+    })
+  }
+
+  const goForwardOneMonth = () => {
+    setSearchParams((params) => {
+      params.set("date", date.add(1, "month").format("YYYY-MM-DD"))
+      return params
+    })
+  }
+
   return (
-    <>
-      <div className={classes.calendar}>
+    <Stack>
+      <Flex justify="space-between">
+        <Button variant="light" size="xs" onClick={() => goBackOneMonth()}>
+          <IconArrowLeft />
+        </Button>
+        <Title order={3}>{date.format("MMMM YYYY")}</Title>
+        <Button variant="light" size="xs" onClick={() => goForwardOneMonth()}>
+          <IconArrowRight />
+        </Button>
+      </Flex>
+      <Box className={classes.calendar}>
         {calendarDays.map((day, idx) => {
           const activities = calendarDayActivities[day.format("YYYY-MM-DD")]
 
@@ -57,8 +81,8 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
             </div>
           )
         })}
-      </div>
-    </>
+      </Box>
+    </Stack>
   )
 }
 
