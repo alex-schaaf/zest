@@ -1,6 +1,6 @@
 import { Button, NavLink } from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
-import useStrava from "./hooks/useStrava"
+import useStrava from "@/hooks/useStrava"
 import {
   IconLayoutDashboard,
   IconLogout,
@@ -39,6 +39,7 @@ const Navbar = () => {
             link={linkData.link}
             label={linkData.label}
             icon={linkData.icon}
+            key={linkData.link}
           />
         ))}
       </div>
