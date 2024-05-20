@@ -1,0 +1,70 @@
+:root {
+  --border-color: var(--mantine-color-dark-5);
+}
+
+.calendar {
+  /* grid grid-cols-7 border shadow-sm */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.calendar__day {
+  height: 8rem;
+  padding: 0.5rem;
+  text-align: center;
+}
+
+.border_t {
+  /* border-top-width: 1px;     */
+  border-top: 1px solid var(--border-color);
+}
+
+.border_l {
+  /* border-left-width: 1px; */
+  border-left: 1px solid var(--border-color);
+}
+
+.day__today {
+  /* bg-primary-50 */
+  background-color: var(--mantine-color-dark-6);
+}
+
+.day__other_month {
+  /* bg-gray-50 text-gray-400 */
+  background-color: var(--mantine-color-dark-8);
+  color: #9ca3af;
+}
+
+.day__date {
+  /* text-left text-xs font-medium text-gray-400 */
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+.day__icon {
+  /* text-4xl */
+  font-size: 2.25rem;
+}
+
+.day__distance {
+  /* mt-1 text-xs font-medium text-gray-400 */
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #9ca3af;
+}
+
+/* 
+classNames("h-24 p-2 text-center", {
+                "bg-gray-50 text-gray-400": day.month() != date.month(),
+                "border-t": idx >= 7,
+                "border-l": day.isoWeekday() > 1,
+                "bg-primary-50": day
+                  .startOf("day")
+                  .isSame(dayjs().startOf("day")),
+              })
+*/
