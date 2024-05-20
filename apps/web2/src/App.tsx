@@ -9,19 +9,19 @@ import {
   createBrowserRouter,
   useNavigate,
 } from "react-router-dom"
-import DashboardPage from "./pages/Dashboard.page"
-import ActivitiesPage from "./pages/Activites.page"
-import SettingsPage from "./pages/Settings.page"
-import LoginPage from "./pages/Login.page"
-import RegisterPage from "./pages/Register.page"
+import DashboardPage from "@/pages/Dashboard.page"
+import ActivitiesPage from "@/pages/Activities.page"
+import SettingsPage from "@/pages/Settings.page"
+import LoginPage from "@/pages/Login.page"
+import RegisterPage from "@/pages/Register.page"
 import { Outlet } from "react-router-dom"
 import { Notifications } from "@mantine/notifications"
 import { AuthProvider, useAuthContext } from "./contexts/auth-context"
 import { useEffect } from "react"
-import { UserContext } from "./contexts/user-context"
-import StravaOAuthPage from "./pages/StravaOAuth.page"
-import Navbar from "./Navbar"
-import Header from "./Header"
+import { UserContext } from "@/contexts/user-context"
+import StravaOAuthPage from "@/pages/StravaOAuth.page"
+import Navbar from "@/Navbar"
+import Header from "@/Header"
 
 const router = createBrowserRouter([
   {
