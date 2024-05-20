@@ -15,6 +15,7 @@ const theme = createTheme({
       light: "teal",
     }),
   },
+  primaryColor: "primary",
 })
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
