@@ -7,19 +7,18 @@ const ActivitiesPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    if (searchParams.get("date") && searchParams.get("lastDays")) {
+    if (searchParams.get("date")) {
       return
     }
 
     setSearchParams({
       date: dayjs().startOf("month").format("YYYY-MM-DD"),
-      lastDays: "30",
     })
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
-  if (!searchParams.get("date") || !searchParams.get("lastDays")) {
+  if (!searchParams.get("date")) {
     return null
   }
 
