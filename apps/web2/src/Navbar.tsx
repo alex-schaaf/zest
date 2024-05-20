@@ -2,11 +2,11 @@ import { Button, NavLink } from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
 import useStrava from "@/hooks/useStrava"
 import {
+  IconCalendarMonth,
   IconLayoutDashboard,
   IconLogout,
   IconRotate360,
   IconSettings,
-  IconTable,
 } from "@tabler/icons-react"
 import classes from "./Navbar.module.css"
 
@@ -19,7 +19,7 @@ const links = [
   {
     link: "/activities",
     label: "Activities",
-    icon: <IconTable className={classes.linkIcon} />,
+    icon: <IconCalendarMonth className={classes.linkIcon} />,
   },
   {
     link: "/settings",
