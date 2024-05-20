@@ -6,7 +6,15 @@ import classNames from "classnames"
 import classes from "./ActivitiesCalendar.module.css"
 import { IconArrowLeft, IconArrowRight, IconRun } from "@tabler/icons-react"
 import { getCalendarDayActivities, getCalendarDays } from "./lib"
-import { Box, Button, Flex, Stack, Title } from "@mantine/core"
+import {
+  Box,
+  Button,
+  Flex,
+  SimpleGrid,
+  Stack,
+  Text,
+  Title,
+} from "@mantine/core"
 
 interface Props {
   activities: Activity[]
@@ -47,6 +55,13 @@ const ActivitiesCalendar: React.FC<Props> = ({ activities }) => {
           <IconArrowRight />
         </Button>
       </Flex>
+      <SimpleGrid mt="lg" cols={7} ta="center">
+        {calendarDays.slice(0, 7).map((day, idx) => (
+          <Text size="sm" c="dimmed" key={idx}>
+            {day.format("dddd")}
+          </Text>
+        ))}
+      </SimpleGrid>
       <Box className={classes.calendar}>
         {calendarDays.map((day, idx) => {
           const activities = calendarDayActivities[day.format("YYYY-MM-DD")]
