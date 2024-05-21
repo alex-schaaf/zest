@@ -1,3 +1,0 @@
-import LongestDistanceBarChartContainer from "./LongestDistanceBarChartContainer"
-
-export default LongestDistanceBarChartContainer
