@@ -79,6 +79,7 @@ export class AuthController {
   /*
     ------------ SIGN OUT ------------
   */
+  @Public()
   @ApiResponse({ status: 204 })
   @Post("logout")
   async signOut(@Res({ passthrough: true }) response: Response) {
