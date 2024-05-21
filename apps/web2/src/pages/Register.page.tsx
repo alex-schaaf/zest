@@ -41,7 +41,6 @@ const RegisterPage = () => {
   })
 
   useEffect(() => {
-    console.log(isError)
     if (isError) {
       notifications.show({
         title: "Registration failed!",
