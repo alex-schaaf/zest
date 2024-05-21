@@ -64,11 +64,12 @@ function Layout() {
   const [opened, { toggle }] = useDisclosure()
   const navigate = useNavigate()
 
-  const { user, isLoading, isError } = useAuthContext()
+  const { user, isLoading, isError, error } = useAuthContext()
 
   useEffect(() => {
-    // if (isError && !["/login", "/register"].includes(location.pathname)) {
     if (isError) {
+      //  && !["/login", "/register"].includes(location.pathname)
+      console.debug(error)
       navigate("/login")
     }
   }, [isError])

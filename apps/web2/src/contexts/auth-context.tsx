@@ -30,7 +30,7 @@ const AuthProvider: React.FC<PropsWithChildren> = (props) => {
 
   const logout = async () => {
     try {
-      await axios.post("/auth/logout")
+      await axios.delete("/auth/logout")
       queryClient.invalidateQueries({ queryKey: ["user"] })
       queryClient.setQueryData(["user"], undefined)
     } catch (err) {

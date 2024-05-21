@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Delete,
   Post,
   Res,
 } from "@nestjs/common"
@@ -81,7 +82,7 @@ export class AuthController {
   */
   @Public()
   @ApiResponse({ status: 204 })
-  @Post("logout")
+  @Delete("logout")
   async signOut(@Res({ passthrough: true }) response: Response) {
     response.clearCookie("token")
   }
