@@ -37,7 +37,6 @@ const LoginPage = () => {
   })
 
   useEffect(() => {
-    console.log(isError)
     if (isError) {
       notifications.show({
         title: "Login failed!",
@@ -57,7 +56,7 @@ const LoginPage = () => {
 
       setTimeout(() => {
         navigate("/dashboard")
-      }, 1500)
+      }, 1000)
     }
   }, [isSuccess])
 
