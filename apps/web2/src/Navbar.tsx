@@ -15,7 +15,7 @@ import { useAuthContext } from "./contexts/auth-context"
 
 const links = [
   {
-    link: "/",
+    link: "/dashboard",
     label: "Dashboard",
     icon: <IconLayoutDashboard className={classes.linkIcon} />,
   },
