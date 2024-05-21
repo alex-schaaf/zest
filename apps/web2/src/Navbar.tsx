@@ -1,13 +1,4 @@
-import {
-  Button,
-  Combobox,
-  Group,
-  Menu,
-  NavLink,
-  SimpleGrid,
-  Stack,
-  Text,
-} from "@mantine/core"
+import { Button, Menu, NavLink, Text } from "@mantine/core"
 import { NavLink as NavLinkRouter } from "react-router-dom"
 import useStrava from "@/hooks/useStrava"
 import {
@@ -15,12 +6,12 @@ import {
   IconHistory,
   IconLayoutDashboard,
   IconLogout,
-  IconNews,
   IconRotate360,
   IconSettings,
   IconSparkles,
 } from "@tabler/icons-react"
 import classes from "./Navbar.module.css"
+import { useAuthContext } from "./contexts/auth-context"
 
 const links = [
   {
@@ -42,6 +33,7 @@ const links = [
 
 const Navbar = () => {
   const { isLoading, syncActivities, syncPreviousActivities } = useStrava()
+  const { logout } = useAuthContext()
 
   return (
     <nav className={classes.navbar}>
@@ -97,11 +89,13 @@ const Navbar = () => {
           </Menu.Dropdown>
         </Menu>
         <Button
-          disabled
           fullWidth
-          variant="default"
+          variant="light"
           color="red"
           leftSection={<IconLogout />}
+          onClick={() => {
+            logout()
+          }}
         >
           Logout
         </Button>
