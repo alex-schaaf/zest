@@ -20,9 +20,6 @@ const DashboardPage = () => {
     [activities]
   )
 
-  console.log(dayjs())
-  console.log(dayjs().subtract(1, "month"))
-
   const activitiesLastMonth = useMemo(
     () =>
       activities?.filter(
