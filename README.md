@@ -25,7 +25,7 @@ Every folder in the `/apps`folder represents a `yarn`
 [workspace](https://yarnpkg.com/features/workspaces).
 
 - `apps/api` contains the Nest.js API
-- `apps/frontend` contains the Vite.js React frontend
+- `apps/web` contains the Vite.js React frontend
 
 Running scripts for the individual workspaces can be done from the root project
 folder using `yarn workspace <workspace-name> run <script-name>`. For example
