@@ -4,7 +4,7 @@
   "private": true,
   "workspaces": [
     "apps/api",
-    "apps/web2",
+    "apps/web",
     "packages/*"
   ],
   "scripts": {
