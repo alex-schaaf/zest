@@ -8,8 +8,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import dayjs from "dayjs"
-import { useSearchParams } from "react-router-dom"
-import { Button, Flex } from "@mantine/core"
 
 interface ActivityTableProps {
   activities: Activity[]
