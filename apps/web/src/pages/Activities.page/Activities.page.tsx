@@ -32,7 +32,7 @@ const ActivitiesPage = () => {
     return <>Loading...</>
   }
 
-  if (isError || !activities) {
+  if (isError || activities === undefined) {
     return <>Error</>
   }
 
