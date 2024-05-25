@@ -36,9 +36,11 @@ describe("ActivityController", () => {
       averageHeartrate: 136,
       startDate: new Date(),
       active: true,
-      data: { someData: 123 },
       userId: 1,
       originService: "strava",
+      data: Buffer.from("some data"),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     jest.spyOn(activityService, "findOne").mockResolvedValueOnce(mockActivity)
@@ -60,9 +62,11 @@ describe("ActivityController", () => {
       averageHeartrate: 136,
       startDate: new Date(),
       active: true,
-      data: { someData: 123 },
+      data: Buffer.from("some data"),
       userId: 1,
       originService: "strava",
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     jest.spyOn(activityService, "deleteOne").mockResolvedValueOnce(mockActivity)
@@ -85,8 +89,11 @@ describe("ActivityController", () => {
         averageHeartrate: 136,
         startDate: new Date(),
         active: true,
-        data: { someData: 123 },
+        data: Buffer.from("some data"),
         userId: 1,
+
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: BigInt("2"),
@@ -98,12 +105,14 @@ describe("ActivityController", () => {
         averageHeartrate: 136,
         startDate: new Date(),
         active: true,
-        data: { someData: 123 },
+        data: Buffer.from("some data"),
         userId: 1,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ]
 
-    prismaService.activities.findMany = jest
+    prismaService.activity.findMany = jest
       .fn()
       .mockReturnValueOnce(mockActivities)
 
