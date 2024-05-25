@@ -27,6 +27,7 @@ const Header: React.FC<HeaderProps> = (props) => {
           rightSection={<IconBrandGithub />}
           component="a"
           href="https://github.com/alex-schaaf/zest"
+          target="_blank"
         >
           GitHub
         </Button>
