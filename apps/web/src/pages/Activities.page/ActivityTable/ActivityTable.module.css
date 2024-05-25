@@ -31,6 +31,10 @@
   background-color: var(--mantine-color-dark-7);
 }
 
+.tr:hover {
+  background-color: var(--mantine-color-dark-6);
+}
+
 .td {
   padding-top: var(--mantine-spacing-xs);
   padding-bottom: var(--mantine-spacing-xs);
