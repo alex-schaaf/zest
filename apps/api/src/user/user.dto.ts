@@ -1,8 +1,8 @@
 import { ApiProperty } from "@nestjs/swagger"
-import { Prisma, Settings, Users } from "@prisma/client"
+import { Prisma, Settings, User } from "@prisma/client"
 
-export type UsersWithSettings = Users &
-  Prisma.UsersGetPayload<{
+export type UsersWithSettings = User &
+  Prisma.UserGetPayload<{
     select: { settings: true }
   }>
 
@@ -15,6 +15,8 @@ export class SettingsDto implements Settings {
   id: number
   @ApiProperty()
   updatedAt: Date
+  @ApiProperty()
+  createdAt: Date
   @ApiProperty()
   stravaClientId: string | null
   @ApiProperty()
@@ -47,7 +49,7 @@ export class SettingsPatchDto
 /* 
 User DTOs
 */
-type UserCreateDtoType = Pick<Users, "email"> & { password: string }
+type UserCreateDtoType = Pick<User, "email"> & { password: string }
 export class UserCreateDto implements UserCreateDtoType {
   @ApiProperty()
   email: string

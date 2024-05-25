@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger"
 
-import { Activities } from "@prisma/client"
+import { Activity } from "@prisma/client"
 import { ActivityType, MetaAthlete, PolylineMap } from "./strava-types"
-import { JsonValue } from "@prisma/client/runtime/library"
 
 export class CreateActivityDto {
   @ApiProperty()
@@ -75,9 +74,13 @@ export class CreateActivityDto {
   has_kudoed: boolean
 }
 
-export class ActivityDto implements Activities {
+export class ActivityDto implements Omit<Activity, "data"> {
   @ApiProperty()
   id: bigint
+  @ApiProperty()
+  createdAt: Date
+  @ApiProperty()
+  updatedAt: Date
   @ApiProperty()
   type: string
   @ApiProperty()
@@ -94,8 +97,6 @@ export class ActivityDto implements Activities {
   startDate: Date
   @ApiProperty()
   active: boolean
-  @ApiProperty()
-  data: null | JsonValue
   @ApiProperty()
   userId: number
   @ApiProperty()

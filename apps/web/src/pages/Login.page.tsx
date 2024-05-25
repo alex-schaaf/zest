@@ -12,7 +12,7 @@ import {
 import { useForm } from "@mantine/form"
 import { notifications } from "@mantine/notifications"
 import { useEffect } from "react"
-import { useNavigate } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
 
 interface SignUpFormValues {
   email: string

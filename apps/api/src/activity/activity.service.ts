@@ -8,7 +8,7 @@ export class ActivityService {
   constructor(private prisma: PrismaService) {}
 
   async findOne(userId: number) {
-    return this.prisma.activities.findUnique({
+    return this.prisma.activity.findUnique({
       where: { id: userId },
     })
   }
@@ -21,7 +21,7 @@ export class ActivityService {
     skip = 0,
     take?: number
   ) {
-    const prismaWhere: Prisma.ActivitiesFindManyArgs = {
+    const prismaWhere: Prisma.ActivityFindManyArgs = {
       where: {
         userId,
         active: true,
@@ -39,56 +39,31 @@ export class ActivityService {
       skip,
       take,
     }
-    return this.prisma.activities.findMany(prismaWhere)
+    return this.prisma.activity.findMany(prismaWhere)
   }
 
-  // async createOne(userId: number, data: SummaryActivity) {
-  //   const parsedData: Prisma.ActivitiesCreateInput = {
-  //     id: BigInt(data.id),
-  //     type: data.type,
-  //     distance: data.distance,
-  //     time: data.moving_time,
-  //     speed: data.average_speed,
-  //     elevationGain: data.total_elevation_gain,
-  //     startDate: data.start_date,
-  //     averageHeartrate: data.average_heartrate,
-  //     data: data as unknown as Prisma.InputJsonValue,
-  //     Users: {
-  //       connect: {
-  //         id: userId,
-  //       },
-  //     },
-  //     originService: "strava",
-  //   }
-
-  //   return this.prisma.activities.create({
-  //     data: parsedData,
-  //   })
-  // }
-
   async createMany(userId: number, data: SummaryActivity[]) {
-    const parsedData = data.map((activity) => ({
-      id: BigInt(activity.id),
-      type: activity.type,
-      distance: activity.distance,
-      time: activity.moving_time,
-      speed: activity.average_speed,
-      elevationGain: activity.total_elevation_gain,
-      startDate: activity.start_date,
-      averageHeartrate: activity.average_heartrate,
-      data: activity as unknown as Prisma.InputJsonValue,
+    const parsedData = data.map((summaryActivity) => ({
+      id: BigInt(summaryActivity.id),
+      type: summaryActivity.type,
+      distance: summaryActivity.distance,
+      time: summaryActivity.moving_time,
+      speed: summaryActivity.average_speed,
+      elevationGain: summaryActivity.total_elevation_gain,
+      startDate: summaryActivity.start_date,
+      averageHeartrate: summaryActivity.average_heartrate,
+      data: Buffer.from(JSON.stringify(summaryActivity)),
       originService: "strava",
       userId,
     }))
 
-    return this.prisma.activities.createMany({
+    return this.prisma.activity.createMany({
       data: parsedData,
-      skipDuplicates: true,
     })
   }
 
   async deleteOne(id: number) {
-    return this.prisma.activities.update({
+    return this.prisma.activity.update({
       where: { id },
       data: { active: false },
     })
