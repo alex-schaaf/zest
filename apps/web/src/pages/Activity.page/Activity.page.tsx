@@ -14,7 +14,6 @@ const ActivityPage = () => {
     isLoading,
     isError,
     data: activity,
-    error,
   } = useQuery<Activity>({
     queryKey: ["activity", { activityId }],
     queryFn: () =>
