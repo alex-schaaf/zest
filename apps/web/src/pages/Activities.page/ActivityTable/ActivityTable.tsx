@@ -8,6 +8,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import dayjs from "dayjs"
+import { Button } from "@mantine/core"
+import { NavLink } from "react-router-dom"
 
 interface ActivityTableProps {
   activities: Activity[]
@@ -36,6 +38,19 @@ const columns = [
   columnHelper.accessor("elevationGain", {
     cell: (info) => info.getValue().toFixed(0),
     header: "Elevation Gain (m)",
+  }),
+  columnHelper.display({
+    id: "actions",
+    cell: (props) => (
+      <Button
+        to={`/activities/${props.row.original.id}`}
+        variant="subtle"
+        size="xs"
+        component={NavLink}
+      >
+        View
+      </Button>
+    ),
   }),
 ]
 
