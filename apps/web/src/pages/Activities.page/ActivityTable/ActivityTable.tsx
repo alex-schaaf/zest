@@ -8,6 +8,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import dayjs from "dayjs"
+import { useSearchParams } from "react-router-dom"
+import { Button, Flex } from "@mantine/core"
 
 interface ActivityTableProps {
   activities: Activity[]
@@ -28,10 +30,6 @@ const columns = [
     cell: (info) =>
       dayjs.duration(info.getValue(), "seconds").format("H:mm:ss"),
     header: "Moving Time",
-  }),
-  columnHelper.accessor("speed", {
-    cell: (info) => (info.getValue() * 3.6).toFixed(1),
-    header: "Average Speed (km/h)",
   }),
   columnHelper.accessor("speed", {
     cell: (info) => (1000 / info.getValue() / 60).toFixed(1),
@@ -55,10 +53,8 @@ const ActivityTable: React.FC<ActivityTableProps> = ({ activities }) => {
       <table className={classes.table}>
         <thead className={classes.thead}>
           {table.getHeaderGroups().map((headerGroup) => (
-            // table row
             <tr key={headerGroup.id} className={classes.tr__header}>
               {headerGroup.headers.map((header) => (
-                // table header cell
                 <th key={header.id} className={classes.th}>
                   {header.isPlaceholder
                     ? null
