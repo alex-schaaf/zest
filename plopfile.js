@@ -15,16 +15,16 @@ module.exports = (plop) => {
     actions: [
       {
         type: "add",
-        path: "apps/web2/src/components/{{name}}/{{name}}.module.css",
+        path: "apps/web/src/components/{{name}}/{{name}}.module.css",
       },
       {
         type: "add",
-        path: "apps/web2/src/components/{{name}}/{{name}}.tsx",
+        path: "apps/web/src/components/{{name}}/{{name}}.tsx",
         templateFile: "plop-templates/Component/Component.tsx.hbs",
       },
       {
         type: "add",
-        path: "apps/web2/src/components/{{name}}/index.ts",
+        path: "apps/web/src/components/{{name}}/index.ts",
         templateFile: "plop-templates/Component/index.ts.hbs",
       },
     ],
