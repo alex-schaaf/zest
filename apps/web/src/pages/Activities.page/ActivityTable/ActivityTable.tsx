@@ -18,7 +18,7 @@ const columnHelper = createColumnHelper<Activity>()
 const columns = [
   columnHelper.accessor("startDate", {
     cell: (info) => dayjs(info.getValue()).format("YYYY-MM-DD HH:mm"),
-    header: "Date",
+    header: "Timestamp",
   }),
   columnHelper.accessor("distance", {
     cell: (info) => (info.getValue() / 1000).toFixed(1),
