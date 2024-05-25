@@ -81,33 +81,6 @@ const binActivitiesByWeek = (activities: Activity[]) => {
   }))
 }
 
-const binActivitiesWeekly = (activities: Activity[]) => {
-  const bins: Record<number, number> = {}
-  for (let w = 1; w <= dayjs().isoWeeksInYear(); w++) {
-    bins[w] = 0
-  }
-
-  activities.forEach((activity) => {
-    const date = dayjs(activity.startDate)
-
-    if (!date.isAfter(dayjs().startOf("year"))) {
-      return
-    }
-
-    bins[date.isoWeek()] += activity.distance / 1000
-  })
-
-  return Object.entries(bins).map(([k, v]) => ({
-    week: parseInt(k),
-    distance: v > 0 ? v : null,
-    label: dayjs()
-      .startOf("year")
-      .startOf("month")
-      .startOf("date")
-      .add(parseInt(k), "week"),
-  }))
-}
-
 interface ChartTooltipProps {
   label: string
   payload: Record<string, any>[] | undefined
