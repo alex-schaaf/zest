@@ -2,7 +2,7 @@ import React from "react"
 import { useSearchParams } from "react-router-dom"
 import useActivities from "@/hooks/useActivities"
 import dayjs from "dayjs"
-import ActivitiesCalendar from "@/pages/Activities.page/ActivitiesCalendar"
+import ActivitiesCalendar from "../ActivitiesCalendar"
 
 interface ActivitiesCalendarProps {}
 

@@ -5,6 +5,7 @@ import {
   IconCalendarMonth,
   IconHistory,
   IconLayoutDashboard,
+  IconList,
   IconLogout,
   IconRotate360,
   IconSettings,
@@ -20,9 +21,14 @@ const links = [
     icon: <IconLayoutDashboard className={classes.linkIcon} />,
   },
   {
+    link: "/calendar",
+    label: "Calendar",
+    icon: <IconCalendarMonth className={classes.linkIcon} />,
+  },
+  {
     link: "/activities",
     label: "Activities",
-    icon: <IconCalendarMonth className={classes.linkIcon} />,
+    icon: <IconList className={classes.linkIcon} />,
   },
   {
     link: "/settings",
