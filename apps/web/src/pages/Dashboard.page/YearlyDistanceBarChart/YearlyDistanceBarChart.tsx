@@ -5,6 +5,7 @@ import { BarChart } from "@mantine/charts"
 import dayjs from "dayjs"
 import { Group, Paper, Text } from "@mantine/core"
 import { IconRun } from "@tabler/icons-react"
+import { capitalize } from "@/lib/helpers"
 
 interface YearlDistanceBarChartProps {
   activities: Activity[]
@@ -45,6 +46,9 @@ const YearlDistanceBarChart: React.FC<YearlDistanceBarChartProps> = ({
 
 export default YearlDistanceBarChart
 
+/* 
+  This function takes an array of activities and bins their distance by week.
+*/
 const binActivitiesByWeek = (activities: Activity[]) => {
   const bins: Record<string, number> = {}
   const today = dayjs()
@@ -103,8 +107,4 @@ const ChartTooltip = ({ label, payload }: ChartTooltipProps) => {
       ))}
     </Paper>
   )
-}
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
 }
