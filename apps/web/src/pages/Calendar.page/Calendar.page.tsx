@@ -3,7 +3,7 @@ import { useEffect } from "react"
 import { useSearchParams } from "react-router-dom"
 import ActivitiesCalendarContainer from "./ActivitiesCalendarContainer"
 
-const ActivitiesPage = () => {
+const CalendarPage = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
@@ -29,4 +29,4 @@ const ActivitiesPage = () => {
   )
 }
 
-export default ActivitiesPage
+export default CalendarPage

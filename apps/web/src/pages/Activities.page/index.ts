@@ -1,3 +1,3 @@
-import ActivitiesPage from "./Activites.page"
+import ActivitiesPage from "./Activities.page"
 
 export default ActivitiesPage

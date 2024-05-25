@@ -10,7 +10,7 @@ import {
   useNavigate,
 } from "react-router-dom"
 import DashboardPage from "@/pages/Dashboard.page"
-import ActivitiesPage from "@/pages/Activities.page"
+import CalendarPage from "@/pages/Calendar.page"
 import SettingsPage from "@/pages/Settings.page"
 import LoginPage from "@/pages/Login.page"
 import RegisterPage from "@/pages/Register.page"
@@ -22,6 +22,7 @@ import { UserContext } from "@/contexts/user-context"
 import StravaOAuthPage from "@/pages/StravaOAuth.page"
 import Navbar from "@/Navbar"
 import Header from "@/Header"
+import ActivitiesPage from "@/pages/Activities.page"
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard",
         Component: DashboardPage,
+      },
+      {
+        path: "/calendar",
+        Component: CalendarPage,
       },
       {
         path: "/activities",
