@@ -23,6 +23,7 @@ import StravaOAuthPage from "@/pages/StravaOAuth.page"
 import Navbar from "@/Navbar"
 import Header from "@/Header"
 import ActivitiesPage from "@/pages/Activities.page"
+import ActivityPage from "./pages/Activity.page"
 
 const router = createBrowserRouter([
   {
@@ -43,7 +44,16 @@ const router = createBrowserRouter([
       },
       {
         path: "/activities",
-        Component: ActivitiesPage,
+        children: [
+          {
+            index: true,
+            Component: ActivitiesPage,
+          },
+          {
+            path: "/activities/:activityId",
+            Component: ActivityPage,
+          },
+        ],
       },
       {
         path: "/settings",
