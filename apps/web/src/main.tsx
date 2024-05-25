@@ -9,11 +9,13 @@ import isoWeek from "dayjs/plugin/isoWeek"
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore"
 import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear"
 import isLeapYear from "dayjs/plugin/isLeapYear"
+import duration from "dayjs/plugin/duration"
 
 dayjs.extend(isoWeek)
 dayjs.extend(isoWeeksInYear)
 dayjs.extend(isLeapYear)
 dayjs.extend(isSameOrBefore)
+dayjs.extend(duration)
 
 const queryClient = new QueryClient()
 
