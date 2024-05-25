@@ -13,11 +13,11 @@ import { ActivityService } from "./activity.service"
 
 import { ApiBody, ApiResponse, ApiTags } from "@nestjs/swagger"
 import { ActivityDto, CreateActivityDto } from "./activity.dto"
-import { Activities } from "@prisma/client"
+import { Activity } from "@prisma/client"
 import { ParseOptionalIntPipe } from "@/utils/pipes"
 
 function excludeActivityData(
-  activity: ActivityDto | null
+  activity: Activity | null
 ): Omit<ActivityDto, "data"> | null {
   if (!activity) return null
   const { data, ...activityWithoutData } = activity
@@ -41,7 +41,7 @@ export class ActivityController {
     @Param("userId", ParseIntPipe) userId: number,
     @Query("startDateGte") startDateGte?: Date,
     @Query("startDateLte") startDateLte?: Date,
-    @Query("orderBy") orderBy?: keyof Omit<Activities, "data">,
+    @Query("orderBy") orderBy?: keyof Omit<Activity, "data">,
     @Query("order") order?: "asc" | "desc",
     @Query("skip", ParseOptionalIntPipe)
     skip?: number | undefined,

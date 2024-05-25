@@ -1,2 +1,0 @@
--- AlterTable
-ALTER TABLE "Users" ALTER COLUMN "email" DROP DEFAULT;

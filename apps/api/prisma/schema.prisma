@@ -3,38 +3,43 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DB_URL")
 }
 
-model Users {
-  id           Int    @id @default(autoincrement())
-  email        String @unique
+model User {
+  id           Int      @id @default(autoincrement())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  email        String   @unique
   passwordHash String
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  settings   Settings   @relation(fields: [settingsId], references: [id], onDelete: Cascade)
+  settingsId Int        @unique
+  activities Activity[]
 
-  settings   Settings     @relation(fields: [settingsId], references: [id], onDelete: Cascade)
-  settingsId Int          @unique
-  Activities Activities[]
+  @@map("users")
 }
 
 model Settings {
-  id        Int      @id @default(autoincrement())
-  updatedAt DateTime @updatedAt
-
+  id                   Int      @id @default(autoincrement())
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
   stravaClientId       String?
   stravaClientSecret   String?
   stravaAccessToken    String?
   stravaRefreshToken   String?
   stravaTokenExpiresAt Int?
 
-  Users Users?
+  user User?
+
+  @@map("settings")
 }
 
-model Activities {
+model Activity {
   id               BigInt   @id
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
   type             String
   distance         Float
   time             Float
@@ -43,10 +48,11 @@ model Activities {
   averageHeartrate Float?
   startDate        DateTime
   originService    String
+  active           Boolean  @default(true) // if false, the activity is considered deleted
+  data             Bytes // the complete activity JSON returned from the StravaAPI
 
-  active Boolean @default(true)
-  data   Json // the complete activity JSON returned from the StravaAPI
-
-  Users  Users @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId Int
+
+  @@map("activities")
 }
