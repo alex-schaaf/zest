@@ -6,7 +6,7 @@ import MonthlyStatGrid from "./MonthlyStatGrid"
 import { Paper, SimpleGrid, Stack, Title } from "@mantine/core"
 import MonthlyDistanceSparkline from "./MonthlyDistanceSparkline"
 import { useElementSize } from "@mantine/hooks"
-import YearlyDistanceBarChart from "./YearlyDistanceBarChart"
+import YearlyDistanceChart from "./YearlyDistanceChart"
 
 const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
@@ -60,7 +60,9 @@ const DashboardPage = () => {
         </Paper>
       </SimpleGrid>
       <Title order={2}>Past year</Title>
-      <YearlyDistanceBarChart activities={activities} />
+      <Paper withBorder p="sm">
+        <YearlyDistanceChart activities={activities} />
+      </Paper>
     </Stack>
   )
 }
