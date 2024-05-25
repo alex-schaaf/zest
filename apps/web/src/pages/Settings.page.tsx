@@ -77,7 +77,9 @@ const SettingsPage = () => {
             component="a"
             href={stravaUrl.toString()}
             data-disabled={!!user.settings.stravaAccessToken}
-            onClick={(event) => event.preventDefault()}
+            onClick={(event) =>
+              !!user.settings.stravaAccessToken && event.preventDefault()
+            }
           >
             Authorize Strava
           </Button>
