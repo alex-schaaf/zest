@@ -8,21 +8,21 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           String   @id @default(uuid())
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   email        String   @unique
   passwordHash String
 
   settings   Settings   @relation(fields: [settingsId], references: [id], onDelete: Cascade)
-  settingsId Int        @unique
+  settingsId String        @unique
   activities Activity[]
 
   @@map("users")
 }
 
 model Settings {
-  id                   Int      @id @default(autoincrement())
+  id                   String      @id @default(uuid())
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
   stravaClientId       String?
@@ -52,7 +52,7 @@ model Activity {
   data             Bytes // the complete activity JSON returned from the StravaAPI
 
   user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId Int
+  userId String
 
   @@map("activities")
 }

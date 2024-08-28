@@ -86,6 +86,10 @@ const SettingsForm: React.FC<Props> = ({ user }) => {
                 label="Strava Client ID"
                 key={form.key("settings.stravaClientId")}
                 {...form.getInputProps("settings.stravaClientId")}
+                error={
+                  !form.getInputProps("settings.stravaClientId").value ||
+                  form.getInputProps("settings.stravaClientId").error
+                }
               />
               <TextInput
                 mt={10}
@@ -93,6 +97,10 @@ const SettingsForm: React.FC<Props> = ({ user }) => {
                 type="password"
                 key={form.key("settings.stravaClientSecret")}
                 {...form.getInputProps("settings.stravaClientSecret")}
+                error={
+                  !form.getInputProps("settings.stravaClientSecret").value ||
+                  form.getInputProps("settings.stravaClientSecret").error
+                }
               />
 
               <Button

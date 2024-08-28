@@ -26,8 +26,8 @@ const LoginPage = () => {
   const { onSubmit, key, getInputProps } = useForm<SignUpFormValues>({
     mode: "uncontrolled",
     initialValues: {
-      email: "admin@example.com",
-      password: "admin",
+      email: "user@example.com",
+      password: "password",
     },
 
     validate: {

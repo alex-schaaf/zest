@@ -2,9 +2,7 @@ import { useUserContext } from "@/contexts/user-context"
 
 import SettingsForm from "@/components/SettingsForm"
 import {
-  Box,
   Button,
-  Card,
   Flex,
   Group,
   Stack,
@@ -12,7 +10,13 @@ import {
   ThemeIcon,
   Title,
 } from "@mantine/core"
-import { IconCheck, IconKey } from "@tabler/icons-react"
+import {
+  IconCheck,
+  IconCross,
+  IconCrossFilled,
+  IconKey,
+  IconX,
+} from "@tabler/icons-react"
 
 const Value: React.FC<{ value: string | undefined; title: string }> = ({
   value,
@@ -26,7 +30,7 @@ const Value: React.FC<{ value: string | undefined; title: string }> = ({
   return (
     <Flex gap={5}>
       <ThemeIcon color={iconColor} variant={iconVariant} size={iconSize}>
-        <IconCheck style={iconStyle} />
+        {value ? <IconCheck style={iconStyle} /> : <IconX style={iconStyle} />}
       </ThemeIcon>
       <Text size="md">{title}</Text>
     </Flex>
