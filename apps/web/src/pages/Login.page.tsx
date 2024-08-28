@@ -12,7 +12,7 @@ import {
 import { useForm } from "@mantine/form"
 import { notifications } from "@mantine/notifications"
 import { useEffect } from "react"
-import { NavLink, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 interface SignUpFormValues {
   email: string
@@ -65,7 +65,7 @@ const LoginPage = () => {
       <Title ta="center">Login</Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
         Don't have an account?{" "}
-        <Anchor size="sm" component="button">
+        <Anchor href="/register" size="sm">
           Sign up
         </Anchor>
       </Text>

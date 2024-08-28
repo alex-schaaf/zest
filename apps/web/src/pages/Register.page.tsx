@@ -69,7 +69,7 @@ const RegisterPage = () => {
       <Title ta="center">Sign Up</Title>
       <Text c="dimmed" size="sm" ta="center" mt={5}>
         Already have an account?{" "}
-        <Anchor size="sm" component="button">
+        <Anchor href="/login" size="sm">
           Sign in here
         </Anchor>
       </Text>
