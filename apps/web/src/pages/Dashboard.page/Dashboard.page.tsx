@@ -12,31 +12,36 @@ const DashboardPage = () => {
   const { activities, isLoading, isError } = useActivities()
   const { ref, width } = useElementSize()
 
-  const activitiesThisMonth = useMemo(
-    () =>
-      activities?.filter((activity) =>
-        dayjs(activity.startDate).isAfter(dayjs().startOf("month"))
-      ) ?? [],
-    [activities]
-  )
+  const activitiesThisMonth = useMemo(() => {
+    if (!Array.isArray(activities)) return []
+    return activities.filter((activity) =>
+      dayjs(activity.startDate).isAfter(dayjs().startOf("month"))
+    )
+  }, [activities])
 
-  const activitiesLastMonth = useMemo(
-    () =>
-      activities?.filter(
-        (activity) =>
-          dayjs(activity.startDate).isAfter(
-            dayjs().startOf("month").subtract(1, "month")
-          ) && dayjs(activity.startDate).isBefore(dayjs().subtract(1, "month"))
-      ) ?? [],
-    [activities]
-  )
+  const activitiesLastMonth = useMemo(() => {
+    if (!Array.isArray(activities)) return []
+    return activities.filter(
+      (activity) =>
+        dayjs(activity.startDate).isAfter(
+          dayjs().startOf("month").subtract(1, "month")
+        ) && dayjs(activity.startDate).isBefore(dayjs().subtract(1, "month"))
+    )
+  }, [activities])
 
   if (isLoading) {
     return <div>Loading...</div>
   }
 
-  if (isError || !activities) {
-    return <div>Failed to load activities.</div>
+  if (isError || !Array.isArray(activities)) {
+    return (
+      <div>
+        Failed to load activities.
+        <div>
+          <pre>{JSON.stringify(activities, null, 2)}</pre>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -49,7 +54,7 @@ const DashboardPage = () => {
       <SimpleGrid cols={3} spacing="lg">
         <Paper withBorder ref={ref} p={15}>
           <MonthlyDistanceSparkline
-            activities={activities.filter((activity) =>
+            activities={activities?.filter((activity) =>
               dayjs(activity.startDate).isAfter(
                 dayjs().startOf("month").subtract(1, "month")
               )
