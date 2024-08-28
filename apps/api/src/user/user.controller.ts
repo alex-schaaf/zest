@@ -15,7 +15,7 @@ import { UserDto, UserPatchDto, UsersWithSettings } from "./user.dto"
 import { createParamDecorator, ExecutionContext } from "@nestjs/common"
 import { JwtService } from "@nestjs/jwt"
 import { TokenPayloadDto } from "@auth/auth.dto"
-import { Public } from "@auth/decorators/public.decorator"
+import { Public } from "../auth/decorators/public.decorator"
 import { z } from "zod"
 
 export const Cookies = createParamDecorator(
@@ -68,6 +68,7 @@ export class UserController {
     try {
       UserPatchDtoSchema.parse(body)
     } catch (error) {
+      console.log(error)
       throw new BadRequestException(error.errors)
     }
 
@@ -87,11 +88,13 @@ function excludePasswordHash(user: UsersWithSettings | null): UserDto | null {
 
 const UserPatchDtoSchema = z.object({
   email: z.string().email().optional(),
-  settings: z.object({
-    stravaClientId: z.string().optional(),
-    stravaClientSecret: z.string().optional(),
-    stravaAccessToken: z.string().optional(),
-    stravaRefreshToken: z.string().optional(),
-    stravaTokenExpiresAt: z.number().optional(),
-  }),
+  settings: z
+    .object({
+      stravaClientId: z.string().optional(),
+      stravaClientSecret: z.string().optional(),
+      stravaAccessToken: z.string().optional(),
+      stravaRefreshToken: z.string().optional(),
+      stravaTokenExpiresAt: z.number().optional(),
+    })
+    .optional(),
 })

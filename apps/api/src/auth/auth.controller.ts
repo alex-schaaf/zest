@@ -1,8 +1,10 @@
 import {
   BadRequestException,
   Body,
+  ConflictException,
   Controller,
   Delete,
+  InternalServerErrorException,
   Post,
   Res,
 } from "@nestjs/common"
@@ -73,7 +75,11 @@ export class AuthController {
       response.cookie("token", access_token, { httpOnly: true })
       return payload
     } catch (error) {
-      throw new BadRequestException(error.message)
+      if (error.name === "UserAlreadyExistsError") {
+        throw new ConflictException("Email already exists")
+      } else {
+        throw new InternalServerErrorException(error.message)
+      }
     }
   }
 
@@ -90,5 +96,5 @@ export class AuthController {
 
 const RegisterFormData = z.object({
   email: z.string().email(),
-  // password: z.string().min(8),
+  password: z.string().min(8),
 })

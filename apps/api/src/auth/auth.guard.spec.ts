@@ -29,10 +29,11 @@ describe("AuthGuard", () => {
       const contextMock = createMock<ExecutionContext>()
       reflector.getAllAndOverride = jest.fn().mockReturnValue(false)
       const requestMock = {
+        params: { userId: "1" },
         cookies: {
           token: "valid-token",
         },
-      } as RequestWithOptionalPayload
+      } as unknown as RequestWithOptionalPayload
 
       contextMock.switchToHttp = jest.fn().mockReturnValue({
         getRequest: jest.fn().mockReturnValue(requestMock),
